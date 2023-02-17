@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PageHelmet from '../components/common/Helmet';
-import { FiHeadphones, FiMail, FiMapPin, FiMenu, FiX } from 'react-icons/fi';
+import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
 import ContactTwo from '../elements/contact/ContactTwo';
-import BrandTwo from '../elements/BrandTwo';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../components/footer/FooterOtherPage';
 import styles from './contact.module.scss';
-import ContactForm from './ContactForm';
 
 class Contact extends Component {
   static defaultProps = {
@@ -32,7 +30,7 @@ class Contact extends Component {
             <div className='row'>
               <div className='col-lg-12'>
                 <div className='rn-page-title text-center pt--100'>
-                  <h2 className='title theme-gradient'>Contact With Us</h2>
+                  <h2 className='title theme-gradient'>Contact Us</h2>
                   <p>
                     Contrary to popular belief, Lorem Ipsum is not simply random
                     text.{' '}

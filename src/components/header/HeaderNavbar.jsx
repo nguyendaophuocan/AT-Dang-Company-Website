@@ -70,7 +70,7 @@ function HeaderNavbar() {
                 <Link to='/news'>News</Link>
               </li>
               <li>
-                <a href='/collectibles'>Collectibles</a>
+                <a href='https://collectibles.atdang.com' target='_blank' rel="noopener noreferrer" onclick="window.open(https://collectibles.atdang.com)">Collectibles</a>
               </li>
               <li>
                 <Link to='/career'>Careers</Link>

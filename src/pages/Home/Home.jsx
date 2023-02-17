@@ -68,7 +68,7 @@ const ServiceListOne = [
 const Home = () => {
   const [sectionValue, setSetionValue] = useState({
     first: 'Dang & Assosiates, LTD.',
-    second: "Dang's Collectibles",
+    second: "Our selective retailing project is dedicated to the class and modern lifestyle of yours – our customers. We will collect and hand-deliver all the finest pieces that you are looking for, from fashion and luxury, watches and accessories, wines and spirits, and more. ",
     third: 'SHOP NOW',
   });
 
@@ -337,10 +337,7 @@ const Home = () => {
                   <div className='section-title text-left mb--30'>
                     <h2> Dang and Associates, Ltd. – Our stories</h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam. <br /> but the majority
-                      have suffered alteration.
+                    Dang & Associates, Ltd. operates based on trust from the ground up
                     </p>
                     <div className='slide-btn'>
                       <Link
