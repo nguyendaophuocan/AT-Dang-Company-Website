@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import './index.scss';
 import './index.css';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
 import About from './elements/About';
 import Contact from './elements/Contact';
 import Login from './pages/Login/Login';
@@ -25,7 +25,7 @@ const NavbarWrapper = () => {
     </div>
   );
 };
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <NavbarWrapper />,
