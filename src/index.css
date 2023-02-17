@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Futura';
+  src: local('Futura'), url(../src/assets/fonts/Futura-PT-Book.ttf) format('truetype');
+}
+
+body {
+  margin: 0;
+  font-family: 'Futura';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
