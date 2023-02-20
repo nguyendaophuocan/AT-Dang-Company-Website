@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo/logo-at.png';
+import logo2 from '../../assets/images/logo/logo-at.png';
+
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
@@ -17,7 +19,14 @@ function HeaderNavbar() {
   function cLoseMenuTrigger() {
     document.querySelector('.header-wrapper')?.classList.remove('menu-open');
   }
-
+  window.addEventListener('scroll', function () {
+    var value = window.scrollY;
+    if (value > 100) {
+      document.querySelector('.header--fixed').classList.add('sticky');
+    } else {
+      document.querySelector('.header--fixed').classList.remove('sticky');
+    }
+  });
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -27,7 +36,7 @@ function HeaderNavbar() {
 
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
-      <div className='header-wrapper' id='header-wrapper'>
+      <div className='header-wrapper'>
         <div className='header-left'>
           <div className={classNames('logo', styles.headerLogo)}>
             <a href='/'>
@@ -36,11 +45,11 @@ function HeaderNavbar() {
                 src={logo}
                 alt='Logo Images'
               />
-              <img
+              {/* <img
                 className={classNames('logo-2', styles.logo2)}
-                src={logo}
+                src={logo2}
                 alt='Logo Images'
-              />
+              /> */}
             </a>
           </div>
         </div>
@@ -70,7 +79,14 @@ function HeaderNavbar() {
                 <Link to='/news'>News</Link>
               </li>
               <li>
-                <a href='https://collectibles.atdang.com' target='_blank' rel="noopener noreferrer" onclick="window.open(https://collectibles.atdang.com)">Collectibles</a>
+                <a
+                  href='https://collectibles.atdang.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  onclick='window.open(https://collectibles.atdang.com)'
+                >
+                  Collectibles
+                </a>
               </li>
               <li>
                 <Link to='/career'>Careers</Link>
