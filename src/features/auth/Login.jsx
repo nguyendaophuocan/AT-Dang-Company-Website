@@ -1,63 +1,55 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FooterTwo from '../../components/footer/FooterHome';
-import {
-  getTokenFromLocalStorage,
-  storeTokenInLocalStorage,
-} from '../../components/hooks/useAuth';
-import { useUser } from '../../components/hooks/useGetUser';
 import { API_ROUTES, APP_ROUTES } from '../../utils/constans';
+import { useLoginMutation } from './authApiSlice';
+import { setCredentials } from './authSlice';
 import styles from './login.module.scss';
 
 function Login() {
   const [formVal, setFormVal] = useState({ email: '', password: '' });
-  const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const userRef = useRef();
+  const errRef = useRef();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChangeValue = (e) => {
     setFormVal({ ...formVal, [e.target.name]: e.target.value });
   };
 
-  const navigate = useNavigate();
-  const { user, authenticated } = useUser();
   useEffect(() => {
-    // if (user || authenticated || getTokenFromLocalStorage()) {
-    //   navigate(APP_ROUTES.DASHBOARD);
-    // }
-  }, [user, authenticated]);
-  const handleSubmit = () => {
-    // try {
-    //     setIsLoading(true);
-    //     const response = await axios({
-    //       method: 'post',
-    //       url: API_ROUTES.SIGN_IN,
-    //       data: formVal
-    //     });
-    //     if (!response?.data?.token) {
-    //       console.log('Something went wrong during signing in: ', response);
-    //       return;
-    //     }
-    //     storeTokenInLocalStorage(response.data.token);
-    //     navigate(APP_ROUTES.DASHBOARD)
-    //   }
-    //   catch (err) {
-    //     console.log('Some error occured during signing in: ', err);
-    //   }
-    //   finally {
-    //     setIsLoading(false);
-    //   }
+    userRef.current.focus();
+  }, []);
 
-    //temp
+  useEffect(() => {
+    setErrMsg('');
+  }, [formVal.email, formVal.password]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = formVal;
     try {
-      setIsLoading(true);
-      if (formVal.email == 'admin' && formVal.password == '123') {
-        storeTokenInLocalStorage('at');
-        navigate(APP_ROUTES.DASHBOARD);
-      }
+      const userData = await login(formVal).unwrap();
+      console.log('userData', userData);
+      dispatch(setCredentials({ ...userData, email }));
+      setFormVal({ ...formVal, email: '', password: '' });
+      navigate('/welcome');
     } catch (err) {
-      console.log('Some error occured during signing in: ', err);
-    } finally {
-      setIsLoading(false);
+      if (!err?.originalStatus) {
+        // isLoading: true until timeout occurs
+        setErrMsg('No Server Response');
+      } else if (err.originalStatus === 400) {
+        setErrMsg('Missing Username or Password');
+      } else if (err.originalStatus === 401) {
+        setErrMsg('Unauthorized');
+      } else {
+        setErrMsg('Login Failed');
+      }
+      // errRef.current.focus();
     }
   };
   return (
@@ -89,6 +81,7 @@ function Login() {
                     value={formVal.email}
                     onChange={handleChangeValue}
                     placeholder='Email address *'
+                    ref={userRef}
                   />
                 </label>
 

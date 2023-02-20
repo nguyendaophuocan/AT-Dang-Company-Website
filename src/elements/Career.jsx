@@ -4,6 +4,7 @@ import ContactTwo from './contact/ContactTwo';
 
 import PageHelmet from '../components/common/Helmet';
 import Footer from '../components/footer/FooterOtherPage';
+import ContactOne from './contact/ContactOne';
 
 const Career = () => {
   return (
@@ -93,7 +94,7 @@ const Career = () => {
 
       {/* Start Contact Page Area  */}
       <div className='rn-contact-page ptb--120 bg_color--1'>
-        <ContactTwo />
+        <ContactOne />
       </div>
       {/* End Contact Page Area  */}
 

@@ -1,3 +1,6 @@
+import { SearchOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import Input from 'antd/es/input/Input';
 import classNames from 'classnames';
 import React from 'react';
 import {
@@ -55,12 +58,21 @@ const FooterTwo = () => {
           <div className='col-lg-2 col-md-6 col-sm-6 col-4'>
             <div className='inner'>
               <div className='rn-form-group'>
-                <input
+                {/* <input
                   type='text'
                   name='fullname'
                   placeholder='Subscribe to our Newsletter'
                   required
-                />
+                /> */}
+                <Input.Group compact>
+                  <Input
+                    style={{
+                      width: 'calc(100% - 200px)',
+                    }}
+                    defaultValue='https://ant.design'
+                  />
+                  <Button type='primary'>Submit</Button>
+                </Input.Group>
               </div>
             </div>
           </div>

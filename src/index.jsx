@@ -3,15 +3,21 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import './index.scss';
 import './index.css';
-import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
+import {
+  createHashRouter,
+  RouterProvider,
+  Outlet,
+  createBrowserRouter,
+} from 'react-router-dom';
 import About from './elements/About';
 import Contact from './elements/Contact';
-import Login from './pages/Login/Login';
+import Login from './features/auth/Login';
 import HeaderNavbar from './components/header/HeaderNavbar';
 import Home from './pages/Home/Home';
 import ScrollToTop from './components/hoc/withScrollToTop';
 import News from './elements/News';
 import Career from './elements/Career';
+import { store } from './app/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -25,6 +31,7 @@ const NavbarWrapper = () => {
     </div>
   );
 };
+
 const router = createHashRouter([
   {
     path: '/',
@@ -58,12 +65,10 @@ const router = createHashRouter([
   },
 ]);
 
-
 root.render(
   <React.StrictMode>
-    {/* <Provider > */}
+    <Provider store={store}>
       <RouterProvider router={router} />
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );
-
