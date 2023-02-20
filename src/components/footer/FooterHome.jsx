@@ -18,10 +18,15 @@ const SocialShare = [
   { Social: <FaTwitter />, link: 'https://twitter.com/' },
 ];
 
+const footerBackgroundColor = `rgba((18, 20, 60) `;
 const FooterTwo = () => {
   return (
     <div
-      className='footer-style-2 ptb--5 bg_image bg_image--1'
+      className={classNames(
+        'footer-style-2 ptb--5 bg_image bg_image--1',
+        styles.footerHome
+      )}
+      style={{ backgroundColor: footerBackgroundColor }}
       data-black-overlay='6'
     >
       <div className='wrapper plr--50 plr_sm--20'>
@@ -58,21 +63,12 @@ const FooterTwo = () => {
           <div className='col-lg-2 col-md-6 col-sm-6 col-4'>
             <div className='inner'>
               <div className='rn-form-group'>
-                {/* <input
+                <input
                   type='text'
                   name='fullname'
                   placeholder='Subscribe to our Newsletter'
                   required
-                /> */}
-                <Input.Group compact>
-                  <Input
-                    style={{
-                      width: 'calc(100% - 200px)',
-                    }}
-                    defaultValue='https://ant.design'
-                  />
-                  <Button type='primary'>Submit</Button>
-                </Input.Group>
+                />
               </div>
             </div>
           </div>
