@@ -2,10 +2,8 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import FooterTwo from '../../components/footer/FooterHome';
-import { API_ROUTES, APP_ROUTES } from '../../utils/constans';
-import { useLoginMutation } from './authApiSlice';
-import { setCredentials } from './authSlice';
+import { useLoginMutation } from '../../features/auth/authApiSlice';
+import { setCredentials } from '../../features/auth/authSlice';
 import styles from './login.module.scss';
 
 function Login() {
@@ -37,7 +35,7 @@ function Login() {
       console.log('userData', userData);
       dispatch(setCredentials({ ...userData, email }));
       setFormVal({ ...formVal, email: '', password: '' });
-      navigate('/welcome');
+      navigate('/');
     } catch (err) {
       if (!err?.originalStatus) {
         // isLoading: true until timeout occurs
@@ -54,9 +52,6 @@ function Login() {
   };
   return (
     <>
-      <header className='header-area formobile-menu header--fixed default-color'>
-        <div className='header-wrapper' id='header-wrapper'></div>
-      </header>
       <div className={classNames('contact-form--1', styles.loginWrapper)}>
         <div className='container'>
           <div className='row row--35 align-items-start'>
@@ -110,7 +105,6 @@ function Login() {
           </div>
         </div>
       </div>
-      <FooterTwo />
     </>
   );
 }

@@ -9,15 +9,16 @@ import {
   Outlet,
   createBrowserRouter,
 } from 'react-router-dom';
-import About from './elements/About';
-import Contact from './elements/Contact';
-import Login from './features/auth/Login';
+import About from './pages/About/About';
+import Contact from './pages/Contact/Contact';
+import Login from './pages/Login/Login';
 import HeaderNavbar from './components/header/HeaderNavbar';
 import Home from './pages/Home/Home';
 import ScrollToTop from './components/hoc/withScrollToTop';
-import News from './elements/News';
+import News from './pages/News/News';
 import Career from './elements/Career';
-import { store } from './app/store';
+import { persistor, store } from './app/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -31,7 +32,7 @@ const NavbarWrapper = () => {
     </div>
   );
 };
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <NavbarWrapper />,
@@ -67,7 +68,9 @@ const router = createHashRouter([
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

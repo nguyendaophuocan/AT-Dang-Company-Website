@@ -1,12 +1,11 @@
 import React from 'react';
-import PageHelmet from '../components/common/Helmet';
-import CounterOne from '../elements/counters/CounterOne';
-import Testimonial from '../elements/Testimonial';
-import BrandTwo from '../elements/BrandTwo';
+import PageHelmet from '../../components/common/Helmet';
+import Testimonial from '../../elements/Testimonial';
+import BrandTwo from '../../elements/BrandTwo';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
-import Footer from '../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterOtherPage';
 import { Link } from 'react-router-dom';
 
 const About = () => {
@@ -46,7 +45,7 @@ const About = () => {
                 <div className='thumbnail'>
                   <img
                     className='w-100'
-                    src={require('../assets/images/about/about-3.jpg')}
+                    src={require('../../assets/images/about/about-3.jpg')}
                     alt='About Images'
                   />
                 </div>
@@ -102,21 +101,6 @@ const About = () => {
       </div>
       {/* End About Area  */}
 
-      {/* Start CounterUp Area */}
-      <div className='rn-counterup-area pb--120 bg_color--1'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12'>
-              <div className='section-title text-center'>
-                <h3 className='fontWeight500'>Our Fun Facts</h3>
-              </div>
-            </div>
-          </div>
-          <CounterOne />
-        </div>
-      </div>
-      {/* End CounterUp Area */}
-
       {/* Start Finding Us Area  */}
       <div className='rn-finding-us-area rn-finding-us bg_color--1'>
         <div className='inner'>
@@ -145,7 +129,7 @@ const About = () => {
           <div className='thumbnail'>
             <div className='image'>
               <img
-                src={require('../assets/images/about/finding-us-01.png')}
+                src={require('../../assets/images/about/finding-us-01.png')}
                 alt='Finding Images'
               />
             </div>
@@ -172,7 +156,7 @@ const About = () => {
                 <div className='thumbnail'>
                   <img
                     className='w-100'
-                    src={require('../assets/images/team/team-01.jpg')}
+                    src={require('../../assets/images/team/team-01.jpg')}
                     alt='Blog Images'
                   />
                 </div>
@@ -215,7 +199,7 @@ const About = () => {
                 <div className='thumbnail'>
                   <img
                     className='w-100'
-                    src={require('../assets/images/team/team-02.jpg')}
+                    src={require('../../assets/images/team/team-02.jpg')}
                     alt='Blog Images'
                   />
                 </div>
@@ -250,7 +234,7 @@ const About = () => {
                 <div className='thumbnail'>
                   <img
                     className='w-100'
-                    src={require('../assets/images/team/team-03.jpg')}
+                    src={require('../../assets/images/team/team-03.jpg')}
                     alt='Blog Images'
                   />
                 </div>

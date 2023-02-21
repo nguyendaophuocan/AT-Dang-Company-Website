@@ -5,6 +5,7 @@ import {
   FaFacebookF,
   FaLinkedinIn,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const SocialShare = [
   { Social: <FaFacebookF />, link: 'https://www.facebook.com/' },
@@ -27,14 +28,14 @@ class Footer extends Component {
                     <h2>
                       Let's get <br /> to work
                     </h2>
-                    <a className='rn-button-style--2' href='/contact'>
+                    <Link className='rn-button-style--2' to='/contact'>
                       <span>Contact Us</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
               <div className='col-lg-6'>
-                <div className='footer-right' data-black-overlay='6'>
+                <div className='footer-right'>
                   <div className='row'>
                     {/* Start Single Widget  */}
                     <div className='col-lg-6 col-sm-6 col-12'>
@@ -42,13 +43,13 @@ class Footer extends Component {
                         <h4>Quick Link</h4>
                         <ul className='ft-link'>
                           <li>
-                            <a href='/portfolio'>Work</a>
+                            <Link href='/career'>Work</Link>
                           </li>
                           <li>
-                            <a href='/about'>About</a>
+                            <Link href='/about'>About</Link>
                           </li>
                           <li>
-                            <a href='/contact'>Let's Talk</a>
+                            <Link href='/contact'>Let's Talk</Link>
                           </li>
                         </ul>
                       </div>

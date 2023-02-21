@@ -1,12 +1,8 @@
-const API_URL = 'http://localhost:4000';
-export const API_ROUTES = {
-  SIGN_UP: `${API_URL}/auth/signup`,
-  SIGN_IN: `${API_URL}/auth/signin`,
-  GET_USER: `${API_URL}/auth/me`,
-};
+export const BASE_API_URL = 'https://54.213.192.192:8080';
 
-export const APP_ROUTES = {
-  SIGN_UP: '/signup',
-  SIGN_IN: '/login',
-  DASHBOARD: '/',
+export const API_ROUTES = {
+  SIGN_UP: `/auth/signup`,
+  LOG_IN: `/api/login`,
+  NEWS: `api/v1/news`,
+  GET_USER: `/auth/me`,
 };

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PageHelmet from '../components/common/Helmet';
+import PageHelmet from '../../components/common/Helmet';
 import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
-import ContactTwo from '../elements/contact/ContactTwo';
+import ContactTwo from '../../elements/contact/ContactTwo';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
-import Footer from '../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterOtherPage';
 import styles from './contact.module.scss';
 
 class Contact extends Component {

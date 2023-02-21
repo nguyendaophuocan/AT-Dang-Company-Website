@@ -12,6 +12,11 @@ import {
 } from '../hooks/useAuth';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import {
+  selectCurrentToken,
+  selectCurrentUser,
+} from '../../features/auth/authSlice';
 function HeaderNavbar() {
   function menuTrigger() {
     document.querySelector('.header-wrapper')?.classList.toggle('menu-open');
@@ -30,16 +35,21 @@ function HeaderNavbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    removeTokenInLocalStorage('at');
     navigate(0);
   };
+
+  const isUserLoggedIn = useSelector(selectCurrentUser);
+  const usertoken = useSelector(selectCurrentToken);
+
+  console.log('isUserLoggedIn', isUserLoggedIn);
+  console.log('usertoken', usertoken);
 
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
       <div className='header-wrapper'>
         <div className='header-left'>
           <div className={classNames('logo', styles.headerLogo)}>
-            <a href='/'>
+            <Link to='/'>
               <img
                 className={classNames('logo-1', styles.logo1)}
                 src={logo}
@@ -50,7 +60,7 @@ function HeaderNavbar() {
                 src={logo2}
                 alt='Logo Images'
               /> */}
-            </a>
+            </Link>
           </div>
         </div>
         <div className='header-right'>
@@ -104,7 +114,7 @@ function HeaderNavbar() {
               style={{ width: 170, height: 50 }}
             ></Input>
           </div>
-          {getTokenFromLocalStorage() && (
+          {isUserLoggedIn && (
             <div className={styles.logOutBtn}>
               <button className='rn-btn' onClick={handleLogout}>
                 Log out
