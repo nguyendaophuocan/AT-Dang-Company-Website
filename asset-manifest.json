@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/AT-Dang-Company-Website/static/css/main.10201298.css",
-    "main.js": "/AT-Dang-Company-Website/static/js/main.c43c8abb.js",
+    "main.css": "/AT-Dang-Company-Website/static/css/main.ce27b766.css",
+    "main.js": "/AT-Dang-Company-Website/static/js/main.f5cfe519.js",
     "static/media/bg-image-34.jpg": "/AT-Dang-Company-Website/static/media/bg-image-34.1b4fd5bdaa63818b9ec5.jpg",
     "static/media/bg-image-33.jpg": "/AT-Dang-Company-Website/static/media/bg-image-33.1f13f44a8f1df8998429.jpg",
     "static/media/finding-us-01.png": "/AT-Dang-Company-Website/static/media/finding-us-01.a8721ce805c4a392db9c.png",
@@ -18,7 +18,6 @@
     "static/media/bg-image-22.jpg": "/AT-Dang-Company-Website/static/media/bg-image-22.ff1c7e8c1d0e0fb2eba4.jpg",
     "static/media/bg-image-23.jpg": "/AT-Dang-Company-Website/static/media/bg-image-23.5edaa4bc8e011669d193.jpg",
     "static/media/logo-at.png": "/AT-Dang-Company-Website/static/media/logo-at.6bca1e10d40c8d47c852.png",
-    "static/media/wave-icon.png": "/AT-Dang-Company-Website/static/media/wave-icon.70c2a2cf635cfa462442.png",
     "static/media/portfolio-static-02.jpg": "/AT-Dang-Company-Website/static/media/portfolio-static-02.9aeb1eba251318bb5002.jpg",
     "static/media/Futura-PT-Book.ttf": "/AT-Dang-Company-Website/static/media/Futura-PT-Book.792754073ede37a4e3e0.ttf",
     "static/media/bg-image-25.jpg": "/AT-Dang-Company-Website/static/media/bg-image-25.0d97234647accbe90553.jpg",
@@ -42,7 +41,6 @@
     "static/media/portfolio-4.jpg": "/AT-Dang-Company-Website/static/media/portfolio-4.2d8bf5e6d107d1355320.jpg",
     "static/media/bg-image-10.jpg": "/AT-Dang-Company-Website/static/media/bg-image-10.fec9eaec14faf3a2422a.jpg",
     "static/media/bg-image-27.jpg": "/AT-Dang-Company-Website/static/media/bg-image-27.fd9feb183cd8089a6a6b.jpg",
-    "static/media/rating.png": "/AT-Dang-Company-Website/static/media/rating.cc0ddd7643f7bb08111c.png",
     "static/media/bg-image-5.jpg": "/AT-Dang-Company-Website/static/media/bg-image-5.9838d3bf079e7a3b3447.jpg",
     "static/media/dp-portfolio-08.jpg": "/AT-Dang-Company-Website/static/media/dp-portfolio-08.d2b65c968cf234b50ceb.jpg",
     "static/media/dp-portfolio-03.jpg": "/AT-Dang-Company-Website/static/media/dp-portfolio-03.c90901ac1a691c8d1f9a.jpg",
@@ -92,11 +90,11 @@
     "static/media/slick.ttf": "/AT-Dang-Company-Website/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/AT-Dang-Company-Website/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/AT-Dang-Company-Website/index.html",
-    "main.10201298.css.map": "/AT-Dang-Company-Website/static/css/main.10201298.css.map",
-    "main.c43c8abb.js.map": "/AT-Dang-Company-Website/static/js/main.c43c8abb.js.map"
+    "main.ce27b766.css.map": "/AT-Dang-Company-Website/static/css/main.ce27b766.css.map",
+    "main.f5cfe519.js.map": "/AT-Dang-Company-Website/static/js/main.f5cfe519.js.map"
   },
   "entrypoints": [
-    "static/css/main.10201298.css",
-    "static/js/main.c43c8abb.js"
+    "static/css/main.ce27b766.css",
+    "static/js/main.f5cfe519.js"
   ]
 }
