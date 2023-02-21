@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/AT-Dang-Company-Website/static/css/main.ce27b766.css",
-    "main.js": "/AT-Dang-Company-Website/static/js/main.f5cfe519.js",
+    "main.js": "/AT-Dang-Company-Website/static/js/main.63a6ceed.js",
     "static/media/bg-image-34.jpg": "/AT-Dang-Company-Website/static/media/bg-image-34.1b4fd5bdaa63818b9ec5.jpg",
     "static/media/bg-image-33.jpg": "/AT-Dang-Company-Website/static/media/bg-image-33.1f13f44a8f1df8998429.jpg",
     "static/media/finding-us-01.png": "/AT-Dang-Company-Website/static/media/finding-us-01.a8721ce805c4a392db9c.png",
@@ -91,10 +91,10 @@
     "static/media/slick.woff": "/AT-Dang-Company-Website/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/AT-Dang-Company-Website/index.html",
     "main.ce27b766.css.map": "/AT-Dang-Company-Website/static/css/main.ce27b766.css.map",
-    "main.f5cfe519.js.map": "/AT-Dang-Company-Website/static/js/main.f5cfe519.js.map"
+    "main.63a6ceed.js.map": "/AT-Dang-Company-Website/static/js/main.63a6ceed.js.map"
   },
   "entrypoints": [
     "static/css/main.ce27b766.css",
-    "static/js/main.f5cfe519.js"
+    "static/js/main.63a6ceed.js"
   ]
 }
