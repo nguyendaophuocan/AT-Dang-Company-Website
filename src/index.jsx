@@ -19,6 +19,7 @@ import News from './pages/News/News';
 import Career from './elements/Career';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Subscribe from './pages/Subscribe/Subscribe';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -56,6 +57,10 @@ const router = createHashRouter([
       {
         path: '/career',
         element: <Career />,
+      },
+      {
+        path: '/subscribe',
+        element: <Subscribe />,
       },
     ],
   },

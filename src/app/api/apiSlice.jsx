@@ -14,13 +14,37 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
+// const baseQueryWithReauth = async (args, api, extraOptions) => {
+//   let result = await baseQuery(args, api, extraOptions);
+//   console.log('RESULT', result);
+//   const status = result?.error?.originalStatus
+//   if (status === 403) {
+//     console.log('sending refresh token');
+//     // send refresh token to get new access token
+//     const refreshResult = await baseQuery('/refresh', api, extraOptions);
+//     console.log(refreshResult);
+//     if (refreshResult?.data) {
+//       const user = api.getState().auth.user;
+//       // store the new token
+//       api.dispatch(setCredentials({ ...refreshResult.data, user }));
+//       // retry the original query with new access token
+//       result = await baseQuery(args, api, extraOptions);
+//     } else {
+//       api.dispatch(logOut());
+//     }
+//   }
+
+//   return result;
+// };
+
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-
-  if (result?.error?.originalStatus === 403) {
+  console.log('RESULT', result);
+  const status = result?.error?.status;
+  if (status === 403 || status === 500) {
     console.log('sending refresh token');
     // send refresh token to get new access token
-    const refreshResult = await baseQuery('/refresh', api, extraOptions);
+    const refreshResult = await baseQuery('/api/login', 'POST', extraOptions);
     console.log(refreshResult);
     if (refreshResult?.data) {
       const user = api.getState().auth.user;
@@ -35,7 +59,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   return result;
 };
-
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({}),

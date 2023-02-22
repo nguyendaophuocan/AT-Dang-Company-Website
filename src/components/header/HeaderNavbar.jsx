@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo/logo-at.png';
@@ -6,18 +7,16 @@ import logo2 from '../../assets/images/logo/logo-at.png';
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import {
-  getTokenFromLocalStorage,
-  removeTokenInLocalStorage,
-} from '../hooks/useAuth';
-import { Input } from 'antd';
+import { Input, Button, AutoComplete } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  logOut,
   selectCurrentToken,
   selectCurrentUser,
 } from '../../features/auth/authSlice';
 function HeaderNavbar() {
+  const dispatch = useDispatch();
   function menuTrigger() {
     document.querySelector('.header-wrapper')?.classList.toggle('menu-open');
   }
@@ -32,11 +31,29 @@ function HeaderNavbar() {
       document.querySelector('.header--fixed').classList.remove('sticky');
     }
   });
-  const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate(0);
+    dispatch(logOut());
   };
+
+  const mockVal = (str, repeat = 1) => ({
+    value: str.repeat(repeat),
+  });
+
+  const onSearch = (searchText) => {
+    setOptions(
+      !searchText
+        ? []
+        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
+    );
+  };
+
+  const onSelect = (data) => {
+    console.log('onSelect', data);
+  };
+
+  const [value, setValue] = useState('');
+  const [options, setOptions] = useState([]);
 
   const isUserLoggedIn = useSelector(selectCurrentUser);
   const usertoken = useSelector(selectCurrentToken);
@@ -108,11 +125,20 @@ function HeaderNavbar() {
             </Scrollspy>
           </nav>{' '}
           <div className={styles.logOutBtn}>
-            <Input
+            {/* <Input
               placeholder='Search'
               suffix={<SearchOutlined />}
-              style={{ width: 170, height: 50 }}
-            ></Input>
+              style={{ width: 150, height: 50 }}
+            ></Input> */}
+            <div>
+              <AutoComplete
+                options={options}
+                style={{ width: 130 }}
+                onSelect={onSelect}
+                onSearch={onSearch}
+                placeholder='Search'
+              />
+            </div>
           </div>
           {isUserLoggedIn && (
             <div className={styles.logOutBtn}>

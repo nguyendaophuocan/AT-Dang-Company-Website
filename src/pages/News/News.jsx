@@ -7,10 +7,7 @@ import Footer from '../../components/footer/FooterOtherPage';
 import classNames from 'classnames';
 import styles from './news.module.scss';
 import { Pagination } from 'antd';
-import {
-  useGetNewsMutation,
-  useNewsMutation,
-} from '../../features/news/newsApiSlice';
+import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 const News = () => {
   let title = 'News',
     description =
@@ -34,6 +31,15 @@ const News = () => {
     });
   };
 
+  const getData = async () => {
+    const data = await getNews();
+    setNews({ ...news, data });
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log('NEWS', news);
   return (
     <React.Fragment>
       <PageHelmet pageTitle='News' />
@@ -94,6 +100,7 @@ const News = () => {
                   </div>
                 </div>
               </div>
+              <div className={styles.pagination}>
               <Pagination
                 pageSize={pageSize}
                 current={news.current}
@@ -101,6 +108,8 @@ const News = () => {
                 onChange={handleChange}
                 style={{ bottom: '0px' }}
               />
+              </div>
+           
             </div>
           </div>
         </div>

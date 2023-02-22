@@ -4,5 +4,7 @@ export const API_ROUTES = {
   SIGN_UP: `/auth/signup`,
   LOG_IN: `/api/login`,
   NEWS: `api/v1/news`,
+  SUBSCRIPTION: `api/subscribe`,
+
   GET_USER: `/auth/me`,
 };

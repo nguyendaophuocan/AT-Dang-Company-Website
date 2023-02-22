@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { MailOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import Input from 'antd/es/input/Input';
 import classNames from 'classnames';
@@ -9,6 +9,7 @@ import {
   FaFacebookF,
   FaLinkedinIn,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import logoImage from '../../assets/images/logo/logo-at.png';
 import styles from './footer.module.scss';
 const SocialShare = [
@@ -58,12 +59,10 @@ const FooterTwo = () => {
           <div className='col-lg-2 col-md-6 col-sm-12 col-12'>
             <div className='inner'>
               <div className='rn-form-group'>
-                <input
-                  type='text'
-                  name='fullname'
-                  placeholder='Subscribe to our Newsletter'
-                  required
-                />
+                <Link className={styles.subscribe} to='/subscribe'>
+                  SUBSCRIBE TO NEWSLETTERS{' '}
+                  <MailOutlined style={{ margin: '5px 0 0 10px' }} />
+                </Link>
               </div>
             </div>
           </div>

@@ -7,10 +7,10 @@ const Result = () => {
     </p>
   );
 };
-function ContactForm({ props }: any) {
+function ContactForm() {
   const [result, showresult] = useState(false);
 
-  const sendEmail = (e: any) => {
+  const sendEmail = (e) => {
     e.preventDefault();
     // emailjs
     //   .sendForm(

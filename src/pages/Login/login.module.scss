@@ -7,3 +7,12 @@
 .loginContainer {
   justify-content: center;
 }
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-spin-dot-item {
+  background-color: red;
+}
