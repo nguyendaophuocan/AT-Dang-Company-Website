@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/AT-Dang-Company-Website/static/css/main.866169ee.css",
-    "main.js": "/AT-Dang-Company-Website/static/js/main.16d2e41a.js",
+    "main.css": "/AT-Dang-Company-Website/static/css/main.c59e2621.css",
+    "main.js": "/AT-Dang-Company-Website/static/js/main.ad2e1848.js",
     "static/media/bg-image-34.jpg": "/AT-Dang-Company-Website/static/media/bg-image-34.1b4fd5bdaa63818b9ec5.jpg",
     "static/media/bg-image-33.jpg": "/AT-Dang-Company-Website/static/media/bg-image-33.1f13f44a8f1df8998429.jpg",
     "static/media/related-image-01.jpg": "/AT-Dang-Company-Website/static/media/related-image-01.0246ca80908b25519b63.jpg",
@@ -76,7 +76,6 @@
     "static/media/about-9.jpg": "/AT-Dang-Company-Website/static/media/about-9.24eb96f8e6097d2556e9.jpg",
     "static/media/blog-01.jpg": "/AT-Dang-Company-Website/static/media/blog-01.67ebb920a48800aa0294.jpg",
     "static/media/portfolio-static-05.jpg": "/AT-Dang-Company-Website/static/media/portfolio-static-05.fa730c818a407bf2a560.jpg",
-    "static/media/blog-single-01.jpg": "/AT-Dang-Company-Website/static/media/blog-single-01.adef23c73be31dcaa08a.jpg",
     "static/media/portfolio-6.jpg": "/AT-Dang-Company-Website/static/media/portfolio-6.d54b5681fa56cf7facff.jpg",
     "static/media/team-09.jpg": "/AT-Dang-Company-Website/static/media/team-09.01c183db703ca8fbfe7e.jpg",
     "static/media/bg-image-1.jpg": "/AT-Dang-Company-Website/static/media/bg-image-1.a0683f2ec58f3a65396d.jpg",
@@ -92,11 +91,11 @@
     "static/media/slick.ttf": "/AT-Dang-Company-Website/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/AT-Dang-Company-Website/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/AT-Dang-Company-Website/index.html",
-    "main.866169ee.css.map": "/AT-Dang-Company-Website/static/css/main.866169ee.css.map",
-    "main.16d2e41a.js.map": "/AT-Dang-Company-Website/static/js/main.16d2e41a.js.map"
+    "main.c59e2621.css.map": "/AT-Dang-Company-Website/static/css/main.c59e2621.css.map",
+    "main.ad2e1848.js.map": "/AT-Dang-Company-Website/static/js/main.ad2e1848.js.map"
   },
   "entrypoints": [
-    "static/css/main.866169ee.css",
-    "static/js/main.16d2e41a.js"
+    "static/css/main.c59e2621.css",
+    "static/js/main.ad2e1848.js"
   ]
 }
