@@ -20,9 +20,13 @@ import Career from './elements/Career';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Subscribe from './pages/Subscribe/Subscribe';
-
+import Admin from './pages/Admin/Admin';
+import Error404 from './elements/Error404';
+import { PrivateRoute } from './components/PrivateRoute';
+import Document from './pages/Document/Document';
 const container = document.getElementById('root');
 const root = createRoot(container);
+
 const NavbarWrapper = () => {
   return (
     <div>
@@ -61,6 +65,26 @@ const router = createHashRouter([
       {
         path: '/subscribe',
         element: <Subscribe />,
+      },
+      {
+        path: '/admin',
+        element: (
+          <PrivateRoute>
+            <Admin />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/document',
+        element: (
+          <PrivateRoute>
+            <Document />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/*',
+        element: <Error404 />,
       },
     ],
   },

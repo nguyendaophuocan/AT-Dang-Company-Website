@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 
 import CounterOne from '../../elements/counters/CounterTwo';
 import FooterHome from '../../components/footer/FooterHome';
@@ -7,12 +7,11 @@ import TeamOne from '../../blocks/team/TeamOne';
 import Slider from 'react-slick';
 import { portfolioSlick2 } from '../../page-demo/script';
 import featureImage from '../../assets/images/featured/featured-01.jpg';
-import BlogContent from '../../elements/blog/BlogContent';
 import { Link } from 'react-router-dom';
 import ContentEditable from 'react-contenteditable';
 import ServiceTwo from '../../elements/ServiceTwo';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../features/auth/authSlice';
+
+import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 
 const PortfolioList2 = [
   {
@@ -48,19 +47,22 @@ const PortfolioList2 = [
 ];
 
 const Home = () => {
-  const [sectionValue, setSetionValue] = useState({
-    first: "Dang's Collectibles",
-    second:
-      'Our selective retailing project is dedicated to the class and modern lifestyle of yours – our customers. We will collect and hand-deliver all the finest pieces that you are looking for, from fashion and luxury, watches and accessories, wines and spirits, and more. ',
-    third: 'SHOP NOW',
-  });
-
-  const PostList = BlogContent.slice(0, 3);
+  const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
 
   const handleShopNow = () => {
     window.location.href = 'https://collectibles.atdang.com';
   };
 
+  const getData = async () => {
+    const queryParams = { off_set: 1, page_size: 3 };
+    await getNews(queryParams).unwrap();
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log('news', data);
   const handleChangeEditableContent = (section) => {};
   return (
     <Fragment>
@@ -75,14 +77,15 @@ const Home = () => {
                   <div className={`inner text-center`}>
                     <h1 className='title theme-gradient'>
                       <ContentEditable
-                        html={`<span> ${sectionValue.first}</span>`}
+                        html={`<span>Dang's Collectibles</span>`}
                         disabled={false}
                         onChange={() => handleChangeEditableContent('')}
                       />
                     </h1>
                     <p className='description fontSize28'>
                       <ContentEditable
-                        html={`<span> ${sectionValue.second}</span>`}
+                        html={`<span>       Our selective retailing project is dedicated to the class and modern lifestyle of yours – our customers. We will collect and hand-deliver all the finest pieces that you are looking for, from fashion and luxury, watches and accessories, wines and spirits, and more.,
+                        </span>`}
                         disabled={false}
                         onChange={() => handleChangeEditableContent('')}
                       />
@@ -231,27 +234,27 @@ const Home = () => {
             </div>
           </div>
           <div className='row mt--60'>
-            {PostList.map((value, i) => (
+            {data?.content.map((value, i) => (
               <div className='col-lg-4 col-md-6 col-sm-6 col-12' key={i}>
                 <div className='blog blog-style--1'>
                   <div className='thumbnail'>
-                    <a href='/blog-details'>
+                    <span>
                       <img
                         className='w-100'
-                        src={require(`../../assets/images/blog/blog-${value.images}.jpg`)}
+                        src={require(`../../assets/images/blog/blog-0${++i}.jpg`)}
                         alt='Blog Images'
                       />
-                    </a>
+                    </span>
                   </div>
                   <div className='content'>
                     <p className='blogtype'>{value.category}</p>
                     <h4 className='title'>
-                      <a href='/blog-details'>{value.title}</a>
+                      <a href='/blog-details'>{value.description}</a>
                     </h4>
                     <div className='blog-btn'>
-                      <a className='rn-btn text-white' href='/blog-details'>
+                      <Link className='rn-btn text-white' to='/news'>
                         Read More
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -293,7 +296,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
       <FooterHome />
     </Fragment>
   );

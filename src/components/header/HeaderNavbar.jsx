@@ -7,8 +7,7 @@ import logo2 from '../../assets/images/logo/logo-at.png';
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Input, Button, AutoComplete } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { AutoComplete } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   logOut,
@@ -52,14 +51,10 @@ function HeaderNavbar() {
     console.log('onSelect', data);
   };
 
-  const [value, setValue] = useState('');
   const [options, setOptions] = useState([]);
 
   const isUserLoggedIn = useSelector(selectCurrentUser);
   const usertoken = useSelector(selectCurrentToken);
-
-  console.log('isUserLoggedIn', isUserLoggedIn);
-  console.log('usertoken', usertoken);
 
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
@@ -84,17 +79,11 @@ function HeaderNavbar() {
           <nav className='mainmenunav d-lg-block'>
             <Scrollspy
               className='mainmenu'
-              items={[
-                'home',
-                'about',
-                'news',
-                'collectibles',
-                'careers',
-                'contact',
-              ]}
               currentClassName='is-current'
               offset={-200}
             >
+              <li>{isUserLoggedIn && <Link to='/admin'>Admin</Link>}</li>
+              <li>{isUserLoggedIn && <Link to='/document'>Document</Link>}</li>
               <li>
                 <Link to='/'>Home</Link>
               </li>

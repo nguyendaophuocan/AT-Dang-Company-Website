@@ -5,6 +5,7 @@ export const API_ROUTES = {
   LOG_IN: `/api/login`,
   NEWS: `api/v1/news`,
   SUBSCRIPTION: `api/subscribe`,
+  ADMIN_HOME: `/api/v1/contents`,
 
   GET_USER: `/auth/me`,
 };

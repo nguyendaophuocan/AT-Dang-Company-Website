@@ -61,7 +61,7 @@ const FooterTwo = () => {
               <div className='rn-form-group'>
                 <Link className={styles.subscribe} to='/subscribe'>
                   SUBSCRIBE TO NEWSLETTERS{' '}
-                  <MailOutlined style={{ margin: '5px 0 0 10px' }} />
+                  <MailOutlined style={{ margin: '4px 0 0 10px' }} />
                 </Link>
               </div>
             </div>

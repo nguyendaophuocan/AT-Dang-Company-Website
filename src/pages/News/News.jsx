@@ -6,40 +6,36 @@ import { FiChevronUp, FiMenu, FiX } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterOtherPage';
 import classNames from 'classnames';
 import styles from './news.module.scss';
-import { Pagination } from 'antd';
+import { Divider, Pagination, Spin } from 'antd';
 import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 const News = () => {
-  let title = 'News',
-    description =
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going.';
   const [news, setNews] = useState({
     data: [],
     totalPage: 0,
     current: 1,
-    minIndex: 0,
-    maxIndex: 0,
   });
 
-  const pageSize = 6;
-  const [getNews, { isLoading }] = useGetNewsMutation();
+  const pageSize = 5;
+  const queryParams = { off_set: news.current, page_size: 5 };
+
+  const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
 
   const handleChange = (page) => {
     setNews({
       current: page,
-      minIndex: (page - 1) * pageSize,
-      maxIndex: page * pageSize,
     });
+    getNews({ off_set: page, page_size: 5 });
   };
 
   const getData = async () => {
-    const data = await getNews();
+    const data = await getNews(queryParams).unwrap();
     setNews({ ...news, data });
   };
+
   useEffect(() => {
     getData();
   }, []);
 
-  console.log('NEWS', news);
   return (
     <React.Fragment>
       <PageHelmet pageTitle='News' />
@@ -59,6 +55,7 @@ const News = () => {
           </div>
         </div>
       </div>
+
       <div className='rn-News-area ptb--120 bg_color--1'>
         <div className='rn-News-wrapper'>
           <div className='container'>
@@ -66,63 +63,52 @@ const News = () => {
               <div className='col-lg-5'>
                 <div className='thumbnail'>
                   {/* <img
-                      className='w-100'
-                      src={require('../assets/images/News/News-3.jpg')}
-                      alt='News Images'
-                    /> */}
+                    className='w-100'
+                    src={require('../assets/images/News/News-3.jpg')}
+                    alt='News Images'
+                  /> */}
                 </div>
               </div>
-              <div className='col-lg-12'>
-                <div className='News-inner inner'>
-                  <div
-                    className={classNames('section-title', styles.newsSection)}
-                  >
-                    <h2 className='title'>{title}</h2>
-                    <p className='description'>{description}</p>
-                  </div>
-                  <div
-                    className={classNames('section-title', styles.newsSection)}
-                  >
-                    <h2 className='title'>{title}</h2>
-                    <p className='description'>{description}</p>
-                  </div>
-                  <div
-                    className={classNames('section-title', styles.newsSection)}
-                  >
-                    <h2 className='title'>{title}</h2>
-                    <p className='description'>{description}</p>
-                  </div>
-                  <div
-                    className={classNames('section-title', styles.newsSection)}
-                  >
-                    <h2 className='title'>{title}</h2>
-                    <p className='description'>{description}</p>
-                  </div>
+              {isLoading ? (
+                <div>
+                  <Spin style={{ width: '100%' }} />
                 </div>
-              </div>
-              <div className={styles.pagination}>
-              <Pagination
-                pageSize={pageSize}
-                current={news.current}
-                total={10}
-                onChange={handleChange}
-                style={{ bottom: '0px' }}
-              />
-              </div>
-           
+              ) : (
+                <>
+                  <div className='col-lg-12'>
+                    <div className='News-inner inner'>
+                      {data?.content.map((item) => (
+                        <>
+                          <div
+                            className={classNames(
+                              'section-title',
+                              styles.newsSection
+                            )}
+                          >
+                            <h2 className='title'>{item.category}</h2>
+                            <p className='description'>{item.description}</p>
+                          </div>{' '}
+                          <Divider />
+                        </>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.pagination}>
+                    <Pagination
+                      pageSize={pageSize}
+                      current={news.current}
+                      total={10}
+                      onChange={handleChange}
+                      style={{ bottom: '0px' }}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
       {/* End News Area  */}
-
-      {/* Start Back To Top */}
-      <div className='backto-top'>
-        <ScrollToTop showUnder={160}>
-          <FiChevronUp />
-        </ScrollToTop>
-      </div>
-      {/* End Back To Top */}
 
       <Footer />
     </React.Fragment>
