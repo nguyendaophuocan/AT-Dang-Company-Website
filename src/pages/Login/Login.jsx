@@ -34,7 +34,6 @@ function Login() {
     const { email, password } = formVal;
     try {
       const userData = await login(formVal).unwrap();
-      console.log('userData', userData);
       dispatch(setCredentials({ ...userData, email }));
       setFormVal({ ...formVal, email: '', password: '' });
       navigate('/');

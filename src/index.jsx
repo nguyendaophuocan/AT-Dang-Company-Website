@@ -24,6 +24,7 @@ import Admin from './pages/Admin/Admin';
 import Error404 from './elements/Error404';
 import { PrivateRoute } from './components/PrivateRoute';
 import Document from './pages/Document/Document';
+import DocumentDetail from './pages/DocumentDetail/DocumentDetail';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
@@ -85,6 +86,10 @@ const router = createHashRouter([
       {
         path: '/*',
         element: <Error404 />,
+      },
+      {
+        path: '/document/:id',
+        element: <DocumentDetail />,
       },
     ],
   },

@@ -16,15 +16,16 @@ const News = () => {
   });
 
   const pageSize = 5;
-  const queryParams = { off_set: news.current, page_size: 5 };
+  const queryParams = { off_set: news.current - 1, page_size: 5 };
 
   const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
 
   const handleChange = (page) => {
     setNews({
+      ...news,
       current: page,
     });
-    getNews({ off_set: page, page_size: 5 });
+    getNews({ off_set: page - 1, page_size: 5 });
   };
 
   const getData = async () => {
@@ -77,20 +78,25 @@ const News = () => {
                 <>
                   <div className='col-lg-12'>
                     <div className='News-inner inner'>
-                      {data?.content.map((item) => (
-                        <>
-                          <div
-                            className={classNames(
-                              'section-title',
-                              styles.newsSection
-                            )}
-                          >
-                            <h2 className='title'>{item.category}</h2>
-                            <p className='description'>{item.description}</p>
-                          </div>{' '}
-                          <Divider />
-                        </>
-                      ))}
+                      {data?.content.map(
+                        (item) =>
+                          item?.enable && (
+                            <>
+                              <div
+                                className={classNames(
+                                  'section-title',
+                                  styles.newsSection
+                                )}
+                              >
+                                <h2 className='title'>{item.title}</h2>
+                              </div>{' '}
+                              <p className='description mb--80'>
+                                {item.description}
+                              </p>
+                              <Divider />
+                            </>
+                          )
+                      )}
                     </div>
                   </div>
                   <div className={styles.pagination}>

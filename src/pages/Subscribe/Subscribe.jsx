@@ -26,7 +26,6 @@ const Subscribe = () => {
       setMsg('Email must be the same and not empty');
     } else {
       const respone = await subscribe(email);
-      console.log('RES', respone?.error?.status);
       if (respone?.error?.status === 500) setMsg('Email already subscribed');
       else setMsg('Success');
     }
