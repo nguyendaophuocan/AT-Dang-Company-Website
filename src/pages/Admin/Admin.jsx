@@ -206,7 +206,7 @@ const Admin = () => {
           </Button>
           <Button
             danger
-            onClick={() => handleEnalbeDisable('news', 'disable', record.id)}
+            onClick={() => handleEnalbeDisable('news', 'disable', record?.id)}
           >
             Delete
           </Button>
@@ -227,11 +227,12 @@ const Admin = () => {
 
   const [homePageData, setHomepageData] = useState([]);
   const [aboutData, setAboutData] = useState([]);
-  const [documentDetailData, setDocumentDetailData] = useState({});
+  const [documentDetailData, setDocumentDetailData] = useState([]);
   const [newsData, setNewsData] = useState([]);
   const [selectDocumentVal, setSelectDocumentVal] = useState(1);
 
-  const [getDocumentDetail] = useGetDocumentDetailMutation();
+  const [getDocumentDetail, { isLoading: isLoadingDocument }] =
+    useGetDocumentDetailMutation();
 
   const [getHomePageContent, { isLoading: isLoadingHomepage }] =
     useGetHomePageContentMutation();
@@ -450,8 +451,8 @@ const Admin = () => {
           <Table
             className='pt--20'
             columns={columnsDocumentDetail}
-            loading={isLoadingNews}
             dataSource={documentDetailData}
+            isLoading={isLoadingDocument}
           />
         </Content>
       </Layout>
