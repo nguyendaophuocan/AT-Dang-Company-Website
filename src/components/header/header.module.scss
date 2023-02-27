@@ -14,3 +14,36 @@
 .logOutBtn {
   margin-left: 20px;
 }
+
+:global {
+  .ant-modal {
+    max-width: unset !important;
+    margin: unset !important;
+  }
+  .ant-modal-centered::before {
+    content: unset !important;
+  }
+}
+
+.container {
+  :global {
+    .ant-modal-body {
+      text-align: center !important;
+    }
+
+    .ant-modal-title {
+      text-align: center;
+      width: 50%;
+    }
+    .ant-modal-content {
+      border-radius: 0 !important;
+      // background: linear-gradient(to right, #e1bc7c 50%, #e2b266 50%);
+      background-color: #eedec4;
+    }
+
+    .ant-modal-header {
+      background-color: #eedec4;
+      // background: linear-gradient(to right, #e1bc7c 50%, #e2b266 50%);
+    }
+  }
+}

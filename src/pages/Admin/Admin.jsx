@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
   Button,
+  Form,
   Input,
   Layout,
   Modal,
@@ -18,8 +19,15 @@ import {
   useUpdateHomePageContentMutation,
   useUpdateNewsContentMutation,
 } from '../../features/admin/adminApiSlice';
-import { useGetNewsMutation } from '../../features/news/newsApiSlice';
-import { useGetDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
+import {
+  useCreateNewsMutation,
+  useGetNewsMutation,
+} from '../../features/news/newsApiSlice';
+import {
+  useGetAllDocumentsMutation,
+  useGetDocumentDetailMutation,
+} from '../../features/document-detail/DocumentDetailApiSlice';
+import TextArea from 'antd/es/input/TextArea';
 
 const Admin = () => {
   const columnsHomepage = [
@@ -214,6 +222,7 @@ const Admin = () => {
       ),
     },
   ];
+  //update homepage, news
   const [open, setOpen] = useState({
     homepage: { id: '', title: false, description: false },
     news: { id: '', title: false, description: false },
@@ -225,14 +234,24 @@ const Admin = () => {
     type: '',
   });
 
+  //create news
+  const [isCreateNewsOpen, setIsCreateNewsOpen] = useState(false);
+
   const [homePageData, setHomepageData] = useState([]);
   const [aboutData, setAboutData] = useState([]);
   const [documentDetailData, setDocumentDetailData] = useState([]);
   const [newsData, setNewsData] = useState([]);
-  const [selectDocumentVal, setSelectDocumentVal] = useState(1);
+  const [selectedDocumentVal, setSelectedDocumentVal] = useState(1);
+  const [selectDocumentOptions, setSelectDocumentOptions] = useState([]);
+  const [createNewsData, setCreateNewsData] = useState({
+    title: '',
+    description: '',
+  });
 
   const [getDocumentDetail, { isLoading: isLoadingDocument }] =
     useGetDocumentDetailMutation();
+
+  const [getAllDocuments] = useGetAllDocumentsMutation();
 
   const [getHomePageContent, { isLoading: isLoadingHomepage }] =
     useGetHomePageContentMutation();
@@ -242,6 +261,9 @@ const Admin = () => {
 
   const [updateNewsContent, { isLoading: isLoadingUpdateNews }] =
     useUpdateNewsContentMutation();
+
+  const [createNews, { isLoading: isLoadingCreateNews }] =
+    useCreateNewsMutation();
 
   const [getNews, { isLoading: isLoadingNews }] = useGetNewsMutation();
 
@@ -293,18 +315,24 @@ const Admin = () => {
     setNewsData(data?.content);
   };
 
-  const getDocumentDetailData = async () => {
-    const result = await getDocumentDetail(1).unwrap();
+  const getDocumentDetailData = async (id) => {
+    const result = await getDocumentDetail(id).unwrap();
     if (result) {
       setDocumentDetailData(result?.contextList);
     }
   };
 
-  useEffect(() => {
-    getHomepageData();
-    getNewsData();
-    getDocumentDetailData();
-  }, []);
+  const getAllDocumentsData = async () => {
+    const result = await getAllDocuments().unwrap();
+    const totalOptions = result?.length;
+    let options = [];
+    for (let i = 1; i <= totalOptions; i++) {
+      options.push({ value: i, label: i });
+    }
+    if (result) {
+      setSelectDocumentOptions(options);
+    }
+  };
 
   const handleUpdate = async (editingValue) => {
     const { id, value, page, type } = editingValue;
@@ -380,6 +408,34 @@ const Admin = () => {
     setEditingValue({ ...editingValue, value: e.target.value });
   };
 
+  const handleModalCreateNews = (value) => {
+    setIsCreateNewsOpen(value);
+  };
+
+  const handleChangeValueCreateNews = (e) => {
+    setCreateNewsData({ ...createNewsData, [e.target.name]: e.target.value });
+  };
+
+  const handleCreateNews = async (data) => {
+    const result = await createNews(data);
+    if (result) {
+      handleModalCreateNews(false);
+      getNewsData();
+    }
+  };
+
+  const handleSelectDocumentDetail = async (id) => {
+    setSelectedDocumentVal(id);
+    await getDocumentDetailData(id);
+  };
+
+  useEffect(() => {
+    getHomepageData();
+    getNewsData();
+    getDocumentDetailData(selectedDocumentVal);
+    getAllDocumentsData();
+  }, []);
+
   return (
     <Fragment>
       <Helmet pageTitle='Admin' />
@@ -426,6 +482,11 @@ const Admin = () => {
       <Layout className='layout'>
         <Content style={{ padding: '0 100px' }}>
           <h2>News</h2>
+          <Space style={{ marginBottom: 16 }}>
+            <Button onClick={() => handleModalCreateNews(true)}>
+              Create news
+            </Button>
+          </Space>
           <Table
             columns={columnsNews}
             loading={isLoadingNews}
@@ -438,24 +499,22 @@ const Admin = () => {
           <h2>Document</h2>{' '}
           <Select
             className=''
-            defaultValue={selectDocumentVal}
+            defaultValue={selectedDocumentVal}
+            value={selectedDocumentVal}
             style={{ width: 120 }}
-            onChange={''}
-            options={[
-              { value: '1', label: '1' },
-              { value: '2', label: '2' },
-              { value: '3', label: '...' },
-              { value: '...', label: '...' },
-            ]}
+            onChange={handleSelectDocumentDetail}
+            options={selectDocumentOptions}
           />
           <Table
             className='pt--20'
             columns={columnsDocumentDetail}
             dataSource={documentDetailData}
-            isLoading={isLoadingDocument}
+            loading={isLoadingDocument}
           />
         </Content>
       </Layout>
+
+      {/* Modal title homepage/news */}
       <Modal
         centered
         title={'Update title'}
@@ -465,11 +524,58 @@ const Admin = () => {
       >
         <Input value={editingValue.value} onChange={handleInputChange} />
       </Modal>
-
+      {/* Modal desc homepage/news */}
       <Modal
         centered
         title='Update description'
         open={open.homepage.description || open.news.description}
+        onOk={() => handleUpdate(editingValue)}
+        onCancel={() => hideModal('cancel')}
+      >
+        <Input value={editingValue.value} onChange={handleInputChange} />
+      </Modal>
+      {/* Modal create news*/}
+      <Modal
+        centered
+        title='Create news'
+        open={isCreateNewsOpen}
+        okText='Create'
+        onOk={() => handleCreateNews(createNewsData)}
+        onCancel={() => handleModalCreateNews(false)}
+      >
+        <Form
+          name='basic'
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600, margin: '10px' }}
+          initialValues={{ remember: true }}
+          onFinish={''}
+          onFinishFailed={''}
+          autoComplete='off'
+        >
+          <Form.Item label='Title'>
+            <Input
+              name='title'
+              onChange={handleChangeValueCreateNews}
+              value={createNewsData.title}
+            />
+          </Form.Item>
+
+          <Form.Item label='Description'>
+            <TextArea
+              name='description'
+              style={{ height: '100px' }}
+              onChange={handleChangeValueCreateNews}
+              value={createNewsData.description}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+      {/* Modal update title/desc document */}
+      <Modal
+        centered
+        title={'Update document title'}
+        open={open.homepage.title || open.news.title}
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}
       >

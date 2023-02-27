@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { FiClock, FiUser, FiMessageCircle, FiHeart } from 'react-icons/fi';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
 import FooterTwo from '../../components/footer/FooterHome';
@@ -39,9 +38,9 @@ const DocumentDetail = () => {
                 <h2 className='title theme-gradient'>
                   {documentDetailData[0]?.title}
                 </h2>
-                <h4 className='title theme-gradient'>
+                {/* <div className='title theme-gradient'>
                   {documentDetailData[0]?.description}
-                </h4>
+                </div> */}
               </div>
             </div>
           </div>

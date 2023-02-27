@@ -25,6 +25,8 @@ import Error404 from './elements/Error404';
 import { PrivateRoute } from './components/PrivateRoute';
 import Document from './pages/Document/Document';
 import DocumentDetail from './pages/DocumentDetail/DocumentDetail';
+import NewsDetail from './pages/NewsDetail/NewsDetail';
+import Search from './pages/Search/Search';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
@@ -60,6 +62,10 @@ const router = createHashRouter([
         element: <News />,
       },
       {
+        path: '/search',
+        element: <Search />,
+      },
+      {
         path: '/career',
         element: <Career />,
       },
@@ -90,6 +96,10 @@ const router = createHashRouter([
       {
         path: '/document/:id',
         element: <DocumentDetail />,
+      },
+      {
+        path: '/news/:id',
+        element: <NewsDetail />,
       },
     ],
   },

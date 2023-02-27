@@ -9,7 +9,24 @@ export const newsSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getNewsById: builder.mutation({
+      query: ({ id }) => ({
+        url: `${API_ROUTES.NEWS}/searchId?id=${id}`,
+        method: 'GET',
+      }),
+    }),
+    createNews: builder.mutation({
+      query: (payload) => ({
+        url: `${API_ROUTES.NEWS}`,
+        method: 'POST',
+        body: { ...payload },
+      }),
+    }),
   }),
 });
 
-export const { useGetNewsMutation } = newsSlice;
+export const {
+  useGetNewsMutation,
+  useGetNewsByIdMutation,
+  useCreateNewsMutation,
+} = newsSlice;

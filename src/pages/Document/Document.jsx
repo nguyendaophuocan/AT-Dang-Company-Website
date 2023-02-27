@@ -1,65 +1,111 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import { Content } from 'antd/es/layout/layout';
-import styles from './document.module.scss';
+import { useCreateDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
+import { Spin } from 'antd';
+import { notification } from 'antd';
+
 const Document = () => {
-  const [dataCreate, setDataCreate] = useState({
-    contextList: [],
+  const [createDocumentDetail, { isLoading }] =
+    useCreateDocumentDetailMutation();
+
+  const [createDocumentData, setCreateDocumentData] = useState({
+    contextList: [
+      { titleSec1: '', descriptionSec1: '' },
+      { titleSec2: '', descriptionSec2: '' },
+      { titleSec3: '', descriptionSec3: '' },
+      { titleSec4: '', descriptionSec4: '' },
+      { titleSec5: '', descriptionSec5: '' },
+    ],
   });
-  const [inputValue1, setInputValue1] = useState({
-    title: '',
-    content: '',
-  });
-  const [inputValue2, setInputValue2] = useState({
-    title: '',
-    content: '',
-  });
-  const [inputValue3, setInputValue3] = useState({
-    title: '',
-    content: '',
-  });
-  const [inputValue4, setInputValue4] = useState({
-    title: '',
-    content: '',
-  });
-  const [inputValue5, setInputValue5] = useState({
-    title: '',
-    content: '',
-  });
-  const handleChangeValue1 = (e) => {
-    setInputValue1({
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChangeValue2 = (e) => {
-    setInputValue2({
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChangeValue3 = (e) => {
-    setInputValue3({
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChangeValue4 = (e) => {
-    setInputValue4({
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleChangeValue5 = (e) => {
-    setInputValue5({
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleSubmit = () => {
-    let data;
-    let inputValue;
-    let i;
-    for (i = 1; i < 6; i++) {
-      dataCreate.contextList.push(inputValue + `${i}`);
+  const handleChangeDocumentData = (e) => {
+    if (e.target.name === 'titleSec1' || e.target.name === 'descriptionSec1') {
+      setCreateDocumentData((prevArr) => {
+        const result = { ...prevArr };
+        result.contextList[0] = {
+          ...result.contextList[0],
+          [e.target.name]: e.target.value,
+        };
+        return result;
+      });
     }
+    if (e.target.name === 'titleSec2' || e.target.name === 'descriptionSec2') {
+      setCreateDocumentData((prevArr) => {
+        const result = { ...prevArr };
+        result.contextList[1] = {
+          ...result.contextList[1],
+          [e.target.name]: e.target.value,
+        };
+        return result;
+      });
+    }
+    if (e.target.name === 'titleSec3' || e.target.name === 'descriptionSec3') {
+      setCreateDocumentData((prevArr) => {
+        const result = { ...prevArr };
+        result.contextList[2] = {
+          ...result.contextList[2],
+          [e.target.name]: e.target.value,
+        };
+        return result;
+      });
+    }
+    if (e.target.name === 'titleSec4' || e.target.name === 'descriptionSec4') {
+      setCreateDocumentData((prevArr) => {
+        const result = { ...prevArr };
+        result.contextList[3] = {
+          ...result.contextList[3],
+          [e.target.name]: e.target.value,
+        };
+        return result;
+      });
+    }
+    if (e.target.name === 'titleSec5' || e.target.name === 'descriptionSec5') {
+      setCreateDocumentData((prevArr) => {
+        const result = { ...prevArr };
+        result.contextList[4] = {
+          ...result.contextList[4],
+          [e.target.name]: e.target.value,
+        };
+        return result;
+      });
+    }
+  };
+  const handleSubmit = async (data) => {
+    const fomattedData = data.contextList.map((item) => {
+      return {
+        title: Object.values(item)[0],
+        description: Object.values(item)[1],
+      };
+    });
+    const payload = { contextList: fomattedData };
+    const result = await createDocumentDetail(payload);
+    if (result?.error) {
+      openNotification('Create Document failed');
+    } else {
+      openNotification('Create Document successfuly');
+      window.scrollTo(0, 0);
+      setCreateDocumentData({
+        contextList: [
+          { titleSec1: '', descriptionSec1: '' },
+          { titleSec2: '', descriptionSec2: '' },
+          { titleSec3: '', descriptionSec3: '' },
+          { titleSec4: '', descriptionSec4: '' },
+          { titleSec5: '', descriptionSec5: '' },
+        ],
+      });
+    }
+  };
+
+  const key = 'updatable';
+
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (value) => {
+    setTimeout(() => {
+      api.open({
+        key,
+        message: value,
+      });
+    }, 500);
   };
   return (
     <Fragment>
@@ -82,6 +128,7 @@ const Document = () => {
           </div>
         </div>
       </div>
+      {contextHolder}
       <div className='contact-form--1 ptb--100'>
         <div className='container'>
           <div className='row row--35 align-items-start'>
@@ -94,20 +141,20 @@ const Document = () => {
                   <div className='rn-form-group'>
                     <input
                       type='title'
-                      name='title1'
+                      name='titleSec1'
                       placeholder='Title'
-                      value={inputValue1.title}
-                      onChange={handleChangeValue1}
+                      value={createDocumentData.contextList[0].titleSec1}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
 
                   <div className='rn-form-group'>
                     <textarea
                       type='content'
-                      name='content1'
-                      placeholder='content'
-                      value={inputValue1.content}
-                      onChange={handleChangeValue1}
+                      name='descriptionSec1'
+                      placeholder='Content'
+                      value={createDocumentData.contextList[0].descriptionSec1}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
                 </form>
@@ -122,20 +169,20 @@ const Document = () => {
                   <div className='rn-form-group'>
                     <input
                       type='title'
-                      name='title2'
+                      name='titleSec2'
                       placeholder='Title'
-                      value={inputValue2.title}
-                      onChange={handleChangeValue2}
+                      value={createDocumentData.contextList[1].titleSec2}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
 
                   <div className='rn-form-group'>
                     <textarea
                       type='content'
-                      name='content2'
-                      placeholder='content'
-                      value={inputValue2.content}
-                      onChange={handleChangeValue2}
+                      name='descriptionSec2'
+                      placeholder='Content'
+                      value={createDocumentData.contextList[1].descriptionSec2}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
                 </form>
@@ -150,20 +197,20 @@ const Document = () => {
                   <div className='rn-form-group'>
                     <input
                       type='title'
-                      name='title3'
+                      name='titleSec3'
                       placeholder='Title'
-                      value={inputValue3.title}
-                      onChange={handleChangeValue3}
+                      value={createDocumentData.contextList[2].titleSec3}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
 
                   <div className='rn-form-group'>
                     <textarea
                       type='content'
-                      name='content3'
-                      placeholder='content'
-                      value={inputValue3.content}
-                      onChange={handleChangeValue3}
+                      name='descriptionSec3'
+                      placeholder='Content'
+                      value={createDocumentData.contextList[2].descriptionSec3}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
                 </form>
@@ -178,20 +225,20 @@ const Document = () => {
                   <div className='rn-form-group'>
                     <input
                       type='title'
-                      name='title4'
+                      name='titleSec4'
                       placeholder='Title'
-                      value={inputValue4.title}
-                      onChange={handleChangeValue4}
+                      value={createDocumentData.contextList[3].titleSec4}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
 
                   <div className='rn-form-group'>
                     <textarea
                       type='content'
-                      name='content4'
-                      placeholder='content'
-                      value={inputValue4.content}
-                      onChange={handleChangeValue4}
+                      name='descriptionSec4'
+                      placeholder='Content'
+                      value={createDocumentData.contextList[3].descriptionSec4}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
                 </form>
@@ -206,32 +253,36 @@ const Document = () => {
                   <div className='rn-form-group'>
                     <input
                       type='title'
-                      name='title5'
+                      name='titleSec5'
                       placeholder='Title'
-                      value={inputValue5.title}
-                      onChange={handleChangeValue5}
+                      value={createDocumentData.contextList[4].titleSec5}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
 
                   <div className='rn-form-group'>
                     <textarea
                       type='content'
-                      name='content5'
-                      placeholder='content'
-                      value={inputValue5.content}
-                      onChange={handleChangeValue5}
+                      name='descriptionSec5'
+                      placeholder='Content'
+                      value={createDocumentData.contextList[4].descriptionSec5}
+                      onChange={handleChangeDocumentData}
                     />
                   </div>
                 </form>
               </div>{' '}
-              <div className='slide-btn mt--80'>
-                <button
-                  className='rn-button-style--2 btn-primary-color'
-                  onClick={handleSubmit}
-                >
-                  Save
-                </button>
-              </div>{' '}
+              {isLoading ? (
+                <Spin className='mt--80' />
+              ) : (
+                <div className='slide-btn mt--80'>
+                  <button
+                    className='rn-button-style--2 btn-primary-color'
+                    onClick={() => handleSubmit(createDocumentData)}
+                  >
+                    Create
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

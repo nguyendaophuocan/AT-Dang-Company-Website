@@ -9,14 +9,21 @@ import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 import Card from 'antd/es/card/Card';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useGetSearchDataMutation } from '../../features/search/searchApiSlice';
+import { useSelector } from 'react-redux';
+import { selectSearchValue } from '../../features/search/searchSlice';
 
 const { Text } = Typography;
-const News = () => {
+const Search = () => {
   const [news, setNews] = useState({
     data: [],
     totalPage: 0,
     current: 1,
   });
+  const [getSearchData, { isLoading: isLoadingSearch }] =
+    useGetSearchDataMutation();
+  const [searchData, setSearchData] = useState('');
+  const storeSearchData = useSelector(selectSearchValue);
 
   const pageSize = 5;
   const queryParams = { off_set: news.current - 1, page_size: 5 };
@@ -32,21 +39,21 @@ const News = () => {
     getNews({ off_set: page - 1, page_size: 5 });
   };
 
-  const getData = async () => {
-    const data = await getNews(queryParams).unwrap();
-    setNews({ ...news, data });
+  const getSearchDataRes = async (storeSearchData) => {
+    const result = await getSearchData(storeSearchData);
+    setSearchData(result);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getSearchDataRes(storeSearchData);
+  }, [storeSearchData]);
 
   const handleReadmore = (id) => {
     navigate(`/news/${id}`);
   };
   return (
     <React.Fragment>
-      <PageHelmet pageTitle='News' />
+      <PageHelmet pageTitle='Searching' />
 
       <div
         className='rn-page-title-area pt--120 pb--190 bg_image bg_image--12 '
@@ -56,7 +63,7 @@ const News = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>News</h2>
+                <h2 className='title theme-gradient'>Search</h2>
                 <p>Description</p>
               </div>
             </div>
@@ -77,7 +84,7 @@ const News = () => {
                   /> */}
                 </div>
               </div>
-              {isLoading ? (
+              {isLoading || isLoadingSearch ? (
                 <div>
                   <Spin style={{ width: '100%' }} />
                 </div>
@@ -85,7 +92,7 @@ const News = () => {
                 <>
                   <div className='col-lg-12'>
                     <div className='News-inner inner'>
-                      {data?.content?.map(
+                      {searchData?.data?.map(
                         (item) =>
                           item?.enable && (
                             <div className='mb--40'>
@@ -129,8 +136,8 @@ const News = () => {
                       )}
                     </div>
                   </div>
-                  {data && (
-                    <div className={styles.pagination}>
+                  <div className={styles.pagination}>
+                    {searchData?.data?.length ? (
                       <Pagination
                         pageSize={pageSize}
                         current={news.current}
@@ -138,18 +145,19 @@ const News = () => {
                         onChange={handleChange}
                         style={{ bottom: '0px' }}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <h3>Empty</h3>
+                    )}{' '}
+                  </div>
                 </>
               )}
             </div>
           </div>
         </div>
       </div>
-      {/* End News Area  */}
 
       <Footer />
     </React.Fragment>
   );
 };
-export default News;
+export default Search;

@@ -8,6 +8,7 @@ import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterOtherPage';
 import { Link } from 'react-router-dom';
 import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlice';
+import { Spin } from 'antd';
 
 const About = () => {
   const [dataAbout, setDataAbout] = useState([]);
@@ -15,7 +16,7 @@ const About = () => {
   const handleShopNow = () => {
     window.location.replace('https://collectibles.atdang.com');
   };
-  const [getHomePageContent, { isLoadingContent }] =
+  const [getHomePageContent, { isLoading: isLoadingContent }] =
     useGetHomePageContentMutation();
 
   const getAboutData = async () => {
@@ -33,16 +34,27 @@ const About = () => {
         className='rn-page-title-area pt--120 pb--190 bg_image bg_image--7 '
         data-black-overlay='3'
       >
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12'>
-              <div className='rn-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>{dataAbout[6]?.title}</h2>
-                <p>{dataAbout[6]?.description}</p>
+        {isLoadingContent ? (
+          <div
+            style={{ textAlign: 'center', height: '150px' }}
+            className='mt--100'
+          >
+            <Spin size='large' />
+          </div>
+        ) : (
+          <div className='container'>
+            <div className='row'>
+              <div className='col-lg-12'>
+                <div className='rn-page-title text-center pt--100'>
+                  <h2 className='title theme-gradient'>
+                    {dataAbout[6]?.title}
+                  </h2>
+                  <p>{dataAbout[6]?.description}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       {/* Start About Area  */}
       <div className='rn-about-area ptb--120 bg_color--1'>
@@ -58,35 +70,45 @@ const About = () => {
                   />
                 </div>
               </div>
+              {isLoadingContent ? (
+                <div
+                  style={{ textAlign: 'center', height: '150px' }}
+                  className='mt--100'
+                >
+                  <Spin size='large' />
+                </div>
+              ) : (
+                <div className='col-lg-7'>
+                  <div className='about-inner inner'>
+                    {dataAbout[7]?.enable && (
+                      <div className='section-title'>
+                        <h2 className='title'>{dataAbout[7]?.title}</h2>
+                        <p className='description'>
+                          {dataAbout[7]?.description}
+                        </p>
+                      </div>
+                    )}
+                    {dataAbout[8]?.enable && (
+                      <div className='row mt--30'>
+                        <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
+                          <div className='about-us-list'>
+                            <h3 className='title'>{dataAbout[8]?.title}</h3>
+                            <p>{dataAbout[8]?.description}</p>
 
-              <div className='col-lg-7'>
-                <div className='about-inner inner'>
-                  {dataAbout[7]?.enable && (
-                    <div className='section-title'>
-                      <h2 className='title'>{dataAbout[7]?.title}</h2>
-                      <p className='description'>{dataAbout[7]?.description}</p>
-                    </div>
-                  )}
-                  {dataAbout[8]?.enable && (
-                    <div className='row mt--30'>
-                      <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
-                        <div className='about-us-list'>
-                          <h3 className='title'>{dataAbout[8]?.title}</h3>
-                          <p>{dataAbout[8]?.description}</p>
-
-                          <br />
-                          <button
-                            className='rn-button-style--2 btn-primary-color'
-                            onClick={handleShopNow}
-                          >
-                            Find out more
-                          </button>
+                            <br />
+                            <button
+                              className='rn-button-style--2 btn-primary-color'
+                              onClick={handleShopNow}
+                            >
+                              Find out more
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

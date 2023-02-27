@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo/logo-at.png';
@@ -7,15 +7,18 @@ import logo2 from '../../assets/images/logo/logo-at.png';
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { AutoComplete } from 'antd';
+import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   logOut,
   selectCurrentToken,
   selectCurrentUser,
 } from '../../features/auth/authSlice';
+import { SearchOutlined } from '@ant-design/icons';
+import { updateSearchValue } from '../../features/search/searchSlice';
 function HeaderNavbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   function menuTrigger() {
     document.querySelector('.header-wrapper')?.classList.toggle('menu-open');
   }
@@ -35,27 +38,27 @@ function HeaderNavbar() {
     dispatch(logOut());
   };
 
-  const mockVal = (str, repeat = 1) => ({
-    value: str.repeat(repeat),
-  });
-
-  const onSearch = (searchText) => {
-    setOptions(
-      !searchText
-        ? []
-        : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)]
-    );
-  };
-
-  const onSelect = (data) => {
-    console.log('onSelect', data);
-  };
-
-  const [options, setOptions] = useState([]);
-
+  const [visible, setVisible] = useState(false);
+  const searchRef = useRef();
+  const [searchValue, setSearchValue] = useState('');
   const isUserLoggedIn = useSelector(selectCurrentUser);
   const usertoken = useSelector(selectCurrentToken);
 
+  const handleModalSearch = (value, searchRef = '') => {
+    setVisible(value);
+    searchRef?.current.focus();
+  };
+
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearch = async (e, searchValue) => {
+    e.preventDefault();
+    dispatch(updateSearchValue(searchValue));
+    // handleModalSearch(false);
+    navigate(`/search?term=${searchValue}`);
+  };
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
       <div className='header-wrapper'>
@@ -114,20 +117,15 @@ function HeaderNavbar() {
             </Scrollspy>
           </nav>{' '}
           <div className={styles.logOutBtn}>
-            {/* <Input
-              placeholder='Search'
-              suffix={<SearchOutlined />}
-              style={{ width: 150, height: 50 }}
-            ></Input> */}
-            <div>
-              <AutoComplete
-                options={options}
-                style={{ width: 130 }}
-                onSelect={onSelect}
-                onSearch={onSearch}
-                placeholder='Search'
-              />
-            </div>
+            <SearchOutlined
+              style={{
+                color: 'white',
+                fontSize: '24px',
+                marginBottom: '5px',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleModalSearch(true, searchRef)}
+            />
           </div>
           {isUserLoggedIn && (
             <div className={styles.logOutBtn}>
@@ -150,6 +148,35 @@ function HeaderNavbar() {
           </div>
         </div>
       </div>
+      <Modal
+        title='Search Dang & Associates, LTD.'
+        centered
+        open={visible}
+        onOk={() => setVisible(false)}
+        onCancel={() => setVisible(false)}
+        width={'100%'}
+        className={styles.container}
+        footer={null}
+      >
+        <form onSubmit={(e) => handleSearch(e, searchValue)}>
+          <input
+            type='text'
+            name='search'
+            value={searchValue}
+            onChange={handleChangeSearch}
+            id='search'
+            ref={searchRef}
+            placeholder='Search '
+            style={{
+              border: 'none',
+              height: '50px',
+              width: '50%',
+              fontSize: '20px',
+            }}
+          />
+        </form>
+      </Modal>
+      ;
     </header>
   );
 }

@@ -90,13 +90,6 @@ const Career = () => {
           </div>
         </div>
       </div>
-      {/* End Contact Top Area  */}
-
-      {/* Start Contact Page Area  */}
-      <div className='rn-contact-page ptb--120 bg_color--1'>
-        <ContactOne />
-      </div>
-      {/* End Contact Page Area  */}
 
       <Footer />
     </React.Fragment>

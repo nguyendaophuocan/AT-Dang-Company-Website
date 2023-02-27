@@ -9,7 +9,24 @@ export const documentDetailSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    createDocumentDetail: builder.mutation({
+      query: (payload) => ({
+        url: `${API_ROUTES.DOCUMENT_DETAIL}`,
+        method: 'POST',
+        body: { ...payload },
+      }),
+    }),
+    getAllDocuments: builder.mutation({
+      query: () => ({
+        url: `${API_ROUTES.DOCUMENT_DETAIL}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetDocumentDetailMutation } = documentDetailSlice;
+export const {
+  useGetDocumentDetailMutation,
+  useCreateDocumentDetailMutation,
+  useGetAllDocumentsMutation,
+} = documentDetailSlice;

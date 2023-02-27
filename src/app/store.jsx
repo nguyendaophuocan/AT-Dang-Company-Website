@@ -3,7 +3,7 @@ import { apiSlice } from './api/apiSlice';
 import authReducer from '../features/auth/authSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { newsSlice } from '../features/news/newsApiSlice';
+import searchReducer from '../features/search/searchSlice';
 
 const persistConfig = {
   key: 'root',
@@ -16,7 +16,7 @@ export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: persistedReducer,
-    news: newsSlice,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
