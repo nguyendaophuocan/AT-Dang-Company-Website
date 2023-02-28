@@ -92,12 +92,21 @@ const Subscribe = () => {
                       />{' '}
                       {!isLoading && msg && (
                         <p>
-                          <Alert
-                            className={styles.subscribeInput}
-                            message={msg}
-                            type='error'
-                            style={{ margin: '10px 0' }}
-                          />
+                          {msg == 'Success' ? (
+                            <Alert
+                              className={styles.subscribeInput}
+                              message={msg}
+                              type='success'
+                              style={{ margin: '10px 0' }}
+                            />
+                          ) : (
+                            <Alert
+                              className={styles.subscribeInput}
+                              message={msg}
+                              type='error'
+                              style={{ margin: '10px 0' }}
+                            />
+                          )}
                         </p>
                       )}
                     </div>

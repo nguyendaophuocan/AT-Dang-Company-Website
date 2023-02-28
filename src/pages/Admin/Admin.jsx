@@ -505,6 +505,12 @@ const Admin = () => {
             onChange={handleSelectDocumentDetail}
             options={selectDocumentOptions}
           />
+          <span className='ml--40'>
+            <Link to={{ pathname: `/document/${selectedDocumentVal}` }}>
+              {' '}
+              Go to Document {selectedDocumentVal}
+            </Link>
+          </span>
           <Table
             className='pt--20'
             columns={columnsDocumentDetail}
