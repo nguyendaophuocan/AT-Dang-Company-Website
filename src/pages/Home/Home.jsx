@@ -119,7 +119,7 @@ const Home = () => {
         </div>
 
         {/* Start CounterUp Area */}
-        {!isLoadingContent ? (
+        {isLoadingContent ? (
           <div
             style={{ textAlign: 'center', height: '150px' }}
             className='mt--100'
