@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetSearchDataMutation } from '../../features/search/searchApiSlice';
 import { useSelector } from 'react-redux';
 import { selectSearchValue } from '../../features/search/searchSlice';
+import { FormattedMessage } from 'react-intl';
 
 const { Text } = Typography;
 const Search = () => {
@@ -128,7 +129,7 @@ const Search = () => {
                                   id='mc-embedded-subscribe'
                                   onClick={() => handleReadmore(item.id)}
                                 >
-                                  Read more
+                                  <FormattedMessage id='READ_MORE' />
                                 </button>
                               </Card>
                             </div>

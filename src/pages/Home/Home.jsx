@@ -8,12 +8,13 @@ import Slider from 'react-slick';
 import { portfolioSlick2 } from '../../page-demo/script';
 import featureImage from '../../assets/images/featured/featured-01.jpg';
 import { Link } from 'react-router-dom';
-import ServiceTwo from '../../elements/ServiceTwo';
 
 import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlice';
 import { Spin } from 'antd';
-
+import { FormattedMessage } from 'react-intl';
+import styles from './home.module.scss';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 const PortfolioList2 = [
   {
     image: 'image-1',
@@ -49,6 +50,8 @@ const PortfolioList2 = [
 
 const Home = () => {
   const [getNews, { isLoadingNews, refetch }] = useGetNewsMutation();
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+
   const [getHomePageContent, { isLoading: isLoadingContent }] =
     useGetHomePageContentMutation();
 
@@ -57,6 +60,7 @@ const Home = () => {
   };
   const [dataNews, setDatanews] = useState([]);
   const [dataHome, setDataHome] = useState([]);
+  const [dataHeader, setDataHeader] = useState([]);
 
   const getNewsData = async () => {
     const queryParams = { off_set: 1, page_size: 3 };
@@ -67,10 +71,17 @@ const Home = () => {
     const result = await getHomePageContent().unwrap();
     setDataHome(result);
   };
+  const getHeaderData = async () => {
+    const result = await getHeader('home').unwrap();
+    setDataHeader(result);
+  };
+
   useEffect(() => {
     getNewsData();
     getHomepageData();
+    getHeaderData();
   }, []);
+
   return (
     <Fragment>
       <Helmet pageTitle='Company website' />
@@ -82,7 +93,7 @@ const Home = () => {
               <div className='container'>
                 <div className='row'>
                   <div className='col-lg-12'>
-                    {isLoadingContent ? (
+                    {isLoadingHeader ? (
                       <div style={{ textAlign: 'center' }}>
                         {' '}
                         <Spin size='large' />
@@ -90,25 +101,21 @@ const Home = () => {
                     ) : (
                       <div className={`inner text-center`}>
                         <h1 className='title theme-gradient'>
-                          <span>
-                            {dataHome[0]?.enable && dataHome[0]?.title}
-                          </span>
+                          <span>{dataHeader?.title}</span>
                         </h1>
                         <p className='description fontSize28'>
-                          <span>
-                            {dataHome[0]?.enable && dataHome[0]?.description}
-                          </span>
+                          {dataHeader?.description}
                         </p>
-                        {dataHome[0]?.enable && (
+                        {
                           <div className='slide-btn'>
                             <button
                               className='rn-button-style--2 btn-primary-color'
                               onClick={handleShopNow}
                             >
-                              SHOP NOW
+                              <FormattedMessage id='SHOP_NOW' />
                             </button>
                           </div>
-                        )}
+                        }
                       </div>
                     )}
                   </div>
@@ -128,14 +135,14 @@ const Home = () => {
           </div>
         ) : (
           <>
-            {dataHome[1]?.enable && (
+            {dataHome[0]?.enable && (
               <div className='rn-counterup-area pt--80 pb--110 bg_color--1'>
                 <div className='container'>
                   <div className='row'>
                     <div className='col-lg-12'>
                       <div className='section-title text-center'>
-                        <h2 className='title'>{dataHome[1]?.title}</h2>
-                        <p className='title'>{dataHome[1]?.description}</p>
+                        <h2 className='title'>{dataHome[0]?.title}</h2>
+                        <p className='title'>{dataHome[0]?.description}</p>
                       </div>
                     </div>
                   </div>
@@ -150,27 +157,27 @@ const Home = () => {
           <div className='rn-content-box-area rn-content-box-style--1 pb--120 bg_color--1'>
             <div className='row row--0 align-items-center'>
               <div className='col-lg-12 col-xl-6'>
-                <div className='thumbnail'>
+                <div className={styles.imageThumbnail}>
                   <img src={featureImage} alt='Featured Images' />
                 </div>
               </div>
               <div className='col-lg-12 col-xl-6 mt_lg--50 mt_md--30 mt_sm--30'>
                 <div className='content'>
-                  <h2 className='fontWeight500'>{dataHome[2]?.title}</h2>
-                  <p>{dataHome[2]?.description}</p>
+                  <h2 className='fontWeight500'>{dataHome[1]?.title}</h2>
+                  <p>{dataHome[1]?.description}</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {dataHome[3]?.enable && (
+        {dataHome[2]?.enable && (
           <div className='portfolio-area ptb--30 bg_color--1'>
             <div className='container'>
               <div className='row'>
                 <div className='col-lg-6'>
                   <div className='section-title text-left service-style--3 mb--30'>
-                    <h2 className='title'> {dataHome[3]?.title}</h2>
+                    <h2 className='title'> {dataHome[2]?.title}</h2>
                     <p>{dataHome[3]?.description}</p>
                   </div>
                 </div>
@@ -196,7 +203,7 @@ const Home = () => {
                           </h4>
                           <div className='portfolio-button'>
                             <a className='rn-btn' href='/portfolio-details'>
-                              Case Study
+                              <FormattedMessage id='READ_MORE' />
                             </a>
                           </div>
                         </div>
@@ -210,14 +217,14 @@ const Home = () => {
         )}
 
         {/* Start Blog Area */}
-        {dataHome[4]?.enable && (
+        {dataHome[3]?.enable && (
           <div className='rn-blog-area pt--120 pb--120 bg_color--1'>
             <div className='container'>
               <div className='row align-items-end'>
                 <div className='col-lg-12'>
                   <div className='section-title service-style--3 text-center'>
-                    <h2 className='title'> {dataHome[4]?.title}</h2>
-                    <p>{dataHome[4]?.description}</p>
+                    <h2 className='title'> {dataHome[3]?.title}</h2>
+                    <p>{dataHome[3]?.description}</p>
                   </div>
                 </div>
               </div>
@@ -241,7 +248,7 @@ const Home = () => {
                         </h4>
                         <div className='blog-btn'>
                           <Link className='rn-btn text-white' to='/news'>
-                            Read More
+                            <FormattedMessage id='READ_MORE' />
                           </Link>
                         </div>
                       </div>
@@ -255,21 +262,21 @@ const Home = () => {
         {/* End Blog Area */}
 
         {/* Start Team Area  */}
-        {dataHome[5]?.enbale && (
+        {dataHome[4]?.enbale && (
           <div className='rn-team-wrapper pb--120 mb--80 bg_color--1'>
             <div className='rn-team-area'>
               <div className='container'>
                 <div className='row'>
                   <div className='col-lg-12'>
                     <div className='section-title text-left mb--30'>
-                      <h2> {dataHome[5]?.title}</h2>
-                      <p className='fontSize20'>{dataHome[5]?.description}</p>
+                      <h2> {dataHome[4]?.title}</h2>
+                      <p className='fontSize20'>{dataHome[4]?.description}</p>
                       <div className='slide-btn'>
                         <Link
                           className='rn-button-style--2 btn-primary-color'
                           to='/contact'
                         >
-                          FIND OUT MORE
+                          <FormattedMessage id='FIND_OUT_MORE' />
                         </Link>
                       </div>
                     </div>

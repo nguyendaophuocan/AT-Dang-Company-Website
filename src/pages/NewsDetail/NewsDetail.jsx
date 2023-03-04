@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import FooterTwo from '../../components/footer/FooterHome';
 import { useGetNewsByIdMutation } from '../../features/news/newsApiSlice';
+import { FormattedMessage, useIntl } from 'react-intl';
 const NewsDetail = () => {
   const params = useParams();
 
@@ -21,6 +22,7 @@ const NewsDetail = () => {
   useEffect(() => {
     getNewsDetailData();
   }, []);
+
   return (
     <React.Fragment>
       <Helmet pageTitle='Blog Details' />
@@ -34,7 +36,10 @@ const NewsDetail = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='blog-single-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>News detail</h2>
+                <h2 className='title theme-gradient'>
+                  {' '}
+                  <FormattedMessage id='NEWS_DETAIL' />
+                </h2>
                 <p>...</p>
               </div>
             </div>

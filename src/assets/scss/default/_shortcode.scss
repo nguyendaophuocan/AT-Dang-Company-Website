@@ -131,6 +131,12 @@ font-family: 'Poppins', sans-serif;
   @extend %bgImagePosition;
 }
 
+.bg_image {
+  transition: transform 0.9s ease !important;
+}
+.bg_image:hover {
+  transform: scale(1.05) !important;
+}
 @for $i from 1 through 34 {
   .bg_image--#{$i} {
     background-image: url(../../../assets/images/bg/bg-image-#{$i}.jpg) !important;

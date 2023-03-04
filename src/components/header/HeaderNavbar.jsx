@@ -2,12 +2,12 @@ import { useState, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './header.module.scss';
 import logo from '../../assets/images/logo/logo-at.png';
-import logo2 from '../../assets/images/logo/logo-at.png';
+import logo2 from '../../assets/images/logo/logo-60x60.png';
 
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Modal } from 'antd';
+import { Modal, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   logOut,
@@ -16,6 +16,9 @@ import {
 } from '../../features/auth/authSlice';
 import { SearchOutlined } from '@ant-design/icons';
 import { updateSearchValue } from '../../features/search/searchSlice';
+import { FormattedMessage } from 'react-intl';
+import { updateLanguageValue } from '../../features/language/languageSlice';
+
 function HeaderNavbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,6 +56,9 @@ function HeaderNavbar() {
     setSearchValue(e.target.value);
   };
 
+  const handleChangeSelectLanguage = (language) => {
+    dispatch(updateLanguageValue(language));
+  };
   const handleSearch = async (e, searchValue) => {
     e.preventDefault();
     dispatch(updateSearchValue(searchValue));
@@ -70,11 +76,11 @@ function HeaderNavbar() {
                 src={logo}
                 alt='Logo Images'
               />
-              {/* <img
+              <img
                 className={classNames('logo-2', styles.logo2)}
                 src={logo2}
                 alt='Logo Images'
-              /> */}
+              />
             </Link>
           </div>
         </div>
@@ -88,38 +94,74 @@ function HeaderNavbar() {
               <li>{isUserLoggedIn && <Link to='/admin'>Admin</Link>}</li>
               <li>{isUserLoggedIn && <Link to='/document'>Document</Link>}</li>
               <li>
-                <Link to='/'>Home</Link>
+                <Link to='/'>
+                  <FormattedMessage id='HOME' />
+                </Link>
               </li>
 
               <li>
-                <Link to='/about'>About</Link>
+                <Link to='/about'>
+                  {' '}
+                  <FormattedMessage id='ABOUT_US' />
+                </Link>
               </li>
               <li>
-                <Link to='/news'>News</Link>
+                <Link to='/news'>
+                  {' '}
+                  <FormattedMessage id='NEWS' />
+                </Link>
+              </li>
+
+              <li>
+                <Link to='/career'>
+                  {' '}
+                  <FormattedMessage id='CAREERS' />
+                </Link>
+              </li>
+
+              <li>
+                <Link to='/contact'>
+                  {' '}
+                  <FormattedMessage id='CONTACT_US' />
+                </Link>
               </li>
               <li>
                 <a
-                  href='https://collectibles.atdang.com'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  onclick='window.open(https://collectibles.atdang.com)'
+                // href='https://collectibles.atdang.com'
+                // target='_blank'
+                // rel='noopener noreferrer'
+                // onclick='window.open(https://collectibles.atdang.com)'
                 >
-                  Collectibles
+                  <Select
+                    defaultValue='Projects'
+                    style={{ width: 100, padding: '0' }}
+                    bordered={false}
+                    options={[
+                      { value: 'collectibles', label: 'Collectibles' },
+                      { value: 'vi-VN', label: 'Vie' },
+                    ]}
+                    onChange={handleChangeSelectLanguage}
+                  />
                 </a>
-              </li>
-              <li>
-                <Link to='/career'>Careers</Link>
-              </li>
-
-              <li>
-                <Link to='/contact'>Contact us</Link>
               </li>
             </Scrollspy>
           </nav>{' '}
-          <div className={styles.logOutBtn}>
+          {/* <div className={styles.countrySelection}>
+            <Select
+              defaultValue='Projects'
+              style={{ width: 90, padding: '0' }}
+              bordered={false}
+              options={[
+                { value: 'collectibles', label: 'Collectibles' },
+                { value: 'vi-VN', label: 'Vie' },
+              ]}
+              onChange={handleChangeSelectLanguage}
+            />
+          </div> */}
+          <div className={styles.searchIcon}>
             <SearchOutlined
               style={{
-                color: 'white',
+                color: '#c6c9d8',
                 fontSize: '24px',
                 marginBottom: '5px',
                 cursor: 'pointer',
@@ -127,10 +169,22 @@ function HeaderNavbar() {
               onClick={() => handleModalSearch(true, searchRef)}
             />
           </div>
+          <div className={styles.countrySelection}>
+            <Select
+              defaultValue='Eng'
+              style={{ width: 57, padding: '0' }}
+              bordered={false}
+              options={[
+                { value: 'en-US', label: 'Eng' },
+                { value: 'vi-VN', label: 'Vie' },
+              ]}
+              onChange={handleChangeSelectLanguage}
+            />
+          </div>
           {isUserLoggedIn && (
             <div className={styles.logOutBtn}>
               <button className='rn-btn' onClick={handleLogout}>
-                Log out
+                <FormattedMessage id='LOG_OUT' />
               </button>
             </div>
           )}
@@ -149,7 +203,7 @@ function HeaderNavbar() {
         </div>
       </div>
       <Modal
-        title='Search Dang & Associates, LTD.'
+        title='Dang & Associates, LTD.'
         centered
         open={visible}
         onOk={() => setVisible(false)}
@@ -159,21 +213,25 @@ function HeaderNavbar() {
         footer={null}
       >
         <form onSubmit={(e) => handleSearch(e, searchValue)}>
-          <input
-            type='text'
-            name='search'
-            value={searchValue}
-            onChange={handleChangeSearch}
-            id='search'
-            ref={searchRef}
-            placeholder='Search '
-            style={{
-              border: 'none',
-              height: '50px',
-              width: '50%',
-              fontSize: '20px',
-            }}
-          />
+          <FormattedMessage id='SEARCH' defaultMessage='Search'>
+            {(SEARCH) => (
+              <input
+                type='text'
+                name='search'
+                value={searchValue}
+                onChange={handleChangeSearch}
+                id='search'
+                ref={searchRef}
+                placeholder={SEARCH}
+                style={{
+                  border: 'none',
+                  height: '50px',
+                  width: '50%',
+                  fontSize: '20px',
+                }}
+              />
+            )}
+          </FormattedMessage>
         </form>
       </Modal>
       ;

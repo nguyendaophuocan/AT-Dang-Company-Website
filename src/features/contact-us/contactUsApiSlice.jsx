@@ -10,7 +10,14 @@ export const contactUsSlice = apiSlice.injectEndpoints({
         body: { ...value },
       }),
     }),
+    getContactUs: builder.mutation({
+      query: (value) => ({
+        url: API_ROUTES.CONTACT_US,
+        method: 'get',
+      }),
+    }),
   }),
 });
 
-export const { usePostSubscriptionContactUsMutation } = contactUsSlice;
+export const { usePostSubscriptionContactUsMutation, useGetContactUsMutation } =
+  contactUsSlice;

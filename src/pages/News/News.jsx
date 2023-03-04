@@ -6,9 +6,12 @@ import classNames from 'classnames';
 import styles from './news.module.scss';
 import { Pagination, Spin } from 'antd';
 import { useGetNewsMutation } from '../../features/news/newsApiSlice';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
+
 import Card from 'antd/es/card/Card';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 const { Text } = Typography;
 const News = () => {
@@ -17,6 +20,8 @@ const News = () => {
     totalPage: 0,
     current: 1,
   });
+  const [dataHeader, setDataHeader] = useState([]);
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const pageSize = 5;
   const queryParams = { off_set: news.current - 1, page_size: 5 };
@@ -37,8 +42,14 @@ const News = () => {
     setNews({ ...news, data });
   };
 
+  const getHeaderData = async () => {
+    const result = await getHeader('news').unwrap();
+    setDataHeader(result);
+  };
+
   useEffect(() => {
     getData();
+    getHeaderData();
   }, []);
 
   const handleReadmore = (id) => {
@@ -56,8 +67,20 @@ const News = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>News</h2>
-                <p>Description</p>
+                {isLoadingHeader ? (
+                  <div style={{ textAlign: 'center' }}>
+                    {' '}
+                    <Spin size='large' />
+                  </div>
+                ) : (
+                  <>
+                    <h2 className='title theme-gradient'>
+                      {' '}
+                      {dataHeader?.title}
+                    </h2>
+                    <p>{dataHeader?.description}</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -121,7 +144,7 @@ const News = () => {
                                   id='mc-embedded-subscribe'
                                   onClick={() => handleReadmore(item.id)}
                                 >
-                                  Read more
+                                  <FormattedMessage id='READ_MORE' />
                                 </button>
                               </Card>
                             </div>

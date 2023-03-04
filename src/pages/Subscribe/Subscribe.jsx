@@ -1,14 +1,15 @@
 import { Alert, Input, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageHelmet from '../../components/common/Helmet';
+import FooterTwo from '../../components/footer/FooterHome';
 import { usePostSubscriptionMutation } from '../../features/subscription/subscriptionApiSlice';
 import styles from './subscribe.module.scss';
 const Subscribe = () => {
   const [email, setEmail] = useState('');
-  const [confirmedEmail, setConfirmedEmail] = useState('');
   const [msg, setMsg] = useState('');
   const [subscribe, { isLoading }] = usePostSubscriptionMutation();
 
@@ -17,13 +18,9 @@ const Subscribe = () => {
     setEmail(e.target.value);
   };
 
-  const handleChangeConfirmedEmail = (e) => {
-    setConfirmedEmail(e.target.value);
-  };
-
   const handleSubmitSubscribe = async () => {
-    if (email !== confirmedEmail || (email === '' && confirmedEmail === '')) {
-      setMsg('Email must be the same and not empty');
+    if (email === '') {
+      setMsg('Email must not empty');
     } else {
       const respone = await subscribe(email);
       if (respone?.error?.status === 500) setMsg('Email already subscribed');
@@ -45,7 +42,7 @@ const Subscribe = () => {
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
                 <h2 className='title theme-gradient'>
-                  Subscribe to our newsletters{' '}
+                  <FormattedMessage id='SUBSCRIBE_TO_NEWSLETTERS' />
                 </h2>
                 <p>... </p>
               </div>
@@ -84,12 +81,6 @@ const Subscribe = () => {
                         value={email}
                         onChange={handleChangeEmail}
                       />
-                      <Input
-                        className={styles.subscribeInput}
-                        placeholder='Confirm email'
-                        value={confirmedEmail}
-                        onChange={handleChangeConfirmedEmail}
-                      />{' '}
                       {!isLoading && msg && (
                         <p>
                           {msg == 'Success' ? (
@@ -183,7 +174,10 @@ const Subscribe = () => {
                 </div>
                 <div className='inner'>
                   <h4>
-                    <Link to='/news'>News</Link>
+                    <Link to='/news'>
+                      {' '}
+                      <FormattedMessage id='NEWS' />
+                    </Link>
                   </h4>
                 </div>
               </div>
@@ -193,6 +187,7 @@ const Subscribe = () => {
         </div>
       </div>
       {/* End Related Work */}
+      <FooterTwo />
     </React.Fragment>
   );
 };

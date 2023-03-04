@@ -263,6 +263,13 @@
               display: none;
             }
             &.logo-2 {
+              @media #{$sm-layout} {
+                display: none;
+              }
+              @media #{$lg-layout} {
+                display: block;
+              }
+
               display: block;
             }
           }

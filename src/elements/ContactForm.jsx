@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const Result = () => {
   return (
@@ -38,15 +39,15 @@ function ContactForm() {
   return (
     <form action='' onSubmit={sendEmail}>
       <div className='rn-form-group'>
-        <input type='text' name='fullname' placeholder='Your Name' required />
+        <input type='text' name='fullname' placeholder='Name' required />
       </div>
 
       <div className='rn-form-group'>
-        <input type='email' name='email' placeholder='Your Email' required />
+        <input type='email' name='email' placeholder='Email' required />
       </div>
 
       <div className='rn-form-group'>
-        <input type='text' name='phone' placeholder='Phone Number' required />
+        <input type='text' name='phone' placeholder='Number' required />
       </div>
 
       <div className='rn-form-group'>
@@ -65,7 +66,7 @@ function ContactForm() {
           name='submit'
           id='mc-embedded-subscribe'
         >
-          Submit Now
+          <FormattedMessage id='SUBMIT' />
         </button>
       </div>
 

@@ -8,13 +8,33 @@
   width: 390px;
 }
 .logo2 {
-  width: 280px;
-  padding: 25px;
+  width: 65%;
+  margin-top: 70px;
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
 }
 .logOutBtn {
-  margin-left: 20px;
+  margin-left: 10px;
 }
-
+.searchIcon {
+  margin-left: 25px;
+}
+.countrySelection {
+  margin-left: 20px;
+  :global {
+    .ant-select-selection-item {
+      color: #c6c9d8 !important;
+    }
+    .ant-select-selector {
+      padding: 0 !important;
+    }
+    .ant-select-arrow {
+      color: #c6c9d8 !important;
+      height: 50%;
+    }
+  }
+}
 :global {
   .ant-modal {
     max-width: unset !important;
@@ -45,5 +65,18 @@
       background-color: #f8ecd9;
       // background: linear-gradient(to right, #e1bc7c 50%, #e2b266 50%);
     }
+  }
+}
+
+:global {
+  .ant-select-single .ant-select-selector {
+    color: #c6c9d8 !important;
+  }
+  .ant-select .ant-select-arrow {
+    color: #c6c9d8 !important;
+  }
+
+  .ant-select-open {
+    color: #c6c9d8 !important;
   }
 }

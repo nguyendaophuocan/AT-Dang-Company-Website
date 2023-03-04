@@ -5,6 +5,7 @@ import {
   FaFacebookF,
   FaLinkedinIn,
 } from 'react-icons/fa';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 
 const SocialShare = [
@@ -29,7 +30,10 @@ class Footer extends Component {
                       Let's get <br /> to work
                     </h2>
                     <Link className='rn-button-style--2' to='/contact'>
-                      <span>Contact Us</span>
+                      <span>
+                        {' '}
+                        <FormattedMessage id='CONTACT_US' />
+                      </span>
                     </Link>
                   </div>
                 </div>
@@ -43,13 +47,22 @@ class Footer extends Component {
                         <h4>Quick Link</h4>
                         <ul className='ft-link'>
                           <li>
-                            <Link href='/career'>Work</Link>
+                            <Link to='/career'>
+                              {' '}
+                              <FormattedMessage id='CAREERS' />
+                            </Link>
                           </li>
                           <li>
-                            <Link href='/about'>About</Link>
+                            <Link to='/about'>
+                              {' '}
+                              <FormattedMessage id='ABOUT_US' />
+                            </Link>
                           </li>
                           <li>
-                            <Link href='/contact'>Let's Talk</Link>
+                            <Link to='/contact'>
+                              {' '}
+                              <FormattedMessage id='CONTACT_US' />
+                            </Link>
                           </li>
                         </ul>
                       </div>

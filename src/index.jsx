@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import './index.scss';
 import './index.css';
 import {
@@ -9,6 +9,8 @@ import {
   Outlet,
   createBrowserRouter,
 } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
+
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import Login from './pages/Login/Login';
@@ -16,7 +18,7 @@ import HeaderNavbar from './components/header/HeaderNavbar';
 import Home from './pages/Home/Home';
 import ScrollToTop from './components/hoc/withScrollToTop';
 import News from './pages/News/News';
-import Career from './elements/Career';
+import Career from './pages/Career/Career';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Subscribe from './pages/Subscribe/Subscribe';
@@ -27,15 +29,26 @@ import Document from './pages/Document/Document';
 import DocumentDetail from './pages/DocumentDetail/DocumentDetail';
 import NewsDetail from './pages/NewsDetail/NewsDetail';
 import Search from './pages/Search/Search';
+import { messages } from './i18n/message';
+import { LOCALES } from './i18n/locales';
+import { selectLanguageValue } from './features/language/languageSlice';
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 const NavbarWrapper = () => {
+  const language = useSelector(selectLanguageValue);
   return (
     <div>
       <ScrollToTop>
-        <HeaderNavbar />
-        <Outlet />
+        <IntlProvider
+          messages={messages[language]}
+          locale={language}
+          defaultLocale={language}
+        >
+          <HeaderNavbar />
+          <Outlet />
+        </IntlProvider>
       </ScrollToTop>
     </div>
   );
@@ -105,7 +118,15 @@ const router = createHashRouter([
   },
   {
     path: '/login',
-    element: <Login />,
+    element: (
+      <IntlProvider
+        messages={messages[LOCALES.ENGLISH]}
+        locale={LOCALES.ENGLISH}
+        defaultLocale={LOCALES.ENGLISH}
+      >
+        <Login />
+      </IntlProvider>
+    ),
   },
 ]);
 

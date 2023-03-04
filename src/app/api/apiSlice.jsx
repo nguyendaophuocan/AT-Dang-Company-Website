@@ -43,17 +43,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   if (status === 403 || status === 500) {
     console.log('sending refresh token');
     // send refresh token to get new access token
-    const refreshResult = await baseQuery('/api/login', 'POST', extraOptions);
-    console.log(refreshResult);
-    if (refreshResult?.data) {
-      const user = api.getState().auth.user;
-      // store the new token
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
-      // retry the original query with new access token
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logOut());
-    }
+    // const refreshResult = await baseQuery('/api/login', 'POST', extraOptions);
+    // api.dispatch(logOut());
   }
 
   return result;

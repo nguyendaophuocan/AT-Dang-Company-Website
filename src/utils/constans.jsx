@@ -7,8 +7,11 @@ export const API_ROUTES = {
   NEWS: `api/v1/news`,
   SUBSCRIPTION: `api/subscribe`,
   SUBSCRIPTION_CONTACT_US: `api/subscribe/contact`,
+  CONTACT_US: `api/v1/contact`,
+
   ADMIN_HOME_CONENTS: `/api/v1/contents`,
   ADMIN_HOME: `/api/v1/content`,
   GET_USER: `/auth/me`,
   DOCUMENT_DETAIL: `api/v1/document`,
+  HEADER: '/api/v1/header',
 };

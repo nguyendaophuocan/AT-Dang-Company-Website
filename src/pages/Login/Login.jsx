@@ -1,6 +1,7 @@
 import { Alert, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
@@ -110,7 +111,7 @@ function Login() {
                     id='mc-embedded-subscribe'
                     onClick={handleSubmit}
                   >
-                    Login{' '}
+                    <FormattedMessage id='LOGIN' />
                   </button>
                 )}
               </div>

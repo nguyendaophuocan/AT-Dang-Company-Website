@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHelmet from '../../components/common/Helmet';
 import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
-import ContactTwo from '../../elements/contact/ContactTwo';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterOtherPage';
 import styles from './contact.module.scss';
 import { usePostSubscriptionContactUsMutation } from '../../features/contact-us/contactUsApiSlice';
 import { Alert, Spin } from 'antd';
+import { FormattedMessage } from 'react-intl';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 
 const Contact = () => {
   const [formVal, setFormVal] = useState({
@@ -16,8 +17,13 @@ const Contact = () => {
     phone: '',
     message: '',
   });
+  const [dataHeader, setDataHeader] = useState([]);
+
   const [postSubscriptionContactUs, { isLoading }] =
     usePostSubscriptionContactUsMutation();
+
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+
   const handleChangeVal = (e) => {
     setFormVal({ ...formVal, [e.target.name]: e.target.value });
   };
@@ -29,6 +35,16 @@ const Contact = () => {
     if (result?.data) setMsg('Success');
     else if (result?.error) setMsg('Failed to subscribe');
   };
+
+  const getHeaderData = async () => {
+    const result = await getHeader('contactus').unwrap();
+    setDataHeader(result);
+  };
+
+  useEffect(() => {
+    getHeaderData();
+  }, []);
+
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Contact' />
@@ -42,11 +58,20 @@ const Contact = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>Contact Us</h2>
-                <p>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text.{' '}
-                </p>
+                {isLoadingHeader ? (
+                  <div style={{ textAlign: 'center' }}>
+                    {' '}
+                    <Spin size='large' />
+                  </div>
+                ) : (
+                  <>
+                    <h2 className='title theme-gradient'>
+                      {' '}
+                      {dataHeader?.title}
+                    </h2>
+                    <p>{dataHeader?.description}</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -60,7 +85,10 @@ const Contact = () => {
             <div className='row row--35 align-items-start'>
               <div className='col-lg-6 order-2 order-lg-1'>
                 <div className='section-title text-left mb--50'>
-                  <h2 className='title'>Contact Us.</h2>
+                  <h2 className='title'>
+                    {' '}
+                    <FormattedMessage id='CONTACT_US' />
+                  </h2>
                   <p className='description'>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Architecto cupiditate aperiam neque.
@@ -72,46 +100,62 @@ const Contact = () => {
                     onSubmit={(e) => handleSubmitSubscribe(e, formVal)}
                   >
                     <div className='rn-form-group'>
-                      <input
-                        type='text'
-                        name='name'
-                        placeholder='Your Name'
-                        required
-                        value={formVal.name}
-                        onChange={handleChangeVal}
-                      />
+                      <FormattedMessage id='NAME'>
+                        {(NAME) => (
+                          <input
+                            type='text'
+                            name='name'
+                            placeholder={NAME}
+                            required
+                            value={formVal.name}
+                            onChange={handleChangeVal}
+                          />
+                        )}
+                      </FormattedMessage>
                     </div>
 
                     <div className='rn-form-group'>
-                      <input
-                        type='email'
-                        name='email'
-                        placeholder='Your Email'
-                        required
-                        value={formVal.email}
-                        onChange={handleChangeVal}
-                      />
+                      <FormattedMessage id='EMAIL'>
+                        {(EMAIL) => (
+                          <input
+                            type='email'
+                            name='email'
+                            placeholder={EMAIL}
+                            required
+                            value={formVal.email}
+                            onChange={handleChangeVal}
+                          />
+                        )}
+                      </FormattedMessage>
                     </div>
 
                     <div className='rn-form-group'>
-                      <input
-                        type='text'
-                        name='phone'
-                        placeholder='Phone Number'
-                        required
-                        value={formVal.phone}
-                        onChange={handleChangeVal}
-                      />
+                      <FormattedMessage id='PHONE_NUMBER'>
+                        {(PHONE_NUMBER) => (
+                          <input
+                            type='text'
+                            name='phone'
+                            placeholder={PHONE_NUMBER}
+                            required
+                            value={formVal.phone}
+                            onChange={handleChangeVal}
+                          />
+                        )}
+                      </FormattedMessage>
                     </div>
 
                     <div className='rn-form-group'>
-                      <textarea
-                        name='message'
-                        placeholder='Your Message'
-                        required
-                        value={formVal.message}
-                        onChange={handleChangeVal}
-                      ></textarea>
+                      <FormattedMessage id='MESSAGE'>
+                        {(MESSAGE) => (
+                          <textarea
+                            name='message'
+                            placeholder={MESSAGE}
+                            required
+                            value={formVal.message}
+                            onChange={handleChangeVal}
+                          ></textarea>
+                        )}
+                      </FormattedMessage>
                     </div>
                     {!isLoading && msg && (
                       <p>
@@ -143,7 +187,7 @@ const Contact = () => {
                           name='submit'
                           id='mc-embedded-subscribe'
                         >
-                          Submit Now
+                          <FormattedMessage id='SUBMIT' />
                         </button>
                       )}
                     </div>
@@ -166,7 +210,10 @@ const Contact = () => {
       {/* Start Contact Top Area  */}
       <div className='rn-contact-top-area ptb--80 bg_color--5'>
         <div className='container'>
-          <h3 className={styles.contactSection}>Customer Services Purposes </h3>
+          <h3 className={styles.contactSection}>
+            {' '}
+            <FormattedMessage id='CUSTOMER_SERVICE_PURPOSES' />
+          </h3>
           <div className='row'>
             {/* Start Single Address  */}
             <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
@@ -175,7 +222,10 @@ const Contact = () => {
                   <FiHeadphones />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Contact With Phone Number</h4>
+                  <h4 className='title'>
+                    {' '}
+                    <FormattedMessage id='CONTACT_PHONE_NUMBER' />
+                  </h4>
                   <p>
                     <a href='tel:+057 254 365 456'>+057 254 365 456</a>
                   </p>
@@ -194,7 +244,10 @@ const Contact = () => {
                   <FiMail />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Email Address</h4>
+                  <h4 className='title'>
+                    {' '}
+                    <FormattedMessage id='EMAIL' />
+                  </h4>
                   <p>
                     <a href='mailto:admin@gmail.com'>admin@gmail.com</a>
                   </p>
@@ -213,7 +266,10 @@ const Contact = () => {
                   <FiMapPin />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Location</h4>
+                  <h4 className='title'>
+                    {' '}
+                    <FormattedMessage id='LOCATION' />
+                  </h4>
                   <p>
                     5678 Bangla Main Road, cities 580 <br /> GBnagla, example
                     54786
@@ -223,7 +279,10 @@ const Contact = () => {
             </div>
             {/* End Single Address  */}
           </div>
-          <h3 className={styles.contactSection}>Business Purposes</h3>
+          <h3 className={styles.contactSection}>
+            {' '}
+            <FormattedMessage id='BUSINESS_PURPOSES' />
+          </h3>
           <div className='row'>
             {/* Start Single Address  */}
             <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
@@ -232,7 +291,9 @@ const Contact = () => {
                   <FiHeadphones />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Contact With Phone Number</h4>
+                  <h4 className='title'>
+                    <FormattedMessage id='CONTACT_PHONE_NUMBER' />
+                  </h4>
                   <p>
                     <a href='tel:+057 254 365 456'>+057 254 365 456</a>
                   </p>
@@ -251,7 +312,10 @@ const Contact = () => {
                   <FiMail />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Email Address</h4>
+                  <h4 className='title'>
+                    {' '}
+                    <FormattedMessage id='EMAIL' />
+                  </h4>
                   <p>
                     <a href='mailto:admin@gmail.com'>admin@gmail.com</a>
                   </p>
@@ -270,7 +334,10 @@ const Contact = () => {
                   <FiMapPin />
                 </div>
                 <div className='inner'>
-                  <h4 className='title'>Location</h4>
+                  <h4 className='title'>
+                    {' '}
+                    <FormattedMessage id='LOCATION' />
+                  </h4>
                   <p>
                     5678 Bangla Main Road, cities 580 <br /> GBnagla, example
                     54786

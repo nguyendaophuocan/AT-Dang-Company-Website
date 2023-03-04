@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { useCreateDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
+import { useCreateDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { Spin } from 'antd';
 import { notification } from 'antd';
 

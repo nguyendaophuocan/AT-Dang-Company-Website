@@ -31,7 +31,7 @@ class ContactOne extends Component {
                       onChange={(e) => {
                         this.setState({ rnName: e.target.value });
                       }}
-                      placeholder='Your Name *'
+                      placeholder='Name *'
                     />
                   </label>
 
