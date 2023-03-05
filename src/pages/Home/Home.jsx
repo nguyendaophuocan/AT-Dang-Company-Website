@@ -104,7 +104,7 @@ const Home = () => {
                           <span>{dataHeader?.title}</span>
                         </h1>
                         <p className='description fontSize28'>
-                          {dataHeader?.description1}
+                          {dataHeader?.description}
                         </p>
                         {
                           <div className='slide-btn'>
