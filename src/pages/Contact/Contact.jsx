@@ -5,7 +5,10 @@ import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterOtherPage';
 import styles from './contact.module.scss';
-import { usePostSubscriptionContactUsMutation } from '../../features/contact-us/contactUsApiSlice';
+import {
+  useGetContactUsMutation,
+  usePostSubscriptionContactUsMutation,
+} from '../../features/contact-us/contactUsApiSlice';
 import { Alert, Spin } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
@@ -18,11 +21,14 @@ const Contact = () => {
     message: '',
   });
   const [dataHeader, setDataHeader] = useState([]);
+  const [dataContactUs, setDataContactUs] = useState([]);
 
   const [postSubscriptionContactUs, { isLoading }] =
     usePostSubscriptionContactUsMutation();
 
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+  const [getContactUs, { isLoading: isLoadingContactus }] =
+    useGetContactUsMutation();
 
   const handleChangeVal = (e) => {
     setFormVal({ ...formVal, [e.target.name]: e.target.value });
@@ -41,8 +47,14 @@ const Contact = () => {
     setDataHeader(result);
   };
 
+  const getContactUsData = async () => {
+    const result = await getContactUs().unwrap();
+    setDataContactUs(result);
+  };
+
   useEffect(() => {
     getHeaderData();
+    getContactUsData();
   }, []);
 
   return (
@@ -224,14 +236,11 @@ const Contact = () => {
                 <div className='inner'>
                   <h4 className='title'>
                     {' '}
-                    <FormattedMessage id='CONTACT_PHONE_NUMBER' />
+                    {/* <FormattedMessage id='CONTACT_PHONE_NUMBER' /> */}
+                    {dataContactUs[0]?.title}
                   </h4>
-                  <p>
-                    <a href='tel:+057 254 365 456'>+057 254 365 456</a>
-                  </p>
-                  <p>
-                    <a href='tel:+856 325 652 984'>+856 325 652 984</a>
-                  </p>
+
+                  <p>{dataContactUs[0]?.description}</p>
                 </div>
               </div>
             </div>
@@ -246,14 +255,11 @@ const Contact = () => {
                 <div className='inner'>
                   <h4 className='title'>
                     {' '}
-                    <FormattedMessage id='EMAIL' />
+                    {/* <FormattedMessage id='EMAIL' /> */}
+                    {dataContactUs[1]?.title}
                   </h4>
-                  <p>
-                    <a href='mailto:admin@gmail.com'>admin@gmail.com</a>
-                  </p>
-                  <p>
-                    <a href='mailto:example@gmail.com'>example@gmail.com</a>
-                  </p>
+
+                  <p>{dataContactUs[1]?.description}</p>
                 </div>
               </div>
             </div>
@@ -268,12 +274,10 @@ const Contact = () => {
                 <div className='inner'>
                   <h4 className='title'>
                     {' '}
-                    <FormattedMessage id='LOCATION' />
+                    {/* <FormattedMessage id='LOCATION' /> */}
+                    {dataContactUs[2]?.title}
                   </h4>
-                  <p>
-                    5678 Bangla Main Road, cities 580 <br /> GBnagla, example
-                    54786
-                  </p>
+                  <p>{dataContactUs[2]?.description}</p>
                 </div>
               </div>
             </div>
@@ -292,14 +296,10 @@ const Contact = () => {
                 </div>
                 <div className='inner'>
                   <h4 className='title'>
-                    <FormattedMessage id='CONTACT_PHONE_NUMBER' />
+                    {/* <FormattedMessage id='CONTACT_PHONE_NUMBER' /> */}
+                    {dataContactUs[3]?.title}
                   </h4>
-                  <p>
-                    <a href='tel:+057 254 365 456'>+057 254 365 456</a>
-                  </p>
-                  <p>
-                    <a href='tel:+856 325 652 984'>+856 325 652 984</a>
-                  </p>
+                  <p>{dataContactUs[3]?.description}</p>
                 </div>
               </div>
             </div>
@@ -314,14 +314,10 @@ const Contact = () => {
                 <div className='inner'>
                   <h4 className='title'>
                     {' '}
-                    <FormattedMessage id='EMAIL' />
+                    {/* <FormattedMessage id='EMAIL' /> */}
+                    {dataContactUs[4]?.title}
                   </h4>
-                  <p>
-                    <a href='mailto:admin@gmail.com'>admin@gmail.com</a>
-                  </p>
-                  <p>
-                    <a href='mailto:example@gmail.com'>example@gmail.com</a>
-                  </p>
+                  <p>{dataContactUs[4]?.description}</p>
                 </div>
               </div>
             </div>
@@ -336,12 +332,10 @@ const Contact = () => {
                 <div className='inner'>
                   <h4 className='title'>
                     {' '}
-                    <FormattedMessage id='LOCATION' />
+                    {/* <FormattedMessage id='LOCATION' /> */}
+                    {dataContactUs[5]?.title}
                   </h4>
-                  <p>
-                    5678 Bangla Main Road, cities 580 <br /> GBnagla, example
-                    54786
-                  </p>
+                  <p>{dataContactUs[5]?.description}</p>
                 </div>
               </div>
             </div>

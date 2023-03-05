@@ -104,7 +104,7 @@ const Home = () => {
                           <span>{dataHeader?.title}</span>
                         </h1>
                         <p className='description fontSize28'>
-                          {dataHeader?.description}
+                          {dataHeader?.description1}
                         </p>
                         {
                           <div className='slide-btn'>
@@ -142,7 +142,7 @@ const Home = () => {
                     <div className='col-lg-12'>
                       <div className='section-title text-center'>
                         <h2 className='title'>{dataHome[0]?.title}</h2>
-                        <p className='title'>{dataHome[0]?.description}</p>
+                        <p className='title'>{dataHome[0]?.description1}</p>
                       </div>
                     </div>
                   </div>
@@ -164,7 +164,7 @@ const Home = () => {
               <div className='col-lg-12 col-xl-6 mt_lg--50 mt_md--30 mt_sm--30'>
                 <div className='content'>
                   <h2 className='fontWeight500'>{dataHome[1]?.title}</h2>
-                  <p>{dataHome[1]?.description}</p>
+                  <p>{dataHome[1]?.description1}</p>
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@ const Home = () => {
                 <div className='col-lg-6'>
                   <div className='section-title text-left service-style--3 mb--30'>
                     <h2 className='title'> {dataHome[2]?.title}</h2>
-                    <p>{dataHome[3]?.description}</p>
+                    <p>{dataHome[2]?.description1}</p>
                   </div>
                 </div>
               </div>
@@ -224,7 +224,7 @@ const Home = () => {
                 <div className='col-lg-12'>
                   <div className='section-title service-style--3 text-center'>
                     <h2 className='title'> {dataHome[3]?.title}</h2>
-                    <p>{dataHome[3]?.description}</p>
+                    <p>{dataHome[3]?.description1}</p>
                   </div>
                 </div>
               </div>
@@ -270,7 +270,7 @@ const Home = () => {
                   <div className='col-lg-12'>
                     <div className='section-title text-left mb--30'>
                       <h2> {dataHome[4]?.title}</h2>
-                      <p className='fontSize20'>{dataHome[4]?.description}</p>
+                      <p className='fontSize20'>{dataHome[4]?.description1}</p>
                       <div className='slide-btn'>
                         <Link
                           className='rn-button-style--2 btn-primary-color'

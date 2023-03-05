@@ -92,7 +92,7 @@ const About = () => {
                       <div className='section-title'>
                         <h2 className='title'>{dataAbout[5]?.title}</h2>
                         <p className='description'>
-                          {dataAbout[5]?.description}
+                          {dataAbout[5]?.description1}
                         </p>
                       </div>
                     )}
@@ -102,7 +102,7 @@ const About = () => {
                       <div className='section-title'>
                         <h2 className='title'>{dataAbout[6]?.title}</h2>
                         <p className='description'>
-                          {dataAbout[6]?.description}
+                          {dataAbout[6]?.description1}
                         </p>
                       </div>
                     )}

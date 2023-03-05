@@ -7,14 +7,14 @@ import logo2 from '../../assets/images/logo/logo-60x60.png';
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Modal, Select } from 'antd';
+import { Button, Dropdown, Modal, Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   logOut,
   selectCurrentToken,
   selectCurrentUser,
 } from '../../features/auth/authSlice';
-import { SearchOutlined } from '@ant-design/icons';
+import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { updateSearchValue } from '../../features/search/searchSlice';
 import { FormattedMessage } from 'react-intl';
 import { updateLanguageValue } from '../../features/language/languageSlice';
@@ -65,6 +65,57 @@ function HeaderNavbar() {
     // handleModalSearch(false);
     navigate(`/search?term=${searchValue}`);
   };
+
+  <Select
+    defaultValue='Projects'
+    style={{ width: 100, padding: '0' }}
+    bordered={false}
+    options={[
+      { value: 'collectibles', label: 'Collectibles' },
+      { value: 'vi-VN', label: 'Vie' },
+    ]}
+    onChange={handleChangeSelectLanguage}
+  />;
+
+  const items = [
+    {
+      key: '1',
+      label: (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://collectibles.atdang.com'
+        >
+          Dang's Collectibles
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://collectibles.atdang.com'
+        >
+          Dang's Bespoke Market Research
+        </a>
+      ),
+    },
+  ];
+
+  const [open, setOpen] = useState(false);
+
+  const handleMenuClick = (e) => {
+    if (e.key === '3') {
+      setOpen(false);
+    }
+  };
+
+  const handleOpenChange = (flag) => {
+    setOpen(flag);
+  };
+
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
       <div className='header-wrapper'>
@@ -92,7 +143,13 @@ function HeaderNavbar() {
               offset={-200}
             >
               <li>{isUserLoggedIn && <Link to='/admin'>Admin</Link>}</li>
-              <li>{isUserLoggedIn && <Link to='/document'>Document</Link>}</li>
+              <li>
+                {isUserLoggedIn && (
+                  <Link to='/document'>
+                    <FormattedMessage id='DOCUMENT' />
+                  </Link>
+                )}
+              </li>
               <li>
                 <Link to='/'>
                   <FormattedMessage id='HOME' />
@@ -126,7 +183,7 @@ function HeaderNavbar() {
                 </Link>
               </li>
               <li>
-                <a
+                {/* <a
                 // href='https://collectibles.atdang.com'
                 // target='_blank'
                 // rel='noopener noreferrer'
@@ -142,22 +199,41 @@ function HeaderNavbar() {
                     ]}
                     onChange={handleChangeSelectLanguage}
                   />
-                </a>
+                </a> */}
               </li>
             </Scrollspy>
           </nav>{' '}
-          {/* <div className={styles.countrySelection}>
-            <Select
+          <div className={styles.projectSelection}>
+            {/* <Select
               defaultValue='Projects'
-              style={{ width: 90, padding: '0' }}
+              style={{ width: 140, padding: '0' }}
               bordered={false}
+              showArrow={false}
               options={[
-                { value: 'collectibles', label: 'Collectibles' },
-                { value: 'vi-VN', label: 'Vie' },
+                { value: 'Collectibles', label: 'Collectibles' },
+                {
+                  value: 'Bespoke Market',
+                  label: 'Bespoke Market',
+                },
               ]}
               onChange={handleChangeSelectLanguage}
-            />
-          </div> */}
+            /> */}
+            <Dropdown
+              menu={{
+                items,
+                onClick: handleMenuClick,
+              }}
+              onOpenChange={handleOpenChange}
+              open={open}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <FormattedMessage id='PROJECTS' />
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>
+          </div>
           <div className={styles.searchIcon}>
             <SearchOutlined
               style={{

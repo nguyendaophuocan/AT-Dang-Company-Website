@@ -5,7 +5,12 @@ import Footer from '../../components/footer/FooterOtherPage';
 import { FormattedMessage } from 'react-intl';
 import PageHelmet from '../../components/common/Helmet';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
-import { Spin } from 'antd';
+import { Card, Pagination, Spin } from 'antd';
+import { useGetCareerMutation } from '../../features/career/careerApiSlice';
+import classNames from 'classnames';
+import { Typography } from 'antd';
+import styles from './career.module.scss';
+const { Text } = Typography;
 
 const Career = () => {
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
@@ -16,9 +21,39 @@ const Career = () => {
     setDataHeader(result);
   };
 
+  const [career, setCareer] = useState({
+    data: [],
+    totalPage: 0,
+    current: 1,
+  });
+
+  const pageSize = 5;
+  const queryParams = { off_set: career.current - 1, page_size: 5 };
+
+  const [getCareer, { isLoading, data, refetch }] = useGetCareerMutation();
+
+  const handleChange = (page) => {
+    setCareer({
+      ...career,
+      current: page,
+    });
+    getCareer({ off_set: page - 1, page_size: 5 });
+  };
+
+  const getData = async () => {
+    const data = await getCareer(queryParams).unwrap();
+    setCareer({ ...career, data });
+  };
+
+  useEffect(() => {
+    getData();
+    getHeaderData();
+  }, []);
+
   useEffect(() => {
     getHeaderData();
   }, []);
+
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Careers' />
@@ -54,75 +89,88 @@ const Career = () => {
       {/* End Breadcrump Area */}
 
       {/* Start Contact Top Area  */}
-      <div className='rn-contact-top-area ptb--120 bg_color--5'>
-        <div className='container'>
-          <div className='row'>
-            {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
-              <div className='rn-address'>
-                <div className='icon'>
-                  <FiHeadphones />
-                </div>
-                <div className='inner'>
-                  <h4 className='title'>
-                    <FormattedMessage id='PHONE_NUMBER' />
-                  </h4>
-                  <p>
-                    <a href='tel:+057 254 365 456'>+057 254 365 456</a>
-                  </p>
-                  <p>
-                    <a href='tel:+856 325 652 984'>+856 325 652 984</a>
-                  </p>
+      <div className='rn-News-area ptb--120 bg_color--1'>
+        <div className='rn-News-wrapper'>
+          <div className='container'>
+            <div className='row row--35 align-items-center'>
+              <div className='col-lg-5'>
+                <div className='thumbnail'>
+                  {/* <img
+                    className='w-100'
+                    src={require('../assets/images/News/News-3.jpg')}
+                    alt='News Images'
+                  /> */}
                 </div>
               </div>
+              {isLoading ? (
+                <div>
+                  <Spin style={{ width: '100%' }} />
+                </div>
+              ) : (
+                <>
+                  <div className='col-lg-12'>
+                    <div className='News-inner inner'>
+                      {data?.content?.map(
+                        (item) =>
+                          item?.enable && (
+                            <div className='mb--40'>
+                              <Card
+                                title={`${item.createdAtFormat}`}
+                                bordered={true}
+                                style={{ width: 'auto' }}
+                              >
+                                <div
+                                  className={classNames(
+                                    'section-title mt--10',
+                                    styles.careerSection
+                                  )}
+                                >
+                                  <h2 className='title font--44'>
+                                    {item.title}
+                                  </h2>
+                                </div>{' '}
+                                <p className='description mb--40'>
+                                  <Text
+                                    style={{ width: 800, fontSize: '18px' }}
+                                    ellipsis={{ tooltip: '' }}
+                                  >
+                                    {item.description}
+                                  </Text>
+                                </p>
+                                <div className=' mb--30'>{item.updatedBy}</div>
+                                {/* <button
+                                  className='rn-button-style--2 btn-solid'
+                                  type='submit'
+                                  value='submit'
+                                  name='submit'
+                                  id='mc-embedded-subscribe'
+                                  onClick={() => handleReadmore(item.id)}
+                                >
+                                  <FormattedMessage id='READ_MORE' />
+                                </button> */}
+                              </Card>
+                            </div>
+                          )
+                      )}
+                    </div>
+                  </div>
+                  {data && (
+                    <div className={styles.pagination}>
+                      <Pagination
+                        pageSize={pageSize}
+                        current={career.current}
+                        total={10}
+                        onChange={handleChange}
+                        style={{ bottom: '0px' }}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
             </div>
-            {/* End Single Address  */}
-
-            {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--50'>
-              <div className='rn-address'>
-                <div className='icon'>
-                  <FiMail />
-                </div>
-                <div className='inner'>
-                  <h4 className='title'>
-                    {' '}
-                    <FormattedMessage id='EMAIL' />
-                  </h4>
-                  <p>
-                    <a href='mailto:admin@gmail.com'>admin@gmail.com</a>
-                  </p>
-                  <p>
-                    <a href='mailto:example@gmail.com'>example@gmail.com</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* End Single Address  */}
-
-            {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_md--50 mt_sm--50'>
-              <div className='rn-address'>
-                <div className='icon'>
-                  <FiMapPin />
-                </div>
-                <div className='inner'>
-                  <h4 className='title'>
-                    {' '}
-                    <FormattedMessage id='LOCATION' />
-                  </h4>
-                  <p>
-                    5678 Bangla Main Road, cities 580 <br /> GBnagla, example
-                    54786
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* End Single Address  */}
           </div>
         </div>
       </div>
-
       <Footer />
     </React.Fragment>
   );

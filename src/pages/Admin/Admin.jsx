@@ -33,7 +33,11 @@ import {
   useGetHeaderMutation,
   useUpdateHeaderMutation,
 } from '../../features/header/headerApiSlice';
-import { useGetContactUsMutation } from '../../features/contact-us/contactUsApiSlice';
+import {
+  useGetContactUsMutation,
+  useUpdateContactUsMutation,
+} from '../../features/contact-us/contactUsApiSlice';
+import { useGetCareerMutation } from '../../features/career/careerApiSlice';
 
 const Admin = () => {
   const columnsHomepage = [
@@ -62,7 +66,7 @@ const Admin = () => {
     {
       title: 'Description',
       key: 'description',
-      dataIndex: 'description',
+      dataIndex: 'description1',
     },
     {
       title: 'Action',
@@ -171,6 +175,82 @@ const Admin = () => {
           <Button
             type='primary'
             onClick={() => handleEnalbeDisable('news', 'disable', record.id)}
+          >
+            Enable
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  const columnsCareer = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      render: (text) => <span>{text}</span>,
+    },
+    {
+      title: 'Enable',
+      dataIndex: 'enable',
+      key: 'enable',
+      render: (text) =>
+        text === true ? (
+          <Tag color='green'>{String(text)}</Tag>
+        ) : (
+          <Tag color='red'>{String(text)}</Tag>
+        ),
+    },
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Updated by',
+      dataIndex: 'updatedBy',
+      key: 'updatedBy',
+    },
+    {
+      title: 'Description',
+      key: 'description',
+      dataIndex: 'description',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, record) => (
+        <Space size='middle'>
+          <Button
+            primary
+            onClick={() =>
+              showModal(record?.id, 'career', 'title', record?.title)
+            }
+          >
+            Update TITLE section {record.id}
+          </Button>
+          <Button
+            primary
+            onClick={() =>
+              showModal(
+                record?.id,
+                'career',
+                'description',
+                record?.description
+              )
+            }
+          >
+            Update DESCRIPTION section {record.id}
+          </Button>
+          <Button
+            danger
+            onClick={() => handleEnalbeDisable('career', 'disable', record.id)}
+          >
+            Disable
+          </Button>
+          <Button
+            type='primary'
+            onClick={() => handleEnalbeDisable('career', 'disable', record.id)}
           >
             Enable
           </Button>
@@ -573,6 +653,8 @@ const Admin = () => {
   const [aboutData, setAboutData] = useState([]);
   const [documentDetailData, setDocumentDetailData] = useState([]);
   const [newsData, setNewsData] = useState([]);
+  const [careerData, setCareerData] = useState([]);
+
   const [contactUsData, setContactUsData] = useState([]);
 
   const [selectedDocumentVal, setSelectedDocumentVal] = useState(1);
@@ -618,6 +700,9 @@ const Admin = () => {
   const [updateNewsContent, { isLoading: isLoadingUpdateNews }] =
     useUpdateNewsContentMutation();
 
+  const [updateContactUs, { isLoading: isLoadingUpdateContactUs }] =
+    useUpdateContactUsMutation();
+
   const [updateHeader, { isLoading: isLoadingUpdateHeader }] =
     useUpdateHeaderMutation();
 
@@ -625,6 +710,7 @@ const Admin = () => {
     useCreateNewsMutation();
 
   const [getNews, { isLoading: isLoadingNews }] = useGetNewsMutation();
+  const [getCareer, { isLoading: isLoadingCareer }] = useGetCareerMutation();
 
   const [getContactUs, { isLoading: isLoadingContactUs }] =
     useGetContactUsMutation();
@@ -694,6 +780,13 @@ const Admin = () => {
     setNewsData(data?.content);
   };
 
+  const getCareerData = async () => {
+    const queryParams = { off_set: 0, page_size: 5 };
+
+    const data = await getCareer(queryParams).unwrap();
+    setCareerData(data?.content);
+  };
+
   const getContactUsData = async () => {
     const data = await getContactUs().unwrap();
     setContactUsData(data);
@@ -747,6 +840,19 @@ const Admin = () => {
           description: value,
         };
         result = await updateNewsContent({ id, payload }).unwrap();
+      }
+    } else if (page === 'contactus') {
+      if (type === 'title') {
+        payload = {
+          title: value,
+        };
+        result = await updateContactUs({ id, payload }).unwrap();
+      }
+      if (type === 'description') {
+        payload = {
+          description: value,
+        };
+        result = await updateContactUs({ id, payload }).unwrap();
       }
     }
     if (result) hideModal();
@@ -852,6 +958,7 @@ const Admin = () => {
     getAllDocumentsData();
     getHeaderData();
     getContactUsData();
+    getCareerData();
   }, []);
 
   const handleModalHeader = (id, position, type, payload) => {
@@ -1016,6 +1123,25 @@ const Admin = () => {
             columns={columnsNews}
             loading={isLoadingNews}
             dataSource={newsData}
+          />
+        </Content>
+      </Layout>
+
+      <Layout className='layout'>
+        <Content style={{ padding: '0 100px' }}>
+          <h2>
+            {' '}
+            <FormattedMessage id='CAREERS' />
+          </h2>
+          <Space style={{ marginBottom: 16 }}>
+            <Button onClick={() => handleModalCreateNews(true)}>
+              <FormattedMessage id='CREATE_CAREER' />
+            </Button>
+          </Space>
+          <Table
+            columns={columnsCareer}
+            loading={isLoadingCareer}
+            dataSource={careerData}
           />
         </Content>
       </Layout>

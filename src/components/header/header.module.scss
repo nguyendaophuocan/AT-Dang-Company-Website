@@ -8,8 +8,8 @@
   width: 390px;
 }
 .logo2 {
-  width: 65%;
-  margin-top: 70px;
+  width: 58%;
+  margin-top: 72px;
   @media only screen and (max-width: 767px) {
     display: none;
   }
@@ -19,11 +19,14 @@
 }
 .searchIcon {
   margin-left: 25px;
+  margin-right: 10px;
 }
 .countrySelection {
-  margin-left: 20px;
+  margin-left: 15px;
   :global {
     .ant-select-selection-item {
+      font-size: 16px;
+      font-weight: 400;
       color: #c6c9d8 !important;
     }
     .ant-select-selector {
@@ -78,5 +81,42 @@
 
   .ant-select-open {
     color: #c6c9d8 !important;
+  }
+}
+
+.projectSelection {
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
+  // :global {
+  //   .ant-select-selection-item {
+  //     font-size: 16px;
+  //     font-weight: 400;
+  //     color: #c6c9d8 !important;
+  //   }
+  //   .ant-select-selector {
+  //     padding: 0 !important;
+  //   }
+  //   .ant-select-arrow {
+  //     color: #c6c9d8 !important;
+  //     height: 50%;
+  //   }
+  // }
+}
+
+:global {
+  .ant-space:hover {
+    color: #c6c9d8 !important;
+  }
+  .ant-dropdown-trigger {
+    color: #c6c9d8 !important;
+    .ant-space-item:nth-child(1) {
+      font-size: 16px !important;
+      font-weight: 400 !important;
+    }
+    .ant-space-item:nth-child(2) {
+      margin-top: -4px;
+      font-size: 13px !important;
+    }
   }
 }

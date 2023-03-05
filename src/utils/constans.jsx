@@ -14,4 +14,5 @@ export const API_ROUTES = {
   GET_USER: `/auth/me`,
   DOCUMENT_DETAIL: `api/v1/document`,
   HEADER: '/api/v1/header',
+  CAREER: '/api/v1/career',
 };
