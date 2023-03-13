@@ -13,7 +13,7 @@ function withTokenCheck({ children }) {
     useEffect(() => {
       getHomepageData();
     }, []);
-    console.log('wwith auth');
+    console.log('with auth');
     return <>{children}</>;
   };
 }

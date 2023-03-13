@@ -48,7 +48,9 @@ const FooterHome = () => {
           </div>
           <div className='col-lg-3 col-md-6 col-sm-6 col-12'>
             <div className='inner text-center mt--10'>
-              <div className='rn-form-group'>
+              <div
+                className={classNames('rn-form-group', styles.subscribeHover)}
+              >
                 <Link className={styles.subscribe} to='/subscribe'>
                   <span style={{ fontSize: '16px' }}>
                     <FormattedMessage id='SUBSCRIBE_TO_NEWSLETTERS' />

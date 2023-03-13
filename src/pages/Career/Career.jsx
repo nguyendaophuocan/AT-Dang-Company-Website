@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
 
-import Footer from '../../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterHome';
 import { FormattedMessage } from 'react-intl';
 import PageHelmet from '../../components/common/Helmet';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';

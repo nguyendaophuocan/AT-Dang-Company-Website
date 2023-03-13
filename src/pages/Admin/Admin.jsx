@@ -657,7 +657,7 @@ const Admin = () => {
 
   const [contactUsData, setContactUsData] = useState([]);
 
-  const [selectedDocumentVal, setSelectedDocumentVal] = useState(1);
+  const [selectedDocumentVal, setSelectedDocumentVal] = useState('');
   const [selectDocumentOptions, setSelectDocumentOptions] = useState([]);
   const [createNewsData, setCreateNewsData] = useState({
     title: '',
@@ -686,6 +686,7 @@ const Admin = () => {
     value: '',
   });
 
+  console.log('selectedDocumentVal', selectedDocumentVal);
   const [getDocumentDetail, { isLoading: isLoadingDocument }] =
     useGetDocumentDetailMutation();
 
@@ -792,8 +793,8 @@ const Admin = () => {
     setContactUsData(data);
   };
 
-  const getDocumentDetailData = async (id) => {
-    const result = await getDocumentDetail(id).unwrap();
+  const getDocumentDetailData = async (name) => {
+    const result = await getDocumentDetail(name).unwrap();
     if (result) {
       setDocumentDetailData(result?.contextList);
     }
@@ -803,12 +804,14 @@ const Admin = () => {
     const result = await getAllDocuments().unwrap();
     const totalOptions = result?.length;
     let options = [];
-    for (let i = 1; i <= totalOptions; i++) {
-      options.push({ value: i, label: i });
+    for (let i = 0; i < totalOptions; i++) {
+      console.log('RESULT I', result[i]);
+      options.push({ value: result[i].name, label: result[i].name });
     }
     if (result) {
       setSelectDocumentOptions(options);
     }
+    console.log('options', options);
   };
 
   const handleUpdate = async (editingValue) => {
@@ -914,9 +917,9 @@ const Admin = () => {
     }
   };
 
-  const handleSelectDocumentDetail = async (id) => {
-    setSelectedDocumentVal(id);
-    await getDocumentDetailData(id);
+  const handleSelectDocumentDetail = async (name) => {
+    setSelectedDocumentVal(name);
+    await getDocumentDetailData(name);
   };
 
   const getHeaderNews = async (value = 'news') => {

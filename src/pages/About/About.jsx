@@ -5,7 +5,7 @@ import BrandTwo from '../../elements/BrandTwo';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
-import Footer from '../../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterHome';
 import { Link } from 'react-router-dom';
 import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlice';
 import { Spin } from 'antd';

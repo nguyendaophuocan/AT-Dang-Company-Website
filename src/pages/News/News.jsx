@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PageHelmet from '../../components/common/Helmet';
 
-import Footer from '../../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterHome';
 import classNames from 'classnames';
 import styles from './news.module.scss';
 import { Pagination, Spin } from 'antd';

@@ -3,7 +3,7 @@ import PageHelmet from '../../components/common/Helmet';
 import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
-import Footer from '../../components/footer/FooterOtherPage';
+import Footer from '../../components/footer/FooterHome';
 import styles from './contact.module.scss';
 import {
   useGetContactUsMutation,

@@ -25,7 +25,7 @@ export const messages = {
     CUSTOMER_SERVICE_PURPOSES: 'Customer Services Purposes',
     BUSINESS_PURPOSES: 'Business Purposes',
     LOCATION: 'Location',
-    SUBSCRIBE_TO_NEWSLETTERS: 'Subscribe to newsletters',
+    SUBSCRIBE_TO_NEWSLETTERS: 'Subscribe to our newsletter',
     FIND_OUT_MORE: 'Find our more',
     CONTACT_FOR_MORE: 'Contact for more',
     READ_MORE: 'Read more',

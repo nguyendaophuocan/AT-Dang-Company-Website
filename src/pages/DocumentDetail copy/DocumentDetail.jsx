@@ -4,7 +4,7 @@ import { FiClock, FiUser, FiMessageCircle, FiHeart } from 'react-icons/fi';
 import { Link, useParams } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
-import FooterTwo from '../../components/footer/FooterHome';
+import FooterHome from '../../components/footer/FooterHome';
 import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 const DocumentDetail = () => {
   const params = useParams();
@@ -169,7 +169,7 @@ const DocumentDetail = () => {
       </div>
       {/* End Blog Details */}
 
-      <FooterTwo />
+      <FooterHome />
     </React.Fragment>
   );
 };

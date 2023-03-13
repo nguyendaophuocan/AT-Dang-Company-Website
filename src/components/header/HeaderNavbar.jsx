@@ -115,11 +115,18 @@ function HeaderNavbar() {
   const handleOpenChange = (flag) => {
     setOpen(flag);
   };
-
+  const increaseSize = () => {
+    const root = getComputedStyle(document.documentElement);
+    let oldpx = Number.parseInt(
+      root.getPropertyValue('--base-font-size').replaceAll('px')
+    );
+    root.style.setProperty('--base-font-size', oldpx + 1 + 'px');
+  };
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
       <div className='header-wrapper'>
         <div className='header-left'>
+          <Button onClick={increaseSize}>CLICK</Button>
           <div className={classNames('logo', styles.headerLogo)}>
             <Link to='/'>
               <img
@@ -225,6 +232,7 @@ function HeaderNavbar() {
               }}
               onOpenChange={handleOpenChange}
               open={open}
+              className={styles.headerDropdown}
             >
               <a onClick={(e) => e.preventDefault()}>
                 <Space>
@@ -245,8 +253,9 @@ function HeaderNavbar() {
               onClick={() => handleModalSearch(true, searchRef)}
             />
           </div>
-          <div className={styles.countrySelection}>
+          <div className={classNames(styles.countrySelection)}>
             <Select
+              className={styles.headerDropdown}
               defaultValue='Eng'
               style={{ width: 57, padding: '0' }}
               bordered={false}

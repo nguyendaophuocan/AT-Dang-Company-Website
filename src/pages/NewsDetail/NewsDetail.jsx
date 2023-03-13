@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
-import FooterTwo from '../../components/footer/FooterHome';
+import FooterHome from '../../components/footer/FooterHome';
 import { useGetNewsByIdMutation } from '../../features/news/newsApiSlice';
 import { FormattedMessage, useIntl } from 'react-intl';
 const NewsDetail = () => {
@@ -76,7 +76,7 @@ const NewsDetail = () => {
       </div>
       {/* End Blog Details */}
 
-      <FooterTwo />
+      <FooterHome />
     </React.Fragment>
   );
 };

@@ -4,10 +4,10 @@ import { API_ROUTES } from '../../utils/constans';
 export const subscriptionSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     postSubscription: builder.mutation({
-      query: (email) => ({
+      query: (formValue) => ({
         url: API_ROUTES.SUBSCRIPTION,
         method: 'post',
-        body: { email },
+        body: { ...formValue },
       }),
     }),
   }),

@@ -1,31 +1,40 @@
-import { Alert, Input, Spin } from 'antd';
+import { Alert, Input, Row, Select, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageHelmet from '../../components/common/Helmet';
-import FooterTwo from '../../components/footer/FooterHome';
+import FooterHome from '../../components/footer/FooterHome';
 import { usePostSubscriptionMutation } from '../../features/subscription/subscriptionApiSlice';
 import styles from './subscribe.module.scss';
 const Subscribe = () => {
-  const [email, setEmail] = useState('');
+  const [formValue, setFormValue] = useState({
+    title: '',
+    surname: '',
+    firstname: '',
+    email: '',
+  });
   const [msg, setMsg] = useState('');
   const [subscribe, { isLoading }] = usePostSubscriptionMutation();
 
   const dispatch = useDispatch();
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
+  const handleChangeFormValue = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitSubscribe = async () => {
-    if (email === '') {
+  const handleSubmitSubscribe = async (formValue) => {
+    if (formValue.email === '') {
       setMsg('Email must not empty');
     } else {
-      const respone = await subscribe(email);
+      const respone = await subscribe(formValue);
       if (respone?.error?.status === 500) setMsg('Email already subscribed');
       else setMsg('Success');
     }
+  };
+
+  const handleChangeSelect = (value) => {
+    setFormValue({ ...formValue, title: value });
   };
 
   return (
@@ -74,13 +83,55 @@ const Subscribe = () => {
                     from our newsletters by using the contact form.
                   </p>
                   <div className={classNames(styles.subscribeSection)}>
-                    <div className='col-lg-6'>
-                      <Input
-                        className={styles.subscribeInput}
-                        placeholder='Email'
-                        value={email}
-                        onChange={handleChangeEmail}
-                      />
+                    <div
+                      className='col-lg-6'
+                      style={{
+                        border: '1px solid #f0d1a2',
+                        padding: '20px',
+                        borderRadius: '10px',
+                      }}
+                    >
+                      <Row className='mb--10'>
+                        <Select
+                          defaultValue='Mr'
+                          style={{ width: 80 }}
+                          onChange={handleChangeSelect}
+                          options={[
+                            { value: 'Mr', label: 'Mr' },
+                            { value: 'Mrs', label: 'Mrs' },
+                            { value: 'Miss', label: 'Miss' },
+                            { value: 'Ms', label: 'Ms' },
+                          ]}
+                        />
+                      </Row>
+                      <Row>
+                        <Input
+                          name='surname'
+                          className={styles.subscribeInput}
+                          placeholder='Surname'
+                          value={formValue.surname}
+                          onChange={handleChangeFormValue}
+                        />
+                      </Row>
+                      <Row>
+                        <Input
+                          name='firstname'
+                          className={styles.subscribeInput}
+                          placeholder='Firstname'
+                          value={formValue.firstname}
+                          onChange={handleChangeFormValue}
+                        />
+                      </Row>
+                      <Row>
+                        <Input
+                          name='email'
+                          className={styles.subscribeInput}
+                          placeholder='Email'
+                          value={formValue.email}
+                          onChange={handleChangeFormValue}
+                        />
+                      </Row>
+
                       {!isLoading && msg && (
                         <p>
                           {msg == 'Success' ? (
@@ -113,7 +164,7 @@ const Subscribe = () => {
                           value='submit'
                           name='submit'
                           id='mc-embedded-subscribe'
-                          onClick={handleSubmitSubscribe}
+                          onClick={() => handleSubmitSubscribe(formValue)}
                         >
                           Subscribe{' '}
                         </button>
@@ -187,7 +238,7 @@ const Subscribe = () => {
         </div>
       </div>
       {/* End Related Work */}
-      <FooterTwo />
+      <FooterHome />
     </React.Fragment>
   );
 };
