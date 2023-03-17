@@ -66,7 +66,7 @@ const Admin = () => {
     {
       title: 'Description',
       key: 'description',
-      dataIndex: 'description1',
+      dataIndex: 'description',
     },
     {
       title: 'Action',

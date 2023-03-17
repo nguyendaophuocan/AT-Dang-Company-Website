@@ -115,18 +115,18 @@ function HeaderNavbar() {
   const handleOpenChange = (flag) => {
     setOpen(flag);
   };
-  const increaseSize = () => {
-    const root = getComputedStyle(document.documentElement);
-    let oldpx = Number.parseInt(
-      root.getPropertyValue('--base-font-size').replaceAll('px')
-    );
-    root.style.setProperty('--base-font-size', oldpx + 1 + 'px');
-  };
+  // const increaseSize = () => {
+  //   const root = getComputedStyle(document.documentElement);
+  //   let oldpx = Number.parseInt(
+  //     root.getPropertyValue('--base-font-size').replaceAll('px')
+  //   );
+  //   root.style.setProperty('--base-font-size', oldpx + 1 + 'px');
+  // };
   return (
     <header className='header-area formobile-menu header--fixed default-color'>
       <div className='header-wrapper'>
         <div className='header-left'>
-          <Button onClick={increaseSize}>CLICK</Button>
+          {/* <Button onClick={increaseSize}>CLICK</Button> */}
           <div className={classNames('logo', styles.headerLogo)}>
             <Link to='/'>
               <img
