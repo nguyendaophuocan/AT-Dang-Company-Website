@@ -69,6 +69,16 @@ const About = () => {
         <div className='rn-about-wrapper'>
           <div className='container'>
             <div className='row row--35 align-items-center'>
+              <div className='inner-wrapper'>
+                <div className='inner mb--90'>
+                  {dataAbout[5]?.enable && (
+                    <div className='section-title'>
+                      <h2 className='title'>{dataAbout[5]?.title}</h2>
+                      <p className='description'>{dataAbout[5]?.description}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className='col-lg-5'>
                 <div className='thumbnail'>
                   <img
@@ -78,6 +88,7 @@ const About = () => {
                   />
                 </div>
               </div>
+
               {isLoadingContent ? (
                 <div
                   style={{ textAlign: 'center', height: '150px' }}
@@ -90,38 +101,29 @@ const About = () => {
                   <div className='about-inner inner'>
                     {dataAbout[5]?.enable && (
                       <div className='section-title'>
-                        <h2 className='title'>{dataAbout[5]?.title}</h2>
-                        <p className='description'>
-                          {dataAbout[5]?.description}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className='about-inner inner mt--50'>
-                    {dataAbout[6]?.enable && (
-                      <div className='section-title'>
                         <h2 className='title'>{dataAbout[6]?.title}</h2>
                         <p className='description'>
                           {dataAbout[6]?.description}
                         </p>
                       </div>
                     )}
-                    {dataAbout[6]?.enable && dataAbout[5]?.enable && (
-                      <div className='row mt--30'>
-                        <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
-                          <div className='about-us-list'>
-                            <br />
-                            <button
-                              className='rn-button-style--2 btn-primary-color'
-                              onClick={handleShopNow}
-                            >
-                              <FormattedMessage id='FIND_OUT_MORE' />
-                            </button>
-                          </div>
+                  </div>
+
+                  {dataAbout[6]?.enable && dataAbout[5]?.enable && (
+                    <div className='row mt--30'>
+                      <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
+                        <div className='about-us-list'>
+                          <br />
+                          <button
+                            className='rn-button-style--2 btn-primary-color'
+                            onClick={handleShopNow}
+                          >
+                            <FormattedMessage id='FIND_OUT_MORE' />
+                          </button>
                         </div>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

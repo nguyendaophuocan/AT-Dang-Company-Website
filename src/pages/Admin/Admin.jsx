@@ -26,6 +26,7 @@ import {
 import {
   useGetAllDocumentsMutation,
   useGetDocumentDetailMutation,
+  useUpdateDocumentDetailMutation,
 } from '../../features/document-detail/documentDetailApiSlice';
 import TextArea from 'antd/es/input/TextArea';
 import { FormattedMessage } from 'react-intl';
@@ -334,60 +335,15 @@ const Admin = () => {
     },
   ];
 
-  const columnsNewsTitle = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) =>
-        record && (
-          <Space size='middle'>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(record?.id, 'news', 'title', record?.title)
-              }
-            >
-              Update TITLE
-            </Button>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  'news',
-                  'description',
-                  record?.description
-                )
-              }
-            >
-              Update DESCRIPTION
-            </Button>
-          </Space>
-        ),
-    },
-  ];
   const columnsDocumentDetail = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      render: (text) => <span>{text}</span>,
+      render: (id, record, index) => {
+        ++index;
+        return index;
+      },
     },
 
     {
@@ -409,7 +365,7 @@ const Admin = () => {
           <Button
             primary
             onClick={() =>
-              showModal(record?.id, 'news', 'title', record?.title)
+              showModal(record?.id, 'documentdetail', 'title', record?.title)
             }
           >
             Update TITLE section {record.id}
@@ -417,29 +373,30 @@ const Admin = () => {
           <Button
             primary
             onClick={() =>
-              showModal(record?.id, 'news', 'description', record?.description)
+              showModal(
+                record?.id,
+                'documentdetail',
+                'description',
+                record?.description
+              )
             }
           >
             Update DESCRIPTION section {record.id}
           </Button>
-          <Button
+          {/* <Button
             danger
-            onClick={() => handleEnalbeDisable('news', 'disable', record?.id)}
+            onClick={() =>
+              handleEnalbeDisable('documentdetail', 'disable', record?.id)
+            }
           >
             Delete
-          </Button>
+          </Button> */}
         </Space>
       ),
     },
   ];
 
-  const columnsContactUsTitle = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
+  const columnslHeader = (page) => [
     {
       title: 'Title',
       dataIndex: 'title',
@@ -459,12 +416,7 @@ const Admin = () => {
             <Button
               primary
               onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  'contactus',
-                  'title',
-                  record?.title
-                )
+                handleModalHeader(record?.id, page, 'title', record?.title)
               }
             >
               Update TITLE
@@ -474,154 +426,7 @@ const Admin = () => {
               onClick={() =>
                 handleModalHeader(
                   record?.id,
-                  'contactus',
-                  'description',
-                  record?.description
-                )
-              }
-            >
-              Update DESCRIPTION
-            </Button>
-          </Space>
-        ),
-    },
-  ];
-
-  const columnsCareerTitle = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) =>
-        record && (
-          <Space size='middle'>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(record?.id, 'career', 'title', record?.title)
-              }
-            >
-              Update TITLE
-            </Button>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  'career',
-                  'description',
-                  record?.description
-                )
-              }
-            >
-              Update DESCRIPTION
-            </Button>
-          </Space>
-        ),
-    },
-  ];
-
-  const columnsHomeTitle = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) =>
-        record && (
-          <Space size='middle'>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(record?.id, 'home', 'title', record?.title)
-              }
-            >
-              Update TITLE
-            </Button>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  'home',
-                  'description',
-                  record?.description
-                )
-              }
-            >
-              Update DESCRIPTION
-            </Button>
-          </Space>
-        ),
-    },
-  ];
-
-  const columnsAboutUsTitle = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) =>
-        record && (
-          <Space size='middle'>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(record?.id, 'aboutus', 'title', record?.title)
-              }
-            >
-              Update TITLE
-            </Button>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  'aboutus',
+                  page,
                   'description',
                   record?.description
                 )
@@ -638,6 +443,7 @@ const Admin = () => {
     homepage: { id: '', title: false, description: false },
     news: { id: '', title: false, description: false },
     contactUs: { id: '', title: false, description: false },
+    documentDetail: { id: '', title: false, description: false },
   });
   const [editingValue, setEditingValue] = useState({
     id: '',
@@ -663,21 +469,25 @@ const Admin = () => {
     title: '',
     description: '',
   });
+
   const [headerHome, setHeaderHome] = useState([]);
   const [headerAboutUs, setHeaderAboutUs] = useState([]);
-
   const [headerNews, setHeaderNews] = useState([]);
   const [headerCareer, setHeaderCareer] = useState([]);
-
   const [headerContactUs, setHeaderContactUs] = useState([]);
+  const [headerDocumentDetail, setHeaderDocumentDetail] = useState([]);
+  const [headerDocument, setHeaderDocument] = useState([]);
+  const [headerNewsLetter, setHeaderNewsLetter] = useState([]);
 
   const [isOpenModalHeader, setIsOpenModalHeader] = useState({
     home: { title: false, description: false },
     aboutUs: { title: false, description: false },
-
     news: { title: false, description: false },
     career: { title: false, description: false },
     contactUs: { title: false, description: false },
+    document: { title: false, description: false },
+    documentDetail: { title: false, description: false },
+    newsLetter: { title: false, description: false },
   });
   const [editingHeaderValue, setEditingHeaderValue] = useState({
     id: '',
@@ -703,6 +513,9 @@ const Admin = () => {
 
   const [updateContactUs, { isLoading: isLoadingUpdateContactUs }] =
     useUpdateContactUsMutation();
+
+  const [updateDocumentDetail, { isLoading: isLoadingUpdateDocumentDetail }] =
+    useUpdateDocumentDetailMutation();
 
   const [updateHeader, { isLoading: isLoadingUpdateHeader }] =
     useUpdateHeaderMutation();
@@ -750,6 +563,26 @@ const Admin = () => {
         });
         setEditingValue({ id, value, page: 'contactus', type: 'description' });
       }
+    } else if (page === 'documentdetail') {
+      if (type === 'title') {
+        setOpen({
+          ...open,
+          documentDetail: { ...open.documentDetail, title: true },
+        });
+        setEditingValue({ id, value, page: 'documentdetail', type: 'title' });
+      }
+      if (type === 'description') {
+        setOpen({
+          ...open,
+          documentDetail: { ...open.documentDetail, description: true },
+        });
+        setEditingValue({
+          id,
+          value,
+          page: 'documentdetail',
+          type: 'description',
+        });
+      }
     }
   };
   const hideModal = (cancel) => {
@@ -757,8 +590,8 @@ const Admin = () => {
       ...open,
       homepage: { id: '', title: false, description: false },
       news: { id: '', title: false, description: false },
-
       contactUs: { id: '', title: false, description: false },
+      documentDetail: { id: '', title: false, description: false },
     });
     if (!cancel) {
       getHomepageData();
@@ -805,8 +638,8 @@ const Admin = () => {
     const totalOptions = result?.length;
     let options = [];
     for (let i = 0; i < totalOptions; i++) {
-      console.log('RESULT I', result[i]);
-      options.push({ value: result[i].name, label: result[i].name });
+      if (result[i].name)
+        options.push({ value: result[i].name, label: result[i].name });
     }
     if (result) {
       setSelectDocumentOptions(options);
@@ -856,6 +689,19 @@ const Admin = () => {
           description: value,
         };
         result = await updateContactUs({ id, payload }).unwrap();
+      }
+    } else if (page === 'documentdetail') {
+      if (type === 'title') {
+        payload = {
+          title: value,
+        };
+        result = await updateDocumentDetail({ id, payload }).unwrap();
+      }
+      if (type === 'description') {
+        payload = {
+          description: value,
+        };
+        result = await updateDocumentDetail({ id, payload }).unwrap();
       }
     }
     if (result) hideModal();
@@ -926,25 +772,33 @@ const Admin = () => {
     const result = await getHeader(value);
     setHeaderNews([result?.data]);
   };
-
   const getHeaderContactUs = async (value = 'contactus') => {
     const result = await getHeader(value);
     setHeaderContactUs([result?.data]);
   };
-
   const getHeaderCareer = async (value = 'career') => {
     const result = await getHeader(value);
     setHeaderCareer([result?.data]);
   };
-
   const getHeaderHome = async (value = 'home') => {
     const result = await getHeader(value);
     setHeaderHome([result?.data]);
   };
-
   const getHeaderAboutUs = async (value = 'aboutus') => {
     const result = await getHeader(value);
     setHeaderAboutUs([result?.data]);
+  };
+  const getHeaderDocumentDetail = async (value = 'documentdetail') => {
+    const result = await getHeader(value);
+    setHeaderDocumentDetail([result?.data]);
+  };
+  const getHeaderDocument = async (value = 'document') => {
+    const result = await getHeader(value);
+    setHeaderDocument([result?.data]);
+  };
+  const getHeaderNewsLetter = async (value = 'newsletter') => {
+    const result = await getHeader(value);
+    setHeaderNewsLetter([result?.data]);
   };
 
   const getHeaderData = () => {
@@ -953,6 +807,9 @@ const Admin = () => {
     getHeaderCareer('career');
     getHeaderHome('home');
     getHeaderAboutUs('aboutus');
+    getHeaderDocumentDetail('documentdetail');
+    getHeaderDocument('document');
+    getHeaderNewsLetter('newsletter');
   };
   useEffect(() => {
     getHomepageData();
@@ -1022,6 +879,42 @@ const Admin = () => {
       });
     }
 
+    if (position === 'document' && type === 'title') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        document: { title: true },
+      });
+    } else if (position === 'document' && type === 'description') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        document: { description: true },
+      });
+    }
+
+    if (position === 'documentdetail' && type === 'title') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        documentDetail: { title: true },
+      });
+    } else if (position === 'documentdetail' && type === 'description') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        documentDetail: { description: true },
+      });
+    }
+
+    if (position === 'newsletter' && type === 'title') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        newsLetter: { title: true },
+      });
+    } else if (position === 'newsletter' && type === 'description') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        newsLetter: { description: true },
+      });
+    }
+
     setEditingHeaderValue({
       ...editingHeaderValue,
       id: id,
@@ -1062,6 +955,9 @@ const Admin = () => {
       career: { title: false, description: false },
       home: { title: false, description: false },
       aboutUs: { title: false, description: false },
+      document: { title: false, description: false },
+      documentDetail: { title: false, description: false },
+      newsLetter: { title: false, description: false },
     });
     getHeaderData();
   };
@@ -1165,19 +1061,24 @@ const Admin = () => {
 
       <Layout className='layout'>
         <Content style={{ padding: '0 100px' }}>
-          <h2>Document</h2>{' '}
+          <h2>
+            {' '}
+            <FormattedMessage id='DOCUMENT' />
+          </h2>{' '}
           <Select
             className=''
             defaultValue={selectedDocumentVal}
             value={selectedDocumentVal}
-            style={{ width: 120 }}
+            style={{ width: 150 }}
             onChange={handleSelectDocumentDetail}
             options={selectDocumentOptions}
           />
           <span className='ml--40'>
             <Link to={{ pathname: `/document/${selectedDocumentVal}` }}>
               {' '}
-              Go to Document {selectedDocumentVal}
+              <span style={{ color: '#cdaa73' }}>
+                <FormattedMessage id='GO_TO_DOCUMENT' /> {selectedDocumentVal}
+              </span>
             </Link>
           </span>
           <Table
@@ -1196,7 +1097,7 @@ const Admin = () => {
             <FormattedMessage id='HOME_HEADING' />
           </h2>
           <Table
-            columns={columnsHomeTitle}
+            columns={columnslHeader('home')}
             loading={isLoadingHeader}
             dataSource={headerHome}
             pagination={false}
@@ -1206,7 +1107,7 @@ const Admin = () => {
             <FormattedMessage id='ABOUT_US_HEADING' />
           </h2>
           <Table
-            columns={columnsAboutUsTitle}
+            columns={columnslHeader('aboutus')}
             loading={isLoadingHeader}
             dataSource={headerAboutUs}
             pagination={false}
@@ -1216,7 +1117,7 @@ const Admin = () => {
             <FormattedMessage id='NEWS_HEADING' />
           </h2>
           <Table
-            columns={columnsNewsTitle}
+            columns={columnslHeader('news')}
             loading={isLoadingHeader}
             dataSource={headerNews}
             pagination={false}
@@ -1226,7 +1127,7 @@ const Admin = () => {
             <FormattedMessage id='CAREER_HEADING' />
           </h2>
           <Table
-            columns={columnsCareerTitle}
+            columns={columnslHeader('career')}
             loading={isLoadingHeader}
             dataSource={headerCareer}
             pagination={false}
@@ -1236,9 +1137,39 @@ const Admin = () => {
             <FormattedMessage id='CONTACT_US_HEADING' />
           </h2>
           <Table
-            columns={columnsContactUsTitle}
+            columns={columnslHeader('contactus')}
             loading={isLoadingHeader}
             dataSource={headerContactUs}
+            pagination={false}
+          />
+          <h2>
+            {' '}
+            <FormattedMessage id='DOCUMENT_HEADING' />
+          </h2>
+          <Table
+            columns={columnslHeader('document')}
+            loading={isLoadingHeader}
+            dataSource={headerDocument}
+            pagination={false}
+          />
+          <h2>
+            {' '}
+            <FormattedMessage id='DOCUMENT_DETAIL_HEADING' />
+          </h2>
+          <Table
+            columns={columnslHeader('documentdetail')}
+            loading={isLoadingHeader}
+            dataSource={headerDocumentDetail}
+            pagination={false}
+          />
+          <h2>
+            {' '}
+            <FormattedMessage id='NEWSLETTER_HEADING' />
+          </h2>
+          <Table
+            columns={columnslHeader('newsletter')}
+            loading={isLoadingHeader}
+            dataSource={headerNewsLetter}
             pagination={false}
           />
         </Content>
@@ -1248,7 +1179,12 @@ const Admin = () => {
       <Modal
         centered
         title={'Update title'}
-        open={open.homepage.title || open.news.title || open.contactUs.title}
+        open={
+          open.homepage.title ||
+          open.news.title ||
+          open.contactUs.title ||
+          open.documentDetail.title
+        }
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}
       >
@@ -1261,7 +1197,8 @@ const Admin = () => {
         open={
           open.homepage.description ||
           open.news.description ||
-          open.contactUs.description
+          open.contactUs.description ||
+          open.documentDetail.description
         }
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}
@@ -1329,7 +1266,10 @@ const Admin = () => {
           isOpenModalHeader.contactUs.title ||
           isOpenModalHeader.career.title ||
           isOpenModalHeader.home.title ||
-          isOpenModalHeader.aboutUs.title
+          isOpenModalHeader.aboutUs.title ||
+          isOpenModalHeader.document.title ||
+          isOpenModalHeader.documentDetail.title ||
+          isOpenModalHeader.newsLetter.title
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
         onCancel={() => hideModalHeader()}
@@ -1347,7 +1287,10 @@ const Admin = () => {
           isOpenModalHeader.contactUs.description ||
           isOpenModalHeader.career.description ||
           isOpenModalHeader.home.description ||
-          isOpenModalHeader.aboutUs.description
+          isOpenModalHeader.aboutUs.description ||
+          isOpenModalHeader.document.description ||
+          isOpenModalHeader.documentDetail.description ||
+          isOpenModalHeader.newsLetter.description
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
         onCancel={() => hideModalHeader()}

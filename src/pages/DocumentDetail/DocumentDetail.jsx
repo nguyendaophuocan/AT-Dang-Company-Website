@@ -5,8 +5,13 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import FooterHome from '../../components/footer/FooterHome';
 import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
+
 const DocumentDetail = () => {
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+
   const params = useParams();
+  const [dataHeader, setDataHeader] = useState([]);
 
   const [documentDetailData, setDocumentDetailData] = useState({});
   const [getDocumentDetail] = useGetDocumentDetailMutation();
@@ -18,8 +23,14 @@ const DocumentDetail = () => {
     }
   };
 
+  const getHeaderData = async () => {
+    const result = await getHeader('documentdetail').unwrap();
+    setDataHeader(result);
+  };
+
   useEffect(() => {
     getDocumentDetailData();
+    getHeaderData();
   }, []);
 
   return (
@@ -35,12 +46,8 @@ const DocumentDetail = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='blog-single-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>
-                  {documentDetailData[0]?.title}
-                </h2>
-                {/* <div className='title theme-gradient'>
-                  {documentDetailData[0]?.description}
-                </div> */}
+                <h1 className='title theme-gradient'>{dataHeader?.title}</h1>
+                <p>{dataHeader?.description}</p>
               </div>
             </div>
           </div>
@@ -56,109 +63,26 @@ const DocumentDetail = () => {
               <div className='inner-wrapper'>
                 <div className='inner'>
                   {' '}
-                  <h1> {documentDetailData[1]?.title}</h1>
+                  <h1> {documentDetailData[0]?.title}</h1>
+                  <p>{documentDetailData[0]?.description}</p>
+                  <p className='mt--40'>{documentDetailData[1]?.title}</p>
                   <p>{documentDetailData[1]?.description}</p>
-                  <div className='thumbnail'>
-                    <img
-                      src={require('../../assets/images/blog/bl-big-01.jpg')}
-                      alt='Blog Images'
-                    />
-                  </div>
-                  <p className='mt--40'>{documentDetailData[2]?.title}</p>
-                  <p>{documentDetailData[2]?.description}</p>
-                  <blockquote className='rn-blog-quote'>
+                  {/* <blockquote className='rn-blog-quote'>
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes.
-                  </blockquote>
-                  <p>
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form, by injected humour, or randomised words which don't
-                    look even slightly believable. If you are going to use a
-                    passage of Lorem Ipsum. You need to be sure there isn't
-                    anything embarrassing hidden in the middle of text. All the
-                    Lorem Ipsum generators on the Internet tend toitrrepeat
-                    predefined chunks. Necessary, making this the first true
-                    generator on the Internet. It re are many variations of
-                    passages of Lorem Ipsum available, but the majority have
-                    suffered alteration in some form, by injectedeed eedhumour,
-                    or randomised words which don't look even slightly
-                    believable.
-                  </p>
-                  <div className='blog-single-list-wrapper d-flex flex-wrap'>
-                    <div className='thumbnail'>
-                      <img
-                        className='w-100'
-                        src={require('../../assets/images/blog/blog-single-01.png')}
-                        alt='BLog Images'
-                      />
-                      <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do
-                      </span>
-                    </div>
-                    <div className='content'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                        Risus commodo .
-                      </p>
-                      <h4 className='title'>Ordered & Unordered Lists.</h4>
-                      <ul className='list-style'>
-                        <li>Yet this above sewed flirted opened ouch</li>
-                        <li>Goldfinch realistic sporadic ingenuous</li>
-                        <li>
-                          Abominable this abidin far successfully then like
-                          piquan
-                        </li>
-                        <li>Risus commodo viverra</li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                        </li>
-                      </ul>
-                      <h4 className='title'>Ordered & Unordered Lists.</h4>
-                      <ul className='list-style'>
-                        <li>Yet this above sewed flirted opened ouch</li>
-                        <li>Goldfinch realistic sporadic ingenuous</li>
-                        <li>
-                          Abominable this abidin far successfully then like
-                          piquan
-                        </li>
-                        <li>Risus commodo viverra</li>
-                      </ul>
-                    </div>
-                  </div>
+                  </blockquote> */}
+                  <p>{documentDetailData[2]?.title}</p>
                   <p className='mt--25 mt_sm--5'>
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form, by injected humour, or randomised words which don't
-                    look even slightly believable. If you are going to use a
-                    passage of Lorem Ipsum. You need to be sure there isn't
-                    anything embarrassing hidden in the middle of text. All the
-                    Lorem Ipsum generators on the Internet tend toitrrepeat
-                    predefined chunks. Necessary, making this the first true
-                    generator on the Internet. It re are many variations of
-                    passages of Lorem Ipsum available, but the majority have
-                    suffered alteration in some form, by injectedeed eedhumour,
-                    or randomised words which don't look even slightly
-                    believable.
+                    {documentDetailData[2]?.description}
                   </p>
-                  <p className='mb--0'>
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form, by injected humour, or randomised words which don't
-                    look even slightly believable. If you are going to use a
-                    passage of Lorem Ipsum. You need to be sure there isn't
-                    anything embarrassing hidden in the middle of text. All the
-                    Lorem Ipsum generators on the Internet tend toitrrepeat
-                    predefined chunks. Necessary, making this the first true
-                    generator on the Internet. It re are many variations of
-                    passages of Lorem Ipsum available, but the majority have
-                    suffered alteration in some form, by injectedeed eedhumour,
-                    or randomised words which don't look even slightly
-                    believable.
+                  <p>{documentDetailData[3]?.title}</p>
+                  <p className='mt--25 mt_sm--5'>
+                    {documentDetailData[3]?.description}
+                  </p>
+                  <p>{documentDetailData[4]?.title}</p>
+                  <p className='mt--25 mt_sm--5'>
+                    {documentDetailData[4]?.description}
                   </p>
                 </div>
               </div>

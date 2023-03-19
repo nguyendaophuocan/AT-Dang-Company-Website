@@ -22,6 +22,13 @@ export const documentDetailSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    updateDocumentDetail: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${API_ROUTES.DOCUMENT_DETAIL}/context?id=${id}`,
+        method: 'patch',
+        body: { ...payload },
+      }),
+    }),
   }),
 });
 
@@ -29,4 +36,5 @@ export const {
   useGetDocumentDetailMutation,
   useCreateDocumentDetailMutation,
   useGetAllDocumentsMutation,
+  useUpdateDocumentDetailMutation,
 } = documentDetailSlice;

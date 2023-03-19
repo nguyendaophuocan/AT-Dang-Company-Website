@@ -1,11 +1,12 @@
 import { Alert, Input, Row, Select, Spin } from 'antd';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageHelmet from '../../components/common/Helmet';
 import FooterHome from '../../components/footer/FooterHome';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { usePostSubscriptionMutation } from '../../features/subscription/subscriptionApiSlice';
 import styles from './subscribe.module.scss';
 const Subscribe = () => {
@@ -17,7 +18,13 @@ const Subscribe = () => {
   });
   const [msg, setMsg] = useState('');
   const [subscribe, { isLoading }] = usePostSubscriptionMutation();
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
+  const [dataHeader, setDataHeader] = useState([]);
+  const getHeaderData = async () => {
+    const result = await getHeader('newsletter').unwrap();
+    setDataHeader(result);
+  };
   const dispatch = useDispatch();
   const handleChangeFormValue = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -37,6 +44,9 @@ const Subscribe = () => {
     setFormValue({ ...formValue, title: value });
   };
 
+  useEffect(() => {
+    getHeaderData();
+  }, []);
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Subscribe' />
@@ -51,9 +61,10 @@ const Subscribe = () => {
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
                 <h2 className='title theme-gradient'>
-                  <FormattedMessage id='SUBSCRIBE_TO_NEWSLETTERS' />
+                  {/* <FormattedMessage id='SUBSCRIBE_TO_NEWSLETTERS' /> */}
+                  {dataHeader?.title}
                 </h2>
-                <p>... </p>
+                <p>{dataHeader?.description} </p>
               </div>
             </div>
           </div>

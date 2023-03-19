@@ -35,8 +35,12 @@ export const messages = {
     CAREER_HEADING: 'Career heading',
     HOME_HEADING: 'Home heading',
     DOCUMENT: 'Document',
+    GO_TO_DOCUMENT: 'Go to document',
     PROJECTS: 'Projects',
     CREATE_CAREER: 'Create career',
+    DOCUMENT_DETAIL_HEADING: 'Document detail heading',
+    DOCUMENT_HEADING: 'Document heading',
+    NEWSLETTER_HEADING: 'Newsletter heading',
   },
   [LOCALES.VIETNAMESE]: {
     SHOP_NOW: 'Xem ngay',
@@ -52,7 +56,6 @@ export const messages = {
     SUBSCRIBE: 'Theo dõi',
     CREATE_NEWS: 'Tạo tin tức',
     CREATE_CAREER: 'Tạo tuyển dụng mới',
-
     NEWS_DETAIL: 'Chi tiết',
     DESCRIPTION: 'Mô tả',
     SUBMIT: 'Gửi',
@@ -75,5 +78,9 @@ export const messages = {
     HOME_HEADING: 'Tiêu đề trang Home',
     DOCUMENT: 'Tài liệu',
     PROJECTS: 'Dự án',
+    DOCUMENT_DETAIL_HEADING: 'Tiêu đề trang chi tiết document',
+    DOCUMENT_HEADING: 'Tiêu đề trang Document',
+    NEWSLETTER_HEADING: 'Tiêu đề trang Newsletter',
+    GO_TO_DOCUMENT: 'Đi tới document',
   },
 };
