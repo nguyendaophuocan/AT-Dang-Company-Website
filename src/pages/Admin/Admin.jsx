@@ -10,6 +10,7 @@ import {
   Select,
   Space,
   Spin,
+  Switch,
   Table,
   Tag,
 } from 'antd';
@@ -39,6 +40,7 @@ import {
   useUpdateContactUsMutation,
 } from '../../features/contact-us/contactUsApiSlice';
 import { useGetCareerMutation } from '../../features/career/careerApiSlice';
+import styles from './admin.module.scss';
 
 const Admin = () => {
   const columnsHomepage = [
@@ -478,6 +480,8 @@ const Admin = () => {
   const [headerDocumentDetail, setHeaderDocumentDetail] = useState([]);
   const [headerDocument, setHeaderDocument] = useState([]);
   const [headerNewsLetter, setHeaderNewsLetter] = useState([]);
+  const [headerSearch, setHeaderSearch] = useState([]);
+  const [headerNewsDetail, setHeaderNewsDetail] = useState([]);
 
   const [isOpenModalHeader, setIsOpenModalHeader] = useState({
     home: { title: false, description: false },
@@ -488,6 +492,8 @@ const Admin = () => {
     document: { title: false, description: false },
     documentDetail: { title: false, description: false },
     newsLetter: { title: false, description: false },
+    search: { title: false, description: false },
+    newsDetail: { title: false, description: false },
   });
   const [editingHeaderValue, setEditingHeaderValue] = useState({
     id: '',
@@ -644,7 +650,6 @@ const Admin = () => {
     if (result) {
       setSelectDocumentOptions(options);
     }
-    console.log('options', options);
   };
 
   const handleUpdate = async (editingValue) => {
@@ -800,6 +805,14 @@ const Admin = () => {
     const result = await getHeader(value);
     setHeaderNewsLetter([result?.data]);
   };
+  const getHeaderSearch = async (value = 'search') => {
+    const result = await getHeader(value);
+    setHeaderSearch([result?.data]);
+  };
+  const getHeaderNewsDetail = async (value = 'newsdetail') => {
+    const result = await getHeader(value);
+    setHeaderNewsDetail([result?.data]);
+  };
 
   const getHeaderData = () => {
     getHeaderNews('news');
@@ -810,6 +823,8 @@ const Admin = () => {
     getHeaderDocumentDetail('documentdetail');
     getHeaderDocument('document');
     getHeaderNewsLetter('newsletter');
+    getHeaderSearch('search');
+    getHeaderNewsDetail('newsdetail');
   };
   useEffect(() => {
     getHomepageData();
@@ -915,6 +930,30 @@ const Admin = () => {
       });
     }
 
+    if (position === 'search' && type === 'title') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        search: { title: true },
+      });
+    } else if (position === 'search' && type === 'description') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        search: { description: true },
+      });
+    }
+
+    if (position === 'newsdetail' && type === 'title') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        newsDetail: { title: true },
+      });
+    } else if (position === 'newsdetail' && type === 'description') {
+      setIsOpenModalHeader({
+        ...isOpenModalHeader,
+        newsDetail: { description: true },
+      });
+    }
+
     setEditingHeaderValue({
       ...editingHeaderValue,
       id: id,
@@ -958,6 +997,8 @@ const Admin = () => {
       document: { title: false, description: false },
       documentDetail: { title: false, description: false },
       newsLetter: { title: false, description: false },
+      search: { title: false, description: false },
+      newsDetail: { title: false, description: false },
     });
     getHeaderData();
   };
@@ -1036,6 +1077,13 @@ const Admin = () => {
             <Button onClick={() => handleModalCreateNews(true)}>
               <FormattedMessage id='CREATE_CAREER' />
             </Button>
+          </Space>{' '}
+          <Space className='ml--20'>
+            <Switch
+              defaultChecked
+              onChange={'onChangeSwitch'}
+              // style={{ background: '#cdaa73' }}
+            />
           </Space>
           <Table
             columns={columnsCareer}
@@ -1172,6 +1220,26 @@ const Admin = () => {
             dataSource={headerNewsLetter}
             pagination={false}
           />
+          <h2>
+            {' '}
+            <FormattedMessage id='SEARCH_HEADING' />
+          </h2>
+          <Table
+            columns={columnslHeader('search')}
+            loading={isLoadingHeader}
+            dataSource={headerSearch}
+            pagination={false}
+          />
+          <h2>
+            {' '}
+            <FormattedMessage id='NEWS_DETAIL_HEADING' />
+          </h2>
+          <Table
+            columns={columnslHeader('newsdetail')}
+            loading={isLoadingHeader}
+            dataSource={headerNewsDetail}
+            pagination={false}
+          />
         </Content>
       </Layout>
 
@@ -1269,7 +1337,9 @@ const Admin = () => {
           isOpenModalHeader.aboutUs.title ||
           isOpenModalHeader.document.title ||
           isOpenModalHeader.documentDetail.title ||
-          isOpenModalHeader.newsLetter.title
+          isOpenModalHeader.newsLetter.title ||
+          isOpenModalHeader.search.title ||
+          isOpenModalHeader.newsDetail.title
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
         onCancel={() => hideModalHeader()}
@@ -1290,7 +1360,9 @@ const Admin = () => {
           isOpenModalHeader.aboutUs.description ||
           isOpenModalHeader.document.description ||
           isOpenModalHeader.documentDetail.description ||
-          isOpenModalHeader.newsLetter.description
+          isOpenModalHeader.newsLetter.description ||
+          isOpenModalHeader.search.description ||
+          isOpenModalHeader.newsDetail.description
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
         onCancel={() => hideModalHeader()}

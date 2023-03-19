@@ -13,6 +13,7 @@ import { useGetSearchDataMutation } from '../../features/search/searchApiSlice';
 import { useSelector } from 'react-redux';
 import { selectSearchValue } from '../../features/search/searchSlice';
 import { FormattedMessage } from 'react-intl';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 
 const { Text } = Typography;
 const Search = () => {
@@ -25,12 +26,19 @@ const Search = () => {
     useGetSearchDataMutation();
   const [searchData, setSearchData] = useState('');
   const storeSearchData = useSelector(selectSearchValue);
+  const [dataHeader, setDataHeader] = useState([]);
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const pageSize = 5;
   const queryParams = { off_set: news.current - 1, page_size: 5 };
   const navigate = useNavigate();
 
   const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
+
+  const getHeaderData = async () => {
+    const result = await getHeader('search').unwrap();
+    setDataHeader(result);
+  };
 
   const handleChange = (page) => {
     setNews({
@@ -49,6 +57,9 @@ const Search = () => {
     getSearchDataRes(storeSearchData);
   }, [storeSearchData]);
 
+  useEffect(() => {
+    getHeaderData();
+  }, []);
   const handleReadmore = (id) => {
     navigate(`/news/${id}`);
   };
@@ -64,8 +75,8 @@ const Search = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>Search</h2>
-                <p>Description</p>
+                <h2 className='title theme-gradient'> {dataHeader?.title}</h2>
+                <p> {dataHeader?.description}</p>
               </div>
             </div>
           </div>

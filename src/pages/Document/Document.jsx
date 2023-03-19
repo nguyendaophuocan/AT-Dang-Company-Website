@@ -151,7 +151,7 @@ const Document = () => {
         className='slider-activation slider-creative-agency with-particles'
         id='home'
       >
-        <div className='bg_image bg_image--25'>
+        <div className='bg_image bg_image--25' data-black-overlay='4'>
           <div className='slide slide-style-2 slider-paralax d-flex align-items-center justify-content-center'>
             <div className='container'>
               <div className='row'>

@@ -12,3 +12,26 @@
 .subscribeInput {
   margin: 10px 0;
 }
+
+:global {
+  .ant-input:focus {
+    border-color: #cdaa73 !important;
+    box-shadow: 0 0 0 0.1px #edd6b1;
+  }
+  .ant-input:hover {
+    border-color: #cdaa73 !important;
+    box-shadow: 0 0 0 0.1px #edd6b1;
+  }
+  .subscribeSelect {
+    .ant-select-selector:focus,
+    .ant-select-selector:hover,
+    .ant-select-open {
+      border-color: #e7c58f !important;
+      // box-shadow: 0 0 0 0.1px #edd6b1;
+    }
+  }
+
+  .ant-spin-dot-item {
+    background-color: #cdaa73 !important;
+  }
+}

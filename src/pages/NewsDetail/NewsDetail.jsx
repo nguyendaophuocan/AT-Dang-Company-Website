@@ -5,9 +5,14 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import FooterHome from '../../components/footer/FooterHome';
 import { useGetNewsByIdMutation } from '../../features/news/newsApiSlice';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
+import { Spin } from 'antd';
+
 const NewsDetail = () => {
   const params = useParams();
+  const [dataHeader, setDataHeader] = useState([]);
+  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const [newsDetailData, setNewsDetailData] = useState({});
   const [getNewsById] = useGetNewsByIdMutation();
@@ -19,7 +24,13 @@ const NewsDetail = () => {
     }
   };
 
+  const getHeaderData = async () => {
+    const result = await getHeader('newsdetail').unwrap();
+    setDataHeader(result);
+  };
+
   useEffect(() => {
+    getHeaderData();
     getNewsDetailData();
   }, []);
 
@@ -36,11 +47,19 @@ const NewsDetail = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='blog-single-page-title text-center pt--100'>
-                <h2 className='title theme-gradient'>
-                  {' '}
-                  <FormattedMessage id='NEWS_DETAIL' />
-                </h2>
-                <p>...</p>
+                {' '}
+                {isLoadingHeader ? (
+                  <Spin />
+                ) : (
+                  <>
+                    {' '}
+                    <h2 className='title theme-gradient'>
+                      {' '}
+                      {dataHeader?.title}
+                    </h2>
+                    <p> {dataHeader?.description}</p>{' '}
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -59,9 +78,12 @@ const NewsDetail = () => {
                   <h2 className='mb--70'> {newsDetailData?.title}</h2>
                   <p>{newsDetailData?.description}</p>
                   {newsDetailData?.createBy && (
-                    <blockquote className='rn-blog-quote font--18'>
+                    <div
+                      className='rn-blog-quote font--18'
+                      style={{ textAlign: 'right' }}
+                    >
                       {newsDetailData?.createBy}
-                    </blockquote>
+                    </div>
                   )}
                   <p>
                     {' '}

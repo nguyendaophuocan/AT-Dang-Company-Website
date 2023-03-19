@@ -153,7 +153,7 @@ const Home = () => {
           </>
         )}
         {/* Start Content Box  */}
-        {dataHome[2]?.enable && (
+        {dataHome[1]?.enable && (
           <div className='rn-content-box-area rn-content-box-style--1 pb--120 bg_color--1'>
             <div className='row row--0 align-items-center'>
               <div className='col-lg-12 col-xl-6'>

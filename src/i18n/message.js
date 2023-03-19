@@ -41,6 +41,10 @@ export const messages = {
     DOCUMENT_DETAIL_HEADING: 'Document detail heading',
     DOCUMENT_HEADING: 'Document heading',
     NEWSLETTER_HEADING: 'Newsletter heading',
+    OUR_MORE_BLOGS: 'Our more blogs',
+    OUR_MORE_CONTENTS: 'Related content',
+    SEARCH_HEADING: 'Search heading',
+    NEWS_DETAIL_HEADING: 'News detail heading',
   },
   [LOCALES.VIETNAMESE]: {
     SHOP_NOW: 'Xem ngay',
@@ -82,5 +86,9 @@ export const messages = {
     DOCUMENT_HEADING: 'Tiêu đề trang Document',
     NEWSLETTER_HEADING: 'Tiêu đề trang Newsletter',
     GO_TO_DOCUMENT: 'Đi tới document',
+    OUR_MORE_BLOGS: 'Bài viết liên quan',
+    OUR_MORE_CONTENTS: 'Trang khác',
+    SEARCH_HEADING: 'Tiêu đề trang Search',
+    NEWS_DETAIL_HEADING: 'Tiêu đề trang chi tiết News',
   },
 };

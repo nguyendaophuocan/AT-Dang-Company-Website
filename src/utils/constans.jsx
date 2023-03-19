@@ -1,5 +1,5 @@
-export const BASE_API_URL = 'https://54.213.192.192:8080';
-// export const BASE_API_URL = 'https://34.216.75.142:8080';
+// export const BASE_API_URL = 'https://54.213.192.192:8080';
+export const BASE_API_URL = 'https://34.216.75.142:8080';
 
 export const API_ROUTES = {
   SIGN_UP: `/auth/signup`,
@@ -13,6 +13,8 @@ export const API_ROUTES = {
   ADMIN_HOME: `/api/v1/content`,
   GET_USER: `/auth/me`,
   DOCUMENT_DETAIL: `api/v1/document`,
+  DOCUMENT_CONTEXT: `api/v1/context`,
+
   HEADER: '/api/v1/header',
   CAREER: '/api/v1/career',
 };

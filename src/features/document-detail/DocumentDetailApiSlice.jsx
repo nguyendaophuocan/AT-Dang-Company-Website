@@ -24,7 +24,7 @@ export const documentDetailSlice = apiSlice.injectEndpoints({
     }),
     updateDocumentDetail: builder.mutation({
       query: ({ id, payload }) => ({
-        url: `${API_ROUTES.DOCUMENT_DETAIL}/context?id=${id}`,
+        url: `${API_ROUTES.DOCUMENT_CONTEXT}/?id=${id}`,
         method: 'patch',
         body: { ...payload },
       }),

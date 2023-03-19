@@ -75,7 +75,6 @@ const News = () => {
                 ) : (
                   <>
                     <h2 className='title theme-gradient'>
-                      {' '}
                       {dataHeader?.title}
                     </h2>
                     <p>{dataHeader?.description}</p>

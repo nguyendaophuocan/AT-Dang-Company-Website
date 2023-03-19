@@ -5,3 +5,9 @@
 .pagination {
   text-align: center;
 }
+
+:global {
+  .ant-pagination-item-active {
+    border-color: #cdaa73 !important;
+  }
+}

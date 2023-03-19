@@ -104,6 +104,7 @@ const Subscribe = () => {
                     >
                       <Row className='mb--10'>
                         <Select
+                          className={styles.subscribeSelect}
                           defaultValue='Mr'
                           style={{ width: 80 }}
                           onChange={handleChangeSelect}
@@ -197,9 +198,12 @@ const Subscribe = () => {
             <div className='col-lg-12'>
               <div className='section-title text-center'>
                 <span className='theme-color font--18 fontWeight600'>
-                  Related Content
+                  <FormattedMessage id='OUR_MORE_BLOGS' />
                 </span>
-                <h2>Our More Blogs</h2>
+                <h2>
+                  {' '}
+                  <FormattedMessage id='OUR_MORE_CONTENTS' />
+                </h2>
               </div>
             </div>
           </div>
@@ -217,7 +221,10 @@ const Subscribe = () => {
                 </div>
                 <div className='inner'>
                   <h4>
-                    <Link to='/About'>More about us</Link>
+                    <Link to='/About'>
+                      {' '}
+                      <FormattedMessage id='ABOUT_US' />
+                    </Link>
                   </h4>
                 </div>
               </div>
