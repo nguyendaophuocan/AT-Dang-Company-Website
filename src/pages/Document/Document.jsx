@@ -1,12 +1,21 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { useCreateDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
-import { Button, Spin, Upload } from 'antd';
+import {
+  useCreateDocumentDetailMutation,
+  useUploadDocumentFileMutation,
+} from '../../features/document-detail/documentDetailApiSlice';
+import { Button, message, Spin, Upload } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { UploadOutlined } from '@ant-design/icons';
-import { BASE_API_URL } from '../../utils/constans';
+import { API_ROUTES, BASE_API_URL } from '../../utils/constans';
+import { useSelector } from 'react-redux';
+import { selectCurrentToken } from '../../features/auth/authSlice';
+import {
+  useUploadFileMutation,
+  useUploadSingleImageMutation,
+} from '../../features/document-upload/documentUploadApiSlice';
 
 const Document = () => {
   const [dataHeader, setDataHeader] = useState([]);
@@ -125,19 +134,51 @@ const Document = () => {
     setDataHeader(result);
   };
 
-  const props = {
-    listType: 'picture',
-    previewFile(file) {
-      console.log('Your upload file:', file);
-      // Your process logic. Here we just mock to the same file
-      const payload = { image: file };
-      return fetch(`${BASE_API_URL}/api/v1/image`, {
-        method: 'POST',
-        body: payload,
+  const [uploadDocumentFile, { isLoading: isLoadingUpdateDocumentDetail }] =
+    useUploadDocumentFileMutation();
+
+  const [uploadSingleImage] = useUploadSingleImageMutation();
+  const usertoken = useSelector(selectCurrentToken);
+  const [file, setFile] = useState();
+  const [uploading, setUploading] = useState(false);
+  const handleUpload = async (uploadfile) => {
+    // setUploading(true);
+    let formData = new FormData();
+    formData.append('file', uploadfile);
+    console.log('formdata', formData.get('file'));
+    // You can use any AJAX library you like
+    fetch(`${BASE_API_URL}/${API_ROUTES.UPLOAD_FILE}`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${usertoken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // setFileList([]);
+        message.success('upload successfully.');
       })
-        .then((res) => res.json())
-        .then(({ thumbnail }) => thumbnail);
+      .catch(() => {
+        message.error('upload failed.');
+      })
+      .finally(() => {
+        setUploading(false);
+      });
+
+    // uploadSingleImage(formData);
+    // await uploadDocumentFile(formData);
+  };
+  const props = {
+    onRemove: (newfile) => {
+      setFile(newfile);
     },
+    beforeUpload: (newfile) => {
+      setFile(newfile);
+      return false;
+    },
+    file,
   };
 
   useEffect(() => {
@@ -334,6 +375,16 @@ const Document = () => {
                   <Upload {...props} accept='.doc,.docx,application/pdf'>
                     <Button icon={<UploadOutlined />}>Upload</Button>
                   </Upload>
+                  <Button
+                    type='primary'
+                    onClick={() => handleUpload(file)}
+                    loading={uploading}
+                    style={{
+                      marginTop: 16,
+                    }}
+                  >
+                    {uploading ? 'Uploading' : 'Start Upload'}
+                  </Button>
                 </div>
                 {isLoading ? (
                   <Spin className='mt--80' />

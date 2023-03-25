@@ -19,6 +19,7 @@ import {
   useGetHomePageContentMutation,
   useUpdateHomePageContentMutation,
   useUpdateNewsContentMutation,
+  useUpdateCareerContentMutation
 } from '../../features/admin/adminApiSlice';
 import {
   useCreateNewsMutation,
@@ -446,6 +447,7 @@ const Admin = () => {
     news: { id: '', title: false, description: false },
     contactUs: { id: '', title: false, description: false },
     documentDetail: { id: '', title: false, description: false },
+    career: { id: '', title: false, description: false },
   });
   const [editingValue, setEditingValue] = useState({
     id: '',
@@ -517,6 +519,10 @@ const Admin = () => {
   const [updateNewsContent, { isLoading: isLoadingUpdateNews }] =
     useUpdateNewsContentMutation();
 
+    const [updateCareerContent, { isLoading: isLoadingUpdateCareer }] =
+    useUpdateCareerContentMutation();
+
+
   const [updateContactUs, { isLoading: isLoadingUpdateContactUs }] =
     useUpdateContactUsMutation();
 
@@ -569,7 +575,22 @@ const Admin = () => {
         });
         setEditingValue({ id, value, page: 'contactus', type: 'description' });
       }
-    } else if (page === 'documentdetail') {
+     
+    } 
+    else if (page === 'career') {
+      if (type === 'title') {
+        setOpen({ ...open, career: { ...open.career, title: true } });
+        setEditingValue({ id, value, page: 'career', type: 'title' });
+      }
+      if (type === 'description') {
+        setOpen({
+          ...open,
+          career: { ...open.career, description: true },
+        });
+        setEditingValue({ id, value, page: 'career', type: 'description' });
+      }
+    }
+    else if (page === 'documentdetail') {
       if (type === 'title') {
         setOpen({
           ...open,
@@ -598,10 +619,12 @@ const Admin = () => {
       news: { id: '', title: false, description: false },
       contactUs: { id: '', title: false, description: false },
       documentDetail: { id: '', title: false, description: false },
+      career: { id: '', title: false, description: false },
     });
     if (!cancel) {
       getHomepageData();
       getNewsData();
+      getCareerData()
       getContactUsData();
     }
   };
@@ -707,6 +730,20 @@ const Admin = () => {
           description: value,
         };
         result = await updateDocumentDetail({ id, payload }).unwrap();
+      }
+    }
+    else if (page === 'career') {
+      if (type === 'title') {
+        payload = {
+          title: value,
+        };
+        result = await updateCareerContent({ id, payload }).unwrap();
+      }
+      if (type === 'description') {
+        payload = {
+          description: value,
+        };
+        result = await updateCareerContent({ id, payload }).unwrap();
       }
     }
     if (result) hideModal();
@@ -1251,7 +1288,8 @@ const Admin = () => {
           open.homepage.title ||
           open.news.title ||
           open.contactUs.title ||
-          open.documentDetail.title
+          open.documentDetail.title ||
+          open.career.title
         }
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}
@@ -1266,7 +1304,8 @@ const Admin = () => {
           open.homepage.description ||
           open.news.description ||
           open.contactUs.description ||
-          open.documentDetail.description
+          open.documentDetail.description || 
+          open.career.description
         }
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}

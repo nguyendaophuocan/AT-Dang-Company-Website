@@ -45,7 +45,6 @@ function HeaderNavbar() {
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState('');
   const isUserLoggedIn = useSelector(selectCurrentUser);
-  const usertoken = useSelector(selectCurrentToken);
 
   const handleModalSearch = (value, searchRef = '') => {
     setVisible(value);

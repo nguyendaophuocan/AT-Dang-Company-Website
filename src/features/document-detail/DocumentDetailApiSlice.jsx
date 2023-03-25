@@ -29,6 +29,14 @@ export const documentDetailSlice = apiSlice.injectEndpoints({
         body: { ...payload },
       }),
     }),
+    uploadDocumentFile: builder.mutation({
+      query: (formData) => ({
+        url: `${API_ROUTES.UPLOAD_FILE}`,
+        method: 'post',
+        body:  formData
+  
+      }),
+    }),
   }),
 });
 
@@ -37,4 +45,5 @@ export const {
   useCreateDocumentDetailMutation,
   useGetAllDocumentsMutation,
   useUpdateDocumentDetailMutation,
+  useUploadDocumentFileMutation,
 } = documentDetailSlice;

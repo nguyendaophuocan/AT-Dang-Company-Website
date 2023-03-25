@@ -23,6 +23,13 @@ export const adminSlice = apiSlice.injectEndpoints({
         body: payload,
       }),
     }),
+    updateCareerContent: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${API_ROUTES.CAREER}?id=${id}`,
+        method: 'PATCH',
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -30,4 +37,5 @@ export const {
   useGetHomePageContentMutation,
   useUpdateHomePageContentMutation,
   useUpdateNewsContentMutation,
+  useUpdateCareerContentMutation
 } = adminSlice;
