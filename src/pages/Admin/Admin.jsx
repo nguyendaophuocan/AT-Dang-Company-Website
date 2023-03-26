@@ -19,7 +19,7 @@ import {
   useGetHomePageContentMutation,
   useUpdateHomePageContentMutation,
   useUpdateNewsContentMutation,
-  useUpdateCareerContentMutation
+  useUpdateCareerContentMutation,
 } from '../../features/admin/adminApiSlice';
 import {
   useCreateNewsMutation,
@@ -504,7 +504,6 @@ const Admin = () => {
     value: '',
   });
 
-  console.log('selectedDocumentVal', selectedDocumentVal);
   const [getDocumentDetail, { isLoading: isLoadingDocument }] =
     useGetDocumentDetailMutation();
 
@@ -519,9 +518,8 @@ const Admin = () => {
   const [updateNewsContent, { isLoading: isLoadingUpdateNews }] =
     useUpdateNewsContentMutation();
 
-    const [updateCareerContent, { isLoading: isLoadingUpdateCareer }] =
+  const [updateCareerContent, { isLoading: isLoadingUpdateCareer }] =
     useUpdateCareerContentMutation();
-
 
   const [updateContactUs, { isLoading: isLoadingUpdateContactUs }] =
     useUpdateContactUsMutation();
@@ -575,9 +573,7 @@ const Admin = () => {
         });
         setEditingValue({ id, value, page: 'contactus', type: 'description' });
       }
-     
-    } 
-    else if (page === 'career') {
+    } else if (page === 'career') {
       if (type === 'title') {
         setOpen({ ...open, career: { ...open.career, title: true } });
         setEditingValue({ id, value, page: 'career', type: 'title' });
@@ -589,8 +585,7 @@ const Admin = () => {
         });
         setEditingValue({ id, value, page: 'career', type: 'description' });
       }
-    }
-    else if (page === 'documentdetail') {
+    } else if (page === 'documentdetail') {
       if (type === 'title') {
         setOpen({
           ...open,
@@ -624,7 +619,7 @@ const Admin = () => {
     if (!cancel) {
       getHomepageData();
       getNewsData();
-      getCareerData()
+      getCareerData();
       getContactUsData();
     }
   };
@@ -731,8 +726,7 @@ const Admin = () => {
         };
         result = await updateDocumentDetail({ id, payload }).unwrap();
       }
-    }
-    else if (page === 'career') {
+    } else if (page === 'career') {
       if (type === 'title') {
         payload = {
           title: value,
@@ -1304,7 +1298,7 @@ const Admin = () => {
           open.homepage.description ||
           open.news.description ||
           open.contactUs.description ||
-          open.documentDetail.description || 
+          open.documentDetail.description ||
           open.career.description
         }
         onOk={() => handleUpdate(editingValue)}

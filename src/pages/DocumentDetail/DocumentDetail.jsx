@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
 import FooterHome from '../../components/footer/FooterHome';
 import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
-
+import styles from './documentdetail.module.scss';
 const DocumentDetail = () => {
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
@@ -14,12 +14,15 @@ const DocumentDetail = () => {
   const [dataHeader, setDataHeader] = useState([]);
 
   const [documentDetailData, setDocumentDetailData] = useState({});
+  const [documentPdfId, setDocumentPdfId] = useState('');
+
   const [getDocumentDetail] = useGetDocumentDetailMutation();
   const getDocumentDetailData = async () => {
     const { id } = params;
     const result = await getDocumentDetail(id).unwrap();
     if (result) {
       setDocumentDetailData(result.contextList);
+      setDocumentPdfId(result.pdfList);
     }
   };
 
@@ -27,12 +30,18 @@ const DocumentDetail = () => {
     const result = await getHeader('documentdetail').unwrap();
     setDataHeader(result);
   };
+  const navigate = useNavigate();
+  const handleReadFile = (documentPdfId) => {
+    window.location.replace(
+      `https://cdn.filestackcontent.com/${documentPdfId}`
+    );
+  };
 
   useEffect(() => {
     getDocumentDetailData();
     getHeaderData();
   }, []);
-
+  console.log('document', documentDetailData);
   return (
     <React.Fragment>
       <Helmet pageTitle='Blog Details' />
@@ -84,6 +93,20 @@ const DocumentDetail = () => {
                   <p className='mt--25 mt_sm--5'>
                     {documentDetailData[4]?.description}
                   </p>
+                </div>
+                <div style={{}} className={styles.readFile}>
+                  <button
+                    className='rn-button-style--2 btn-solid mt--40'
+                    type='submit'
+                    value='submit'
+                    name='submit'
+                    id='mc-embedded-subscribe'
+                    onClick={() => handleReadFile(documentPdfId)}
+                    style={{ width: '20%', padding: '12px' }}
+                  >
+                    {/* <FormattedMessage id='READ_MORE' /> */}
+                    Read PDF file
+                  </button>
                 </div>
               </div>
             </div>

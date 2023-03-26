@@ -3,19 +3,25 @@ import { Helmet } from 'react-helmet';
 
 import {
   useCreateDocumentDetailMutation,
+  useGetAllDocumentFilesMutation,
   useUploadDocumentFileMutation,
 } from '../../features/document-detail/documentDetailApiSlice';
-import { Button, message, Spin, Upload } from 'antd';
+import { Button, message, Select, Spin, Upload } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { UploadOutlined } from '@ant-design/icons';
-import { API_ROUTES, BASE_API_URL } from '../../utils/constans';
+import {
+  API_ROUTES,
+  BASE_API_URL,
+  FILESTACK_API_KEY,
+} from '../../utils/constans';
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../../features/auth/authSlice';
 import {
   useUploadFileMutation,
   useUploadSingleImageMutation,
 } from '../../features/document-upload/documentUploadApiSlice';
+import { PickerOverlay } from 'filestack-react';
 
 const Document = () => {
   const [dataHeader, setDataHeader] = useState([]);
@@ -92,14 +98,18 @@ const Document = () => {
       });
     }
   };
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data, selectedFileVal) => {
     const fomattedData = data.contextList.map((item) => {
       return {
         title: Object.values(item)[0],
         description: Object.values(item)[1],
       };
     });
-    const payload = { name: data.name, contextList: fomattedData };
+    const payload = {
+      name: data.name,
+      contextList: fomattedData,
+      pdf: selectedFileVal,
+    };
     const result = await createDocumentDetail(payload);
     if (result?.error) {
       openNotification('Create Document failed');
@@ -129,6 +139,9 @@ const Document = () => {
       });
     }, 500);
   };
+  const [getAllDocumentFiles, { isLoading: isLoadingAllDocumentFiles }] =
+    useGetAllDocumentFilesMutation();
+
   const getHeaderData = async () => {
     const result = await getHeader('document').unwrap();
     setDataHeader(result);
@@ -141,50 +154,75 @@ const Document = () => {
   const usertoken = useSelector(selectCurrentToken);
   const [file, setFile] = useState();
   const [uploading, setUploading] = useState(false);
-  const handleUpload = async (uploadfile) => {
-    // setUploading(true);
-    let formData = new FormData();
-    formData.append('file', uploadfile);
-    console.log('formdata', formData.get('file'));
-    // You can use any AJAX library you like
-    fetch(`${BASE_API_URL}/${API_ROUTES.UPLOAD_FILE}`, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${usertoken}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        // setFileList([]);
-        message.success('upload successfully.');
-      })
-      .catch(() => {
-        message.error('upload failed.');
-      })
-      .finally(() => {
-        setUploading(false);
-      });
+  // const handleUpload = async (uploadfile) => {
+  //   // setUploading(true);
+  //   let formData = new FormData();
+  //   formData.append('image', uploadfile);
+  //   console.log('formdata', formData.get('file'));
+  //   // You can use any AJAX library you like
+  //   fetch(`${BASE_API_URL}/${API_ROUTES.UPLOAD_FILE}`, {
+  //     method: 'POST',
+  //     body: formData,
+  //     headers: {
+  //       Authorization: `Bearer ${usertoken}`,
+  //       'Content-Type':
+  //         'multipart/form-data; boundary=---WebKitFormBoundary7MA4YWxkTrZu0gW',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then(() => {
+  //       // setFileList([]);
+  //       message.success('upload successfully.');
+  //     })
+  //     .catch(() => {
+  //       message.error('upload failed.');
+  //     })
+  //     .finally(() => {
+  //       setUploading(false);
+  //     });
 
-    // uploadSingleImage(formData);
-    // await uploadDocumentFile(formData);
-  };
-  const props = {
-    onRemove: (newfile) => {
-      setFile(newfile);
-    },
-    beforeUpload: (newfile) => {
-      setFile(newfile);
-      return false;
-    },
-    file,
+  //   // uploadSingleImage(formData);
+  //   // await uploadDocumentFile(formData);
+  // };
+  // const props = {
+  //   onRemove: (newfile) => {
+  //     setFile(newfile);
+  //   },
+  //   beforeUpload: (newfile) => {
+  //     setFile(newfile);
+  //     return false;
+  //   },
+  //   file,
+  // };
+
+  const [selectedFileVal, setSelectedFileVal] = useState([]);
+  const [selectFileOptions, setSelectFileOptions] = useState([]);
+
+  const getPdfFiles = async () => {
+    const result = await getAllDocumentFiles();
+    let options = [];
+    const totalOptions = result.data.length;
+    for (let i = 0; i < totalOptions; i++) {
+      if (result.data[i])
+        options.push({ value: result.data[i], label: result.data[i] });
+    }
+    setSelectFileOptions(options);
   };
 
+  const handleSelectPdfFile = (name) => {
+    setSelectedFileVal(name);
+  };
+
+  const [showFilestackUploader, setShowFilestackUploader] = useState(false);
+  // const [pdfFileId, setPdfFileId] = useState('');
+
+  const handleShowFilestack = (value) => {
+    setShowFilestackUploader(value);
+  };
   useEffect(() => {
     getHeaderData();
+    getPdfFiles();
   }, []);
-
   return (
     <Fragment>
       <Helmet pageTitle='Document' />
@@ -370,35 +408,61 @@ const Document = () => {
                   </div>
                 </form>
               </div>{' '}
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div className='slide-btn mt--80'>
-                  <Upload {...props} accept='.doc,.docx,application/pdf'>
-                    <Button icon={<UploadOutlined />}>Upload</Button>
-                  </Upload>
-                  <Button
-                    type='primary'
-                    onClick={() => handleUpload(file)}
-                    loading={uploading}
-                    style={{
-                      marginTop: 16,
+            </div>
+            <div className='col-lg-12 mb--50'>
+              {/* <div className='section-title text-left mb--50'>
+                <h2 className='title'>Select PDF file</h2>
+              </div>
+              <div className='form-wrapper'>
+                <Select
+                  className=''
+                  defaultValue={selectedFileVal}
+                  value={selectedFileVal}
+                  style={{ width: 350 }}
+                  onChange={handleSelectPdfFile}
+                  options={selectFileOptions}
+                  mode='multiple'
+                />
+              </div> */}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div className='slide-btn mt--80'>
+                <Button
+                  icon={<UploadOutlined />}
+                  onClick={() => handleShowFilestack(true)}
+                >
+                  Upload
+                </Button>
+
+                {showFilestackUploader && (
+                  <PickerOverlay
+                    apikey={FILESTACK_API_KEY}
+                    onUploadDone={(res) =>
+                      handleSelectPdfFile(res?.filesUploaded[0].handle)
+                    }
+                    pickerOptions={{
+                      onClose: () => {
+                        handleShowFilestack(false);
+                      },
                     }}
-                  >
-                    {uploading ? 'Uploading' : 'Start Upload'}
-                  </Button>
-                </div>
-                {isLoading ? (
-                  <Spin className='mt--80' />
-                ) : (
-                  <div className='slide-btn mt--80'>
-                    <button
-                      className='rn-button-style--2 btn-primary-color'
-                      onClick={() => handleSubmit(createDocumentData)}
-                    >
-                      Create
-                    </button>
-                  </div>
+                  />
                 )}
               </div>
+
+              {isLoading ? (
+                <Spin className='mt--80' />
+              ) : (
+                <div className='slide-btn mt--80'>
+                  <button
+                    className='rn-button-style--2 btn-primary-color'
+                    onClick={() =>
+                      handleSubmit(createDocumentData, selectedFileVal)
+                    }
+                  >
+                    Create
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
