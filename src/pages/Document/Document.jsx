@@ -210,6 +210,7 @@ const Document = () => {
   };
 
   const handleSelectPdfFile = (name) => {
+    openNotification('Create Document successfuly');
     setSelectedFileVal(name);
   };
 
