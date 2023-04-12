@@ -7,21 +7,27 @@ import FooterHome from '../../components/footer/FooterHome';
 import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import styles from './documentdetail.module.scss';
+import { Col, Divider, Row } from 'antd';
 const DocumentDetail = () => {
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const params = useParams();
   const [dataHeader, setDataHeader] = useState([]);
 
-  const [documentDetailData, setDocumentDetailData] = useState({});
+  const [documentDetailContextList, setDocumentDetailContextList] = useState(
+    {}
+  );
+  const [documentDetailData, setDocumentDetailData] = useState();
+
   const [documentPdfId, setDocumentPdfId] = useState('');
 
   const [getDocumentDetail] = useGetDocumentDetailMutation();
-  const getDocumentDetailData = async () => {
+  const getdocumentDetailContextList = async () => {
     const { id } = params;
     const result = await getDocumentDetail(id).unwrap();
     if (result) {
-      setDocumentDetailData(result.contextList);
+      setDocumentDetailContextList(result.contextList);
+      setDocumentDetailData(result);
       setDocumentPdfId(result.pdfList);
     }
   };
@@ -30,18 +36,72 @@ const DocumentDetail = () => {
     const result = await getHeader('documentdetail').unwrap();
     setDataHeader(result);
   };
-  const navigate = useNavigate();
+
   const handleReadFile = (documentPdfId) => {
     window.location.replace(
       `https://cdn.filestackcontent.com/${documentPdfId}`
     );
   };
 
+  const columnDividerValue = (columNumber, items) => {
+    if (columNumber === 1) {
+      return (
+        <>
+          <>
+            {items.map((item) => (
+              <Col span={24}>{item}</Col>
+            ))}
+          </>
+        </>
+      );
+    } else if (columNumber === 2) {
+      return (
+        <>
+          {items.map((item) => (
+            <>
+              <Col span={12}>{item}</Col>
+            </>
+          ))}
+        </>
+      );
+    } else if (columNumber === 3) {
+      return (
+        <>
+          {items.map((item) => (
+            <>
+              <Col span={8}>{item}</Col>
+            </>
+          ))}
+        </>
+      );
+    } else if (columNumber === 4) {
+      return (
+        <>
+          {items.map((item) => (
+            <>
+              <Col span={6}>{item}</Col>
+            </>
+          ))}
+        </>
+      );
+    } else if (columNumber === 5) {
+      return (
+        <>
+          {items.map((item) => (
+            <>
+              <Col span={4}>{item}</Col>
+            </>
+          ))}
+        </>
+      );
+    }
+  };
   useEffect(() => {
-    getDocumentDetailData();
+    getdocumentDetailContextList();
     getHeaderData();
   }, []);
-  console.log('document', documentDetailData);
+
+  console.log('document', documentDetailContextList);
   return (
     <React.Fragment>
       <Helmet pageTitle='Blog Details' />
@@ -72,28 +132,64 @@ const DocumentDetail = () => {
               <div className='inner-wrapper'>
                 <div className='inner'>
                   {' '}
-                  <h1> {documentDetailData[0]?.title}</h1>
-                  <p>{documentDetailData[0]?.description}</p>
-                  <p className='mt--40'>{documentDetailData[1]?.title}</p>
-                  <p>{documentDetailData[1]?.description}</p>
-                  {/* <blockquote className='rn-blog-quote'>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes.
-                  </blockquote> */}
-                  <p>{documentDetailData[2]?.title}</p>
-                  <p className='mt--25 mt_sm--5'>
-                    {documentDetailData[2]?.description}
+                  <h1> {documentDetailContextList[0]?.title}</h1>
+                  <p>{documentDetailContextList[0]?.description}</p>
+                  <h1 className='mt--25'>
+                    {documentDetailContextList[1]?.title}
+                  </h1>
+                  <p>{documentDetailContextList[1]?.description}</p>
+                  <h1>{documentDetailContextList[2]?.title}</h1>
+                  <p className='mt--25 '>
+                    {documentDetailContextList[2]?.description}
                   </p>
-                  <p>{documentDetailData[3]?.title}</p>
-                  <p className='mt--25 mt_sm--5'>
-                    {documentDetailData[3]?.description}
+                  <h1>{documentDetailContextList[3]?.title}</h1>
+                  <p className='mt--25 '>
+                    {documentDetailContextList[3]?.description}
                   </p>
-                  <p>{documentDetailData[4]?.title}</p>
-                  <p className='mt--25 mt_sm--5'>
-                    {documentDetailData[4]?.description}
+                  <h1>{documentDetailContextList[4]?.title}</h1>
+                  <p className='mt--25 '>
+                    {documentDetailContextList[4]?.description}
                   </p>
+                  <h1> {documentDetailData?.appendix_tittle}</h1>
+                  <p>{documentDetailData?.appendix_description}</p>
+                  <Divider />
+                  <h3> {documentDetailData?.subHeading1?.title}</h3>
+                  <Row className='mb--50'>
+                    {columnDividerValue(
+                      documentDetailData?.totalColumns,
+                      documentDetailData?.subHeading1?.items
+                    )}
+                  </Row>
+                  <h3>{documentDetailData?.subHeading2?.title}</h3>
+                  <Row className='mb--50'>
+                    {columnDividerValue(
+                      documentDetailData?.totalColumns,
+                      documentDetailData?.subHeading2?.items
+                    )}
+                  </Row>
+                  <h3>{documentDetailData?.subHeading3?.title}</h3>
+                  <Row className='mb--50'>
+                    {columnDividerValue(
+                      documentDetailData?.totalColumns,
+                      documentDetailData?.subHeading3?.items
+                    )}
+                  </Row>
+                  <h3> {documentDetailData?.subHeading4?.title}</h3>
+                  <Row className='mb--50'>
+                    {columnDividerValue(
+                      documentDetailData?.totalColumns,
+                      documentDetailData?.subHeading4?.items
+                    )}
+                  </Row>
+                  <h3> {documentDetailData?.subHeading5?.title}</h3>
+                  <Row className='mb--50'>
+                    {columnDividerValue(
+                      documentDetailData?.totalColumns,
+                      documentDetailData?.subHeading5?.items
+                    )}
+                  </Row>
                 </div>
+
                 <div style={{}} className={styles.readFile}>
                   <button
                     className='rn-button-style--2 btn-solid mt--40'

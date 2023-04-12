@@ -4,7 +4,7 @@ import { FiChevronUp } from 'react-icons/fi';
 import Header from '../header/Header';
 import Footer from '../footer/FooterOtherPage';
 import * as filestack from 'filestack-js';
-import { FILESTACK_API_KEY } from '../../utils/constans';
+import { FILESTACK_API_KEY } from '../../utils/constants';
 
 class App extends Component {
   render() {

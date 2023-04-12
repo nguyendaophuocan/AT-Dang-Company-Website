@@ -1,5 +1,5 @@
 import { apiSlice } from '../../app/api/apiSlice';
-import { API_ROUTES } from '../../utils/constans';
+import { API_ROUTES } from '../../utils/constants';
 
 export const searchSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
