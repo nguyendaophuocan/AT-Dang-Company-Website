@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { Helmet } from 'react-helmet';
 import FooterHome from '../../components/footer/FooterHome';
 import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import styles from './documentdetail.module.scss';
 import { Col, Divider, Row } from 'antd';
+import PageHelmet from '../../components/common/Helmet';
 const DocumentDetail = () => {
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
@@ -99,12 +99,13 @@ const DocumentDetail = () => {
   useEffect(() => {
     getdocumentDetailContextList();
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log('document', documentDetailContextList);
   return (
     <React.Fragment>
-      <Helmet pageTitle='Blog Details' />
+      <PageHelmet pageTitle='Blog Details' />
 
       {/* Start Breadcrump Area */}
       <div
@@ -191,18 +192,20 @@ const DocumentDetail = () => {
                 </div>
 
                 <div style={{}} className={styles.readFile}>
-                  <button
-                    className='rn-button-style--2 btn-solid mt--40'
-                    type='submit'
-                    value='submit'
-                    name='submit'
-                    id='mc-embedded-subscribe'
-                    onClick={() => handleReadFile(documentPdfId)}
-                    style={{ width: '20%', padding: '12px' }}
-                  >
-                    {/* <FormattedMessage id='READ_MORE' /> */}
-                    Read PDF file
-                  </button>
+                  {documentPdfId && (
+                    <button
+                      className='rn-button-style--2 btn-solid mt--40'
+                      type='submit'
+                      value='submit'
+                      name='submit'
+                      id='mc-embedded-subscribe'
+                      onClick={() => handleReadFile(documentPdfId)}
+                      style={{ width: '20%', padding: '12px' }}
+                    >
+                      {/* <FormattedMessage id='READ_MORE' /> */}
+                      Read PDF file
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

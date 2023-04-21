@@ -47,7 +47,7 @@ class Footer extends Component {
                         <h4>Quick Link</h4>
                         <ul className='ft-link'>
                           <li>
-                            <Link to='/career'>
+                            <Link to='/careers'>
                               {' '}
                               <FormattedMessage id='CAREERS' />
                             </Link>

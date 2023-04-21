@@ -1,6 +1,4 @@
-import { MailOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import Input from 'antd/es/input/Input';
+import { MailOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import React from 'react';
 import {

@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect } from 'react';
 
 import CounterOne from '../../elements/counters/CounterTwo';
 import FooterHome from '../../components/footer/FooterHome';
-import Helmet from '../../components/common/Helmet';
 import TeamOne from '../../blocks/team/TeamOne';
 import Slider from 'react-slick';
 import { portfolioSlick2 } from '../../page-demo/script';
@@ -15,7 +14,8 @@ import { Spin } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import styles from './home.module.scss';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
-const PortfolioList2 = [
+import PageHelmet from '../../components/common/Helmet';
+const ItemList = [
   {
     image: 'image-1',
     category: 'Development',
@@ -84,7 +84,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <Helmet pageTitle='Company website' />
+      <PageHelmet pageTitle='Company website' />
       {/* Start Slider Area   */}
       <>
         <div className='slider-activation slider-creative-agency'>
@@ -186,7 +186,7 @@ const Home = () => {
             <div className='wrapper portfolio-sacousel-inner mb--55'>
               <div className='portfolio-slick-activation mt--30 mt_sm--30'>
                 <Slider {...portfolioSlick2}>
-                  {PortfolioList2.map((value, index) => (
+                  {ItemList.map((value, index) => (
                     <div
                       className='portfolio portfolio-interior-design'
                       key={index}
@@ -201,11 +201,11 @@ const Home = () => {
                           <h4>
                             <a href='/portfolio-details'>{value.title}</a>
                           </h4>
-                          <div className='portfolio-button'>
+                          {/* <div className='portfolio-button'>
                             <a className='rn-btn' href='/portfolio-details'>
                               <FormattedMessage id='READ_MORE' />
                             </a>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

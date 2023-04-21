@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
 
 import Footer from '../../components/footer/FooterHome';
-import { FormattedMessage } from 'react-intl';
 import PageHelmet from '../../components/common/Helmet';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { Card, Pagination, Spin } from 'antd';
-import { useGetCareerMutation } from '../../features/career/careerApiSlice';
+import { useGetCareerMutation } from '../../features/careers/careersApiSlice';
 import classNames from 'classnames';
 import { Typography } from 'antd';
 import styles from './career.module.scss';
+import { FormattedMessage } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 const { Text } = Typography;
 
 const Career = () => {
@@ -27,10 +27,14 @@ const Career = () => {
     current: 1,
   });
 
-  const pageSize = 5;
-  const queryParams = { off_set: career.current - 1, page_size: 5 };
+  const pageSize = 10;
+  const queryParams = {
+    off_set: (career.current - 1) * pageSize + 1,
+    page_size: pageSize,
+  };
+  const navigate = useNavigate();
 
-  const [getCareer, { isLoading, data, refetch }] = useGetCareerMutation();
+  const [getCareer, { isLoading, data }] = useGetCareerMutation();
 
   const handleChange = (page) => {
     setCareer({
@@ -45,15 +49,15 @@ const Career = () => {
     setCareer({ ...career, data });
   };
 
+  const handleReadmore = (id) => {
+    navigate(`/careers/${id}`);
+  };
+
   useEffect(() => {
     getData();
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    getHeaderData();
-  }, []);
-
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Careers' />
@@ -138,7 +142,7 @@ const Career = () => {
                                   </Text>
                                 </p>
                                 <div className=' mb--30'>{item.updatedBy}</div>
-                                {/* <button
+                                <button
                                   className='rn-button-style--2 btn-solid'
                                   type='submit'
                                   value='submit'
@@ -147,7 +151,7 @@ const Career = () => {
                                   onClick={() => handleReadmore(item.id)}
                                 >
                                   <FormattedMessage id='READ_MORE' />
-                                </button> */}
+                                </button>
                               </Card>
                             </div>
                           )

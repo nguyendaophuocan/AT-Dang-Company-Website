@@ -799,7 +799,7 @@ Portfolio Style Three
         @extend %transition;
       }
       &::after {
-        background: linear-gradient(to bottom, #fc004d 0, #000000 100%);
+        background: linear-gradient(to bottom, color-1 0, #000000 70%);
         position: absolute;
         left: 0;
         right: 0;

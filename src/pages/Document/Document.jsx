@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 
 import {
   useCreateDocumentDetailMutation,
@@ -15,6 +14,7 @@ import { selectCurrentToken } from '../../features/auth/authSlice';
 
 import { PickerOverlay } from 'filestack-react';
 import { FormattedMessage } from 'react-intl';
+import PageHelmet from '../../components/common/Helmet';
 
 const Document = () => {
   const [dataHeader, setDataHeader] = useState([]);
@@ -107,7 +107,7 @@ const Document = () => {
     const payload = {
       name: documentName,
       contextList: fomattedData,
-      pdf: selectedFileVal.length>0 ? selectedFileVal : "",
+      pdf: selectedFileVal.length > 0 ? selectedFileVal : '',
       totalColumns: Number(selectedOptionVal),
       appendix_tittle: appendixData.appendixTitle,
       appendix_description: appendixData.appendixContent,
@@ -169,8 +169,6 @@ const Document = () => {
     const result = await getHeader('document').unwrap();
     setDataHeader(result);
   };
-
-  const usertoken = useSelector(selectCurrentToken);
 
   const [selectedFileVal, setSelectedFileVal] = useState([]);
   const [selectFileOptions, setSelectFileOptions] = useState([]);
@@ -324,7 +322,7 @@ const Document = () => {
 
   return (
     <Fragment>
-      <Helmet pageTitle='Document' />
+      <PageHelmet pageTitle='Document' />
       <div
         className='slider-activation slider-creative-agency with-particles'
         id='home'

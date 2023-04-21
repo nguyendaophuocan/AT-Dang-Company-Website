@@ -7,13 +7,9 @@ import logo2 from '../../assets/images/logo/logo-60x60.png';
 import Scrollspy from 'react-scrollspy';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { Button, Dropdown, Modal, Select, Space } from 'antd';
+import { Dropdown, Modal, Select, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  logOut,
-  selectCurrentToken,
-  selectCurrentUser,
-} from '../../features/auth/authSlice';
+import { logOut, selectCurrentUser } from '../../features/auth/authSlice';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { updateSearchValue } from '../../features/search/searchSlice';
 import { FormattedMessage } from 'react-intl';
@@ -61,7 +57,6 @@ function HeaderNavbar() {
   const handleSearch = async (e, searchValue) => {
     e.preventDefault();
     dispatch(updateSearchValue(searchValue));
-    // handleModalSearch(false);
     navigate(`/search?term=${searchValue}`);
   };
 
@@ -85,7 +80,7 @@ function HeaderNavbar() {
           rel='noopener noreferrer'
           href='https://collectibles.atdang.com'
         >
-          Dang's Collectibles
+          <FormattedMessage id='DANG_COLLECTIBLES' />
         </a>
       ),
     },
@@ -97,7 +92,7 @@ function HeaderNavbar() {
           rel='noopener noreferrer'
           href='https://collectibles.atdang.com'
         >
-          Dang's Bespoke Market Research
+          <FormattedMessage id='DANG_BESPOKE_MARKET_RESEARCH' />
         </a>
       ),
     },
@@ -176,7 +171,7 @@ function HeaderNavbar() {
               </li>
 
               <li>
-                <Link to='/career'>
+                <Link to='/careers'>
                   {' '}
                   <FormattedMessage id='CAREERS' />
                 </Link>
@@ -209,21 +204,8 @@ function HeaderNavbar() {
               </li>
             </Scrollspy>
           </nav>{' '}
+          <></>
           <div className={styles.projectSelection}>
-            {/* <Select
-              defaultValue='Projects'
-              style={{ width: 140, padding: '0' }}
-              bordered={false}
-              showArrow={false}
-              options={[
-                { value: 'Collectibles', label: 'Collectibles' },
-                {
-                  value: 'Bespoke Market',
-                  label: 'Bespoke Market',
-                },
-              ]}
-              onChange={handleChangeSelectLanguage}
-            /> */}
             <Dropdown
               menu={{
                 items,
@@ -233,12 +215,12 @@ function HeaderNavbar() {
               open={open}
               className={styles.headerDropdown}
             >
-              <a onClick={(e) => e.preventDefault()}>
+              <Link onClick={(e) => e.preventDefault()}>
                 <Space>
                   <FormattedMessage id='PROJECTS' />
                   <DownOutlined />
                 </Space>
-              </a>
+              </Link>
             </Dropdown>
           </div>
           <div className={styles.searchIcon}>
@@ -272,13 +254,11 @@ function HeaderNavbar() {
               </button>
             </div>
           )}
-          {/* Start Humberger Menu  */}
           <div className='humberger-menu d-block d-lg-none pl--20'>
             <span onClick={menuTrigger} className='menutrigger text-white'>
               <FiMenu />
             </span>
           </div>
-          {/* End Humberger Menu  */}
           <div className='close-menu d-block d-lg-none'>
             <span onClick={cLoseMenuTrigger} className='closeTrigger'>
               <FiX />

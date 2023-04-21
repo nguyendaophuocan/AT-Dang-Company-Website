@@ -55,6 +55,7 @@ const Contact = () => {
   useEffect(() => {
     getHeaderData();
     getContactUsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -171,7 +172,7 @@ const Contact = () => {
                     </div>
                     {!isLoading && msg && (
                       <p>
-                        {msg == 'Success' ? (
+                        {msg === 'Success' ? (
                           <Alert
                             className={styles.subscribeInput}
                             message={msg}

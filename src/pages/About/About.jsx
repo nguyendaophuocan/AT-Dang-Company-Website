@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PageHelmet from '../../components/common/Helmet';
-import Testimonial from '../../elements/Testimonial';
-import BrandTwo from '../../elements/BrandTwo';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
-import ScrollToTop from 'react-scroll-up';
-import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterHome';
 import { Link } from 'react-router-dom';
 import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlice';
 import { Spin } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
+import ScrollToTop from '../../components/hoc/withScrollToTop';
+import { FiChevronUp } from 'react-icons/fi';
 
 const About = () => {
   const [dataAbout, setDataAbout] = useState([]);
@@ -21,6 +19,7 @@ const About = () => {
   };
   const [getHomePageContent, { isLoading: isLoadingContent }] =
     useGetHomePageContentMutation();
+
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const getAboutData = async () => {
@@ -36,7 +35,9 @@ const About = () => {
   useEffect(() => {
     getAboutData();
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <React.Fragment id='about'>
       <PageHelmet pageTitle='About' />
@@ -64,7 +65,6 @@ const About = () => {
           </div>
         )}
       </div>
-      {/* Start About Area  */}
       <div className='rn-about-area ptb--120 bg_color--1'>
         <div className='rn-about-wrapper'>
           <div className='container'>
@@ -130,9 +130,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      {/* End About Area  */}
 
-      {/* Start Finding Us Area  */}
       <div className='rn-finding-us-area rn-finding-us bg_color--1 mb--10'>
         {dataAbout[7]?.enable && (
           <div className='inner'>
@@ -156,9 +154,7 @@ const About = () => {
           </div>
         )}
       </div>
-      {/* End Finding Us Area  */}
 
-      {/* Start Team Area  */}
       <div className='rn-team-area bg_color--1 ptb--120'>
         <div className='container'>
           {dataAbout[8]?.enable && (
@@ -173,7 +169,6 @@ const About = () => {
           )}
 
           <div className='row'>
-            {/* Start Single Team  */}
             <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
               <div className='team'>
                 <div className='thumbnail'>
@@ -214,15 +209,46 @@ const About = () => {
                 </ul>
               </div>
             </div>
-            {/* End Single Team  */}
 
-            {/* Start Single Team  */}
             <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
               <div className='team'>
                 <div className='thumbnail'>
                   <img
                     className='w-100'
                     src={require('../../assets/images/team/team-02.jpg')}
+                    alt='Blog Images'
+                  />
+                </div>
+                <div className='content'>
+                  <h4 className='title'>Khanh Linh Dang</h4>
+                  <p className='designation'>Partner</p>
+                </div>
+                <ul className='social-icon'>
+                  <li>
+                    <a href='https://www.facebook.com/'>
+                      <FaFacebookF />
+                    </a>
+                  </li>
+                  <li>
+                    <a href='http://linkedin.com/'>
+                      <FaLinkedinIn />
+                    </a>
+                  </li>
+                  <li>
+                    <a href='https://twitter.com/'>
+                      <FaTwitter />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
+              <div className='team'>
+                <div className='thumbnail'>
+                  <img
+                    className='w-100'
+                    src={require('../../assets/images/team/team-03.jpg')}
                     alt='Blog Images'
                   />
                 </div>
@@ -249,67 +275,15 @@ const About = () => {
                 </ul>
               </div>
             </div>
-            {/* End Single Team  */}
-
-            {/* Start Single Team  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
-              <div className='team'>
-                <div className='thumbnail'>
-                  <img
-                    className='w-100'
-                    src={require('../../assets/images/team/team-03.jpg')}
-                    alt='Blog Images'
-                  />
-                </div>
-                <div className='content'>
-                  <h4 className='title'>Jone Due</h4>
-                  <p className='designation'>Sr. Web Developer</p>
-                </div>
-                <ul className='social-icon'>
-                  <li>
-                    <a href='https://www.facebook.com/'>
-                      <FaFacebookF />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='http://linkedin.com/'>
-                      <FaLinkedinIn />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='https://twitter.com/'>
-                      <FaTwitter />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            {/* End Single Team  */}
           </div>
         </div>
       </div>
-      {/* End Team Area  */}
 
-      {/* Start Brand Area */}
-      <div className='rn-brand-area brand-separation bg_color--5 ptb--120'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12'>
-              <BrandTwo />
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* End Brand Area */}
-
-      {/* Start Back To Top */}
       <div className='backto-top'>
         <ScrollToTop showUnder={160}>
           <FiChevronUp />
         </ScrollToTop>
       </div>
-      {/* End Back To Top */}
-
       <Footer />
     </React.Fragment>
   );

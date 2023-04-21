@@ -3,37 +3,37 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import FooterHome from '../../components/footer/FooterHome';
-import { useGetNewsByIdMutation } from '../../features/news/newsApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { Spin } from 'antd';
 import PageHelmet from '../../components/common/Helmet';
-
-const NewsDetail = () => {
+import { useGetCareersDetailMutation } from '../../features/careers/careersApiSlice';
+import _get from 'lodash/get';
+const CareersDetail = () => {
   const params = useParams();
   const [dataHeader, setDataHeader] = useState([]);
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
-  const [newsDetailData, setNewsDetailData] = useState({});
-  const [getNewsById] = useGetNewsByIdMutation();
-  const getNewsDetailData = async () => {
+  const [careersDetailData, setCareersDetailData] = useState();
+  const [getCareersDetail] = useGetCareersDetailMutation();
+  const getCareersDetailData = async () => {
     const { id } = params;
-    const result = await getNewsById({ id }).unwrap();
+    const result = await getCareersDetail({ id }).unwrap();
     if (result) {
-      setNewsDetailData(result);
+      setCareersDetailData(_get(result?.content, '[0]', ''));
     }
   };
 
   const getHeaderData = async () => {
-    const result = await getHeader('newsdetail').unwrap();
+    const result = await getHeader('CareersDetail').unwrap();
     setDataHeader(result);
   };
 
   useEffect(() => {
     getHeaderData();
-    getNewsDetailData();
+    getCareersDetailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log('careersDetailData', careersDetailData);
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Blog Details' />
@@ -75,17 +75,17 @@ const NewsDetail = () => {
               <div className='inner-wrapper'>
                 <div className='inner'>
                   {' '}
-                  <h2 className='mb--70'> {newsDetailData?.title}</h2>
-                  <p>{newsDetailData?.description}</p>
-                  {newsDetailData?.createBy && (
+                  <h2 className='mb--70'> {careersDetailData?.title}</h2>
+                  <p>{careersDetailData?.description}</p>
+                  {careersDetailData?.createBy && (
                     <div className='font--14' style={{ textAlign: 'right' }}>
-                      {newsDetailData?.createBy}
+                      {careersDetailData?.createBy}
                     </div>
                   )}
                   <p>
                     {' '}
-                    {newsDetailData?.createdAtFormat &&
-                      `Post on  ${newsDetailData?.createdAtFormat}`}
+                    {careersDetailData?.createdAtFormat &&
+                      `Post on  ${careersDetailData?.createdAtFormat}`}
                   </p>
                 </div>
               </div>
@@ -100,4 +100,4 @@ const NewsDetail = () => {
   );
 };
 
-export default NewsDetail;
+export default CareersDetail;

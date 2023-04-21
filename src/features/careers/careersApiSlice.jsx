@@ -9,7 +9,14 @@ export const careerSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getCareersDetail: builder.mutation({
+      query: ({ id }) => ({
+        url: `${API_ROUTES.CAREER}?off_set=0&page_size=1&id=${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetCareerMutation } = careerSlice;
+export const { useGetCareerMutation, useGetCareersDetailMutation } =
+  careerSlice;

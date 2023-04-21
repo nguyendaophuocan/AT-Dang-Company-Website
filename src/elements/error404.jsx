@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FooterTwo from '../components/footer/FooterHome';
 
 const Error404 = () => {

@@ -146,7 +146,7 @@ const Subscribe = () => {
 
                       {!isLoading && msg && (
                         <p>
-                          {msg == 'Success' ? (
+                          {msg === 'Success' ? (
                             <Alert
                               className={styles.subscribeInput}
                               message={msg}

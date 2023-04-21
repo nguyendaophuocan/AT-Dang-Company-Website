@@ -12,6 +12,8 @@ import Card from 'antd/es/card/Card';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import ScrollToTop from '../../components/hoc/withScrollToTop';
+import { FiChevronUp } from 'react-icons/fi';
 
 const { Text } = Typography;
 const News = () => {
@@ -23,11 +25,14 @@ const News = () => {
   const [dataHeader, setDataHeader] = useState([]);
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
-  const pageSize = 5;
-  const queryParams = { off_set: news.current - 1, page_size: 5 };
+  const pageSize = 10;
+  const queryParams = {
+    off_set: (news.current - 1) * pageSize + 1,
+    page_size: pageSize,
+  };
   const navigate = useNavigate();
 
-  const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
+  const [getNews, { isLoading, data }] = useGetNewsMutation();
 
   const handleChange = (page) => {
     setNews({
@@ -50,6 +55,7 @@ const News = () => {
   useEffect(() => {
     getData();
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleReadmore = (id) => {
@@ -169,6 +175,11 @@ const News = () => {
         </div>
       </div>
       {/* End News Area  */}
+      <div className='backto-top'>
+        <ScrollToTop showUnder={160}>
+          <FiChevronUp />
+        </ScrollToTop>
+      </div>
 
       <Footer />
     </React.Fragment>

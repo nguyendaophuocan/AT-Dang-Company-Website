@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import {
   Button,
   Form,
@@ -9,7 +8,6 @@ import {
   Modal,
   Select,
   Space,
-  Spin,
   Switch,
   Table,
   Tag,
@@ -40,8 +38,8 @@ import {
   useGetContactUsMutation,
   useUpdateContactUsMutation,
 } from '../../features/contact-us/contactUsApiSlice';
-import { useGetCareerMutation } from '../../features/career/careerApiSlice';
-import styles from './admin.module.scss';
+import { useGetCareerMutation } from '../../features/careers/careersApiSlice';
+import PageHelmet from '../../components/common/Helmet';
 
 const Admin = () => {
   const columnsHomepage = [
@@ -865,6 +863,7 @@ const Admin = () => {
     getHeaderData();
     getContactUsData();
     getCareerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleModalHeader = (id, position, type, payload) => {
@@ -1035,7 +1034,7 @@ const Admin = () => {
   };
   return (
     <Fragment>
-      <Helmet pageTitle='Admin' />
+      <PageHelmet pageTitle='Admin' />
       <div
         className='slider-activation slider-creative-agency with-particles'
         id='home'

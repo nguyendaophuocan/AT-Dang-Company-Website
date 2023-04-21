@@ -53,6 +53,8 @@ export const messages = {
     SPLIT_BY_COMMA: 'Split by comma',
     UPLOAD: 'Upload',
     CREATE: 'Create',
+    DANG_COLLECTIBLES: "Dang's Collectibles",
+    DANG_BESPOKE_MARKET_RESEARCH: "Dang's Bespoke Market Research",
   },
   [LOCALES.VIETNAMESE]: {
     SHOP_NOW: 'Xem ngay',
@@ -106,5 +108,7 @@ export const messages = {
     SPLIT_BY_COMMA: 'Cách nhau bởi dấu phẩy',
     UPLOAD: 'Tải lên',
     CREATE: 'Tạo',
+    DANG_COLLECTIBLES: "Dang's Collectibles",
+    DANG_BESPOKE_MARKET_RESEARCH: "Dang's Bespoke Market Research",
   },
 };
