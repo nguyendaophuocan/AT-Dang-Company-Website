@@ -10,6 +10,8 @@ import { Typography } from 'antd';
 import styles from './career.module.scss';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
+import EmptyContent from '../../components/common/EmptyContent';
+
 const { Text } = Typography;
 
 const Career = () => {
@@ -29,7 +31,7 @@ const Career = () => {
 
   const pageSize = 10;
   const queryParams = {
-    off_set: (career.current - 1) * pageSize + 1,
+    off_set: (career.current - 1) * pageSize,
     page_size: pageSize,
   };
   const navigate = useNavigate();
@@ -93,7 +95,7 @@ const Career = () => {
       {/* End Breadcrump Area */}
 
       {/* Start Contact Top Area  */}
-      <div className='rn-News-area ptb--120 bg_color--1'>
+      <div className='rn-News-area ptb--130 bg_color--1'>
         <div className='rn-News-wrapper'>
           <div className='container'>
             <div className='row row--35 align-items-center'>
@@ -158,16 +160,18 @@ const Career = () => {
                       )}
                     </div>
                   </div>
-                  {data && (
+                  {data?.content.length >= 1 ? (
                     <div className={styles.pagination}>
                       <Pagination
                         pageSize={pageSize}
                         current={career.current}
-                        total={10}
+                        total={20}
                         onChange={handleChange}
                         style={{ bottom: '0px' }}
                       />
                     </div>
+                  ) : (
+                    <EmptyContent content='careers' />
                   )}
                 </>
               )}

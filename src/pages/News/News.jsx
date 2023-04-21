@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import ScrollToTop from '../../components/hoc/withScrollToTop';
 import { FiChevronUp } from 'react-icons/fi';
+import EmptyContent from '../../components/common/EmptyContent';
 
 const { Text } = Typography;
 const News = () => {
@@ -25,9 +26,9 @@ const News = () => {
   const [dataHeader, setDataHeader] = useState([]);
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
-  const pageSize = 10;
+  const pageSize = 5;
   const queryParams = {
-    off_set: (news.current - 1) * pageSize + 1,
+    off_set: (news.current - 1) * pageSize,
     page_size: pageSize,
   };
   const navigate = useNavigate();
@@ -157,16 +158,18 @@ const News = () => {
                       )}
                     </div>
                   </div>
-                  {data && (
+                  {data?.content.length >= 1 ? (
                     <div className={styles.pagination}>
                       <Pagination
                         pageSize={pageSize}
                         current={news.current}
-                        total={10}
+                        total={20}
                         onChange={handleChange}
                         style={{ bottom: '0px' }}
                       />
                     </div>
+                  ) : (
+                    <EmptyContent content='news' />
                   )}
                 </>
               )}

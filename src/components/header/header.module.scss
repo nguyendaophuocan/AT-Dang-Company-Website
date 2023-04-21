@@ -20,6 +20,11 @@
 .searchIcon {
   margin-left: 25px;
   margin-right: 10px;
+  @media only screen and (max-width: 767px) {
+    margin-left: 12px;
+    margin-right: 0px;
+    margin-top: 5px;
+  }
 }
 .countrySelection {
   margin-left: 15px;

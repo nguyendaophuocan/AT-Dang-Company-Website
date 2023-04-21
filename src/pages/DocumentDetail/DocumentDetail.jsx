@@ -8,6 +8,7 @@ import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import styles from './documentdetail.module.scss';
 import { Col, Divider, Row } from 'antd';
 import PageHelmet from '../../components/common/Helmet';
+
 const DocumentDetail = () => {
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
@@ -102,7 +103,6 @@ const DocumentDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('document', documentDetailContextList);
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Blog Details' />
@@ -155,35 +155,50 @@ const DocumentDetail = () => {
                   <p>{documentDetailData?.appendix_description}</p>
                   <Divider />
                   <h3> {documentDetailData?.subHeading1?.title}</h3>
-                  <Row className='mb--50'>
+                  <Row
+                    className='mb--50 mt--50'
+                    style={{ textAlign: 'center' }}
+                  >
                     {columnDividerValue(
                       documentDetailData?.totalColumns,
                       documentDetailData?.subHeading1?.items
                     )}
                   </Row>
                   <h3>{documentDetailData?.subHeading2?.title}</h3>
-                  <Row className='mb--50'>
+                  <Row
+                    className='mb--50 mt--50'
+                    style={{ textAlign: 'center' }}
+                  >
                     {columnDividerValue(
                       documentDetailData?.totalColumns,
                       documentDetailData?.subHeading2?.items
                     )}
                   </Row>
                   <h3>{documentDetailData?.subHeading3?.title}</h3>
-                  <Row className='mb--50'>
+                  <Row
+                    className='mb--50 mt--50'
+                    style={{ textAlign: 'center' }}
+                  >
                     {columnDividerValue(
                       documentDetailData?.totalColumns,
                       documentDetailData?.subHeading3?.items
                     )}
                   </Row>
                   <h3> {documentDetailData?.subHeading4?.title}</h3>
-                  <Row className='mb--50'>
+                  <Row
+                    className='mb--50 mt--50'
+                    style={{ textAlign: 'center' }}
+                  >
                     {columnDividerValue(
                       documentDetailData?.totalColumns,
                       documentDetailData?.subHeading4?.items
                     )}
                   </Row>
                   <h3> {documentDetailData?.subHeading5?.title}</h3>
-                  <Row className='mb--50'>
+                  <Row
+                    className='mb--50 mt--50'
+                    style={{ textAlign: 'center' }}
+                  >
                     {columnDividerValue(
                       documentDetailData?.totalColumns,
                       documentDetailData?.subHeading5?.items

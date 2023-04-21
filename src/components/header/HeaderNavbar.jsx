@@ -144,6 +144,8 @@ function HeaderNavbar() {
               offset={-200}
             >
               <li>{isUserLoggedIn && <Link to='/admin'>Admin</Link>}</li>
+              <hr style={{ background: '#cdaa73' }} />
+
               <li>
                 {isUserLoggedIn && (
                   <Link to='/document'>
@@ -151,11 +153,13 @@ function HeaderNavbar() {
                   </Link>
                 )}
               </li>
+              <hr style={{ background: '#cdaa73' }} />
               <li>
                 <Link to='/'>
                   <FormattedMessage id='HOME' />
                 </Link>
               </li>
+              <hr style={{ background: '#cdaa73' }} />
 
               <li>
                 <Link to='/about'>
@@ -163,12 +167,15 @@ function HeaderNavbar() {
                   <FormattedMessage id='ABOUT_US' />
                 </Link>
               </li>
+              <hr style={{ background: '#cdaa73' }} />
+
               <li>
                 <Link to='/news'>
                   {' '}
                   <FormattedMessage id='NEWS' />
                 </Link>
               </li>
+              <hr style={{ background: '#cdaa73' }} />
 
               <li>
                 <Link to='/careers'>
@@ -176,6 +183,7 @@ function HeaderNavbar() {
                   <FormattedMessage id='CAREERS' />
                 </Link>
               </li>
+              <hr style={{ background: '#cdaa73' }} />
 
               <li>
                 <Link to='/contact'>

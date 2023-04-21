@@ -33,7 +33,7 @@ const CareersDetail = () => {
     getCareersDetailData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log('careersDetailData', careersDetailData);
+
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Blog Details' />

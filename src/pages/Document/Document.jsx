@@ -243,22 +243,27 @@ const Document = () => {
   const handleAddSubheadingItems = (value, number) => {
     if (number === 1) {
       setShowSubheadingItemsForm({
+        ...showSubheadingItemsForm,
         showSubheadingItem1: value,
       });
     } else if (number === 2) {
       setShowSubheadingItemsForm({
+        ...showSubheadingItemsForm,
         showSubheadingItem2: value,
       });
     } else if (number === 3) {
       setShowSubheadingItemsForm({
+        ...showSubheadingItemsForm,
         showSubheadingItem3: value,
       });
     } else if (number === 4) {
       setShowSubheadingItemsForm({
+        ...showSubheadingItemsForm,
         showSubheadingItem4: value,
       });
     } else if (number === 5) {
       setShowSubheadingItemsForm({
+        ...showSubheadingItemsForm,
         showSubheadingItem5: value,
       });
     }

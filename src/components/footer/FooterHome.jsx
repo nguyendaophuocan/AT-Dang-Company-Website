@@ -25,7 +25,10 @@ const FooterHome = () => {
         className={classNames('wrapper plr--70  plr_sm--20', styles.footerHome)}
       >
         {' '}
-        <div className='row align-items-center justify-content-between'>
+        <div
+          className='row align-items-center justify-content-between'
+          style={{ padding: '20px' }}
+        >
           <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
             <div className='inner'>
               <div
@@ -73,7 +76,10 @@ const FooterHome = () => {
           <div className='col-lg-4 col-md-12 col-sm-12 col-12'>
             <div className='inner text-lg-right text-center mt_md--20 mt_sm--20'>
               <div className='text'>
-                <p style={{ color: '#c6c9d8' }}>
+                <p
+                  style={{ color: '#c6c9d8' }}
+                  className={styles.footerCopyright}
+                >
                   Copyright © 2022 Dang & Associates, Ltd. All Rights Reserved.
                 </p>{' '}
               </div>
