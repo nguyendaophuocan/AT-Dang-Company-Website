@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/AT-Dang-Company-Website/static/css/main.37f003d2.css",
-    "main.js": "/AT-Dang-Company-Website/static/js/main.0592a860.js",
+    "main.css": "/AT-Dang-Company-Website/static/css/main.a2c34f2c.css",
+    "main.js": "/AT-Dang-Company-Website/static/js/main.ec650784.js",
     "static/media/bg-image-34.jpg": "/AT-Dang-Company-Website/static/media/bg-image-34.1b4fd5bdaa63818b9ec5.jpg",
     "static/media/bg-image-33.jpg": "/AT-Dang-Company-Website/static/media/bg-image-33.1f13f44a8f1df8998429.jpg",
     "static/media/related-image-01.jpg": "/AT-Dang-Company-Website/static/media/related-image-01.0246ca80908b25519b63.jpg",
@@ -91,11 +91,11 @@
     "static/media/slick.ttf": "/AT-Dang-Company-Website/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/AT-Dang-Company-Website/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/AT-Dang-Company-Website/index.html",
-    "main.37f003d2.css.map": "/AT-Dang-Company-Website/static/css/main.37f003d2.css.map",
-    "main.0592a860.js.map": "/AT-Dang-Company-Website/static/js/main.0592a860.js.map"
+    "main.a2c34f2c.css.map": "/AT-Dang-Company-Website/static/css/main.a2c34f2c.css.map",
+    "main.ec650784.js.map": "/AT-Dang-Company-Website/static/js/main.ec650784.js.map"
   },
   "entrypoints": [
-    "static/css/main.37f003d2.css",
-    "static/js/main.0592a860.js"
+    "static/css/main.a2c34f2c.css",
+    "static/js/main.ec650784.js"
   ]
 }
