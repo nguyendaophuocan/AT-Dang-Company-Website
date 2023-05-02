@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import {
   useCreateDocumentDetailMutation,
   useGetAllDocumentFilesMutation,
-} from '../../features/document-detail/documentDetailApiSlice';
+} from '../../features/document-detail/DocumentDetailApiSlice';
 import { Button, Divider, message, Select, Spin, Upload } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
