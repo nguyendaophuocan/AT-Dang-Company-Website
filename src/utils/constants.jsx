@@ -1,4 +1,4 @@
-export const BASE_API_URL = 'https://54.213.192.192:8080';
+export const BASE_API_URL = 'https://13.41.81.179:8080';
 // export const BASE_API_URL = 'https://34.216.75.142:8080';
 
 export const FILESTACK_API_KEY = 'AhQquDPbSqy9Fyi3pOVBbz';
