@@ -18,14 +18,13 @@ const Subscribe = () => {
   });
   const [msg, setMsg] = useState('');
   const [subscribe, { isLoading }] = usePostSubscriptionMutation();
-  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+  const [getHeader,] = useGetHeaderMutation();
 
   const [dataHeader, setDataHeader] = useState([]);
   const getHeaderData = async () => {
     const result = await getHeader('newsletter').unwrap();
     setDataHeader(result);
   };
-  const dispatch = useDispatch();
   const handleChangeFormValue = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };

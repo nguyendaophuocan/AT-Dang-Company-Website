@@ -54,7 +54,7 @@ const NavbarWrapper = () => {
     </div>
   );
 };
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <NavbarWrapper />,

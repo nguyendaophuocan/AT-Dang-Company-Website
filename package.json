@@ -46,7 +46,7 @@
     "url-loader": "^4.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true SSL_CRT_FILE='./cert/certificate.crt' SSL_KEY_FILE='./cert/private.key' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -3,14 +3,12 @@ import React, { Fragment, useState, useEffect } from 'react';
 import {
   useCreateDocumentDetailMutation,
   useGetAllDocumentFilesMutation,
-} from '../../features/document-detail/DocumentDetailApiSlice';
-import { Button, Divider, message, Select, Spin, Upload } from 'antd';
+} from '../../features/document-detail/documentDetailApiSlice';
+import { Button, Divider, Select, Spin } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import { UploadOutlined } from '@ant-design/icons';
 import { FILESTACK_API_KEY } from '../../utils/constants';
-import { useSelector } from 'react-redux';
-import { selectCurrentToken } from '../../features/auth/authSlice';
 
 import { PickerOverlay } from 'filestack-react';
 import { FormattedMessage } from 'react-intl';
@@ -21,7 +19,7 @@ const Document = () => {
 
   const [createDocumentDetail, { isLoading }] =
     useCreateDocumentDetailMutation();
-  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+  const [getHeader,] = useGetHeaderMutation();
 
   const [sectionContextList, setSectionContextList] = useState({
     contextList: [
