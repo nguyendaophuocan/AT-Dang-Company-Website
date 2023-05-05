@@ -364,6 +364,7 @@
             -webkit-transition: all 0.8s cubic-bezier(0.77, 0.2, 0.05, 1);
             -o-transition: all 0.8s cubic-bezier(0.77, 0.2, 0.05, 1);
             transition: all 0.8s cubic-bezier(0.77, 0.2, 0.05, 1);
+            border: 1px solid rgb(205, 170, 115, 50%);
             display: block;
             overflow-y: auto;
           }

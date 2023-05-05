@@ -42,7 +42,7 @@ Blog Styles
     z-index: 3;
     @extend %transition;
     @media #{$large-mobile} {
-      bottom: 0;
+      bottom: 0px;
     }
     @media #{$large-mobile} {
       padding: 30px 20px;
@@ -72,12 +72,16 @@ Blog Styles
     h4 {
       &.title {
         margin-bottom: 0;
-        a {
+        span {
           color: #ffffff;
           font-size: 24px;
           font-weight: 500;
           line-height: 36px;
           @extend %transition;
+
+          @media #{$large-mobile} {
+            font-size: 20px;
+          }
         }
       }
     }

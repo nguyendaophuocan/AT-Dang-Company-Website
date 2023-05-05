@@ -6,3 +6,9 @@
 .imageThumbnail:hover img {
   transform: scale(1.02) !important;
 }
+
+.contentBlogs {
+  @media only screen and (max-width: 767px) {
+    padding: 20px !important;
+  }
+}

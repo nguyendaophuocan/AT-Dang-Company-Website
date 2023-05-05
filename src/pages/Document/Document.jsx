@@ -1,9 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-import {
-  useCreateDocumentDetailMutation,
-  useGetAllDocumentFilesMutation,
-} from '../../features/document-detail/DocumentDetailApiSlice';
+import { useCreateDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { Button, Divider, Select, Spin } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
@@ -19,7 +16,7 @@ const Document = () => {
 
   const [createDocumentDetail, { isLoading }] =
     useCreateDocumentDetailMutation();
-  const [getHeader,] = useGetHeaderMutation();
+  const [getHeader] = useGetHeaderMutation();
 
   const [sectionContextList, setSectionContextList] = useState({
     contextList: [
@@ -160,8 +157,6 @@ const Document = () => {
       });
     }, 500);
   };
-  const [getAllDocumentFiles, { isLoading: isLoadingAllDocumentFiles }] =
-    useGetAllDocumentFilesMutation();
 
   const getHeaderData = async () => {
     const result = await getHeader('document').unwrap();
@@ -169,18 +164,6 @@ const Document = () => {
   };
 
   const [selectedFileVal, setSelectedFileVal] = useState([]);
-  const [selectFileOptions, setSelectFileOptions] = useState([]);
-
-  const getPdfFiles = async () => {
-    const result = await getAllDocumentFiles();
-    let options = [];
-    const totalOptions = result.data.length;
-    for (let i = 0; i < totalOptions; i++) {
-      if (result.data[i])
-        options.push({ value: result.data[i], label: result.data[i] });
-    }
-    setSelectFileOptions(options);
-  };
 
   const handleSelectPdfFile = (name) => {
     openNotification('Upload file successfuly');
@@ -194,7 +177,7 @@ const Document = () => {
     setShowFilestackUploader(value);
   };
 
-  const [optionsColumns, setOptionsColumns] = useState([
+  const [optionsColumns] = useState([
     { value: 1, label: 1 },
     { value: 2, label: 2 },
     { value: 3, label: 3 },
@@ -320,7 +303,7 @@ const Document = () => {
   };
   useEffect(() => {
     getHeaderData();
-    getPdfFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

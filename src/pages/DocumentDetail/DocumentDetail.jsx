@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import FooterHome from '../../components/footer/FooterHome';
-import { useGetDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
+import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import styles from './documentdetail.module.scss';
 import { Col, Divider, Row } from 'antd';
 import PageHelmet from '../../components/common/Helmet';
 
 const DocumentDetail = () => {
-  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+  const [getHeader] = useGetHeaderMutation();
 
   const params = useParams();
   const [dataHeader, setDataHeader] = useState([]);

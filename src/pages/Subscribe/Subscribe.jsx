@@ -2,7 +2,6 @@ import { Alert, Input, Row, Select, Spin } from 'antd';
 import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageHelmet from '../../components/common/Helmet';
 import FooterHome from '../../components/footer/FooterHome';
@@ -18,7 +17,7 @@ const Subscribe = () => {
   });
   const [msg, setMsg] = useState('');
   const [subscribe, { isLoading }] = usePostSubscriptionMutation();
-  const [getHeader,] = useGetHeaderMutation();
+  const [getHeader] = useGetHeaderMutation();
 
   const [dataHeader, setDataHeader] = useState([]);
   const getHeaderData = async () => {
@@ -45,6 +44,7 @@ const Subscribe = () => {
 
   useEffect(() => {
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <React.Fragment>

@@ -27,8 +27,7 @@ const Contact = () => {
     usePostSubscriptionContactUsMutation();
 
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
-  const [getContactUs, { isLoading: isLoadingContactus }] =
-    useGetContactUsMutation();
+  const [getContactUs] = useGetContactUsMutation();
 
   const handleChangeVal = (e) => {
     setFormVal({ ...formVal, [e.target.name]: e.target.value });
@@ -248,7 +247,7 @@ const Contact = () => {
             {/* End Single Address  */}
 
             {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--50'>
+            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--20'>
               <div className='rn-address'>
                 <div className='icon'>
                   <FiMail />
@@ -267,7 +266,7 @@ const Contact = () => {
             {/* End Single Address  */}
 
             {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_md--50 mt_sm--50'>
+            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_md--50 mt_sm--20'>
               <div className='rn-address'>
                 <div className='icon'>
                   <FiMapPin />
@@ -307,7 +306,7 @@ const Contact = () => {
             {/* End Single Address  */}
 
             {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--50'>
+            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_mobile--20'>
               <div className='rn-address'>
                 <div className='icon'>
                   <FiMail />
@@ -325,7 +324,7 @@ const Contact = () => {
             {/* End Single Address  */}
 
             {/* Start Single Address  */}
-            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_md--50 mt_sm--50'>
+            <div className='col-lg-4 col-md-6 col-sm-6 col-12 mt_md--50 mt_sm--20'>
               <div className='rn-address'>
                 <div className='icon'>
                   <FiMapPin />

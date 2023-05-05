@@ -3,12 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider, useSelector } from 'react-redux';
 import './index.scss';
 import './index.css';
-import {
-  createHashRouter,
-  RouterProvider,
-  Outlet,
-  createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider, Outlet, createBrowserRouter } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 
 import About from './pages/About/About';

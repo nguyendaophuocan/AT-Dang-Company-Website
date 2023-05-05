@@ -27,7 +27,7 @@ import {
   useGetAllDocumentsMutation,
   useGetDocumentDetailMutation,
   useUpdateDocumentDetailMutation,
-} from '../../features/document-detail/DocumentDetailApiSlice';
+} from '../../features/document-detail/documentDetailApiSlice';
 import TextArea from 'antd/es/input/TextArea';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -510,26 +510,19 @@ const Admin = () => {
   const [getHomePageContent, { isLoading: isLoadingHomepage }] =
     useGetHomePageContentMutation();
 
-  const [updateHomePageContent, { isLoading: isLoadingUpdateHomepage }] =
-    useUpdateHomePageContentMutation();
+  const [updateHomePageContent] = useUpdateHomePageContentMutation();
 
-  const [updateNewsContent, { isLoading: isLoadingUpdateNews }] =
-    useUpdateNewsContentMutation();
+  const [updateNewsContent] = useUpdateNewsContentMutation();
 
-  const [updateCareerContent, { isLoading: isLoadingUpdateCareer }] =
-    useUpdateCareerContentMutation();
+  const [updateCareerContent] = useUpdateCareerContentMutation();
 
-  const [updateContactUs, { isLoading: isLoadingUpdateContactUs }] =
-    useUpdateContactUsMutation();
+  const [updateContactUs] = useUpdateContactUsMutation();
 
-  const [updateDocumentDetail, { isLoading: isLoadingUpdateDocumentDetail }] =
-    useUpdateDocumentDetailMutation();
+  const [updateDocumentDetail] = useUpdateDocumentDetailMutation();
 
-  const [updateHeader, { isLoading: isLoadingUpdateHeader }] =
-    useUpdateHeaderMutation();
+  const [updateHeader] = useUpdateHeaderMutation();
 
-  const [createNews, { isLoading: isLoadingCreateNews }] =
-    useCreateNewsMutation();
+  const [createNews] = useCreateNewsMutation();
 
   const [getNews, { isLoading: isLoadingNews }] = useGetNewsMutation();
   const [getCareer, { isLoading: isLoadingCareer }] = useGetCareerMutation();

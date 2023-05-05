@@ -51,5 +51,4 @@ export const {
   useGetAllDocumentsMutation,
   useUpdateDocumentDetailMutation,
   useUploadDocumentFileMutation,
-  useGetAllDocumentFilesMutation,
 } = documentDetailSlice;

@@ -143,11 +143,11 @@ function HeaderNavbar() {
               currentClassName='is-current'
               offset={-200}
             >
-              <li>
+              <li className={styles.adminNav}>
                 {isUserLoggedIn && (
                   <>
                     <Link to='/admin'>Admin</Link>
-                    <hr style={{ background: '#cdaa73' }} />{' '}
+                    <hr className={styles.hrBackground} />
                   </>
                 )}
               </li>
@@ -159,7 +159,7 @@ function HeaderNavbar() {
                       <FormattedMessage id='DOCUMENT' />
                     </Link>
 
-                    <hr style={{ background: '#cdaa73' }} />
+                    <hr className={styles.hrBackground} />
                   </>
                 )}
               </li>
@@ -169,7 +169,7 @@ function HeaderNavbar() {
                   <FormattedMessage id='HOME' />
                 </Link>
               </li>
-              <hr style={{ background: '#cdaa73' }} />
+              <hr className={styles.hrBackground} />
 
               <li>
                 <Link to='/about'>
@@ -177,7 +177,7 @@ function HeaderNavbar() {
                   <FormattedMessage id='ABOUT_US' />
                 </Link>
               </li>
-              <hr style={{ background: '#cdaa73' }} />
+              <hr className={styles.hrBackground} />
 
               <li>
                 <Link to='/news'>
@@ -185,7 +185,7 @@ function HeaderNavbar() {
                   <FormattedMessage id='NEWS' />
                 </Link>
               </li>
-              <hr style={{ background: '#cdaa73' }} />
+              <hr className={styles.hrBackground} />
 
               <li>
                 <Link to='/careers'>
@@ -193,7 +193,7 @@ function HeaderNavbar() {
                   <FormattedMessage id='CAREERS' />
                 </Link>
               </li>
-              <hr style={{ background: '#cdaa73' }} />
+              <hr className={styles.hrBackground} />
 
               <li>
                 <Link to='/contact'>

@@ -129,13 +129,18 @@ const News = () => {
                                     styles.newsSection
                                   )}
                                 >
-                                  <h2 className='title font--44'>
+                                  <h2
+                                    className={classNames(
+                                      'title',
+                                      styles.newsItemTitle
+                                    )}
+                                  >
                                     {item.title}
                                   </h2>
                                 </div>{' '}
                                 <p className='description mb--40'>
                                   <Text
-                                    style={{ width: 800, fontSize: '18px' }}
+                                    style={{ width: 800, fontSize: '14px' }}
                                     ellipsis={{ tooltip: '' }}
                                   >
                                     {item.description}

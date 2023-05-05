@@ -3,7 +3,7 @@ import PageHelmet from '../../components/common/Helmet';
 
 import Footer from '../../components/footer/FooterHome';
 import classNames from 'classnames';
-import styles from './news.module.scss';
+import styles from './search.module.scss';
 import { Pagination, Spin } from 'antd';
 import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 import Card from 'antd/es/card/Card';
@@ -27,13 +27,12 @@ const Search = () => {
   const [searchData, setSearchData] = useState('');
   const storeSearchData = useSelector(selectSearchValue);
   const [dataHeader, setDataHeader] = useState([]);
-  const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
+  const [getHeader] = useGetHeaderMutation();
 
   const pageSize = 5;
-  const queryParams = { off_set: news.current - 1, page_size: 5 };
   const navigate = useNavigate();
 
-  const [getNews, { isLoading, data, refetch }] = useGetNewsMutation();
+  const [getNews, { isLoading }] = useGetNewsMutation();
 
   const getHeaderData = async () => {
     const result = await getHeader('search').unwrap();
@@ -55,10 +54,12 @@ const Search = () => {
 
   useEffect(() => {
     getSearchDataRes(storeSearchData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeSearchData]);
 
   useEffect(() => {
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleReadmore = (id) => {
     navigate(`/news/${id}`);

@@ -12,7 +12,6 @@ function Login() {
   const [formVal, setFormVal] = useState({ email: '', password: '' });
   const [errMsg, setErrMsg] = useState('');
   const userRef = useRef();
-  const errRef = useRef();
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = formVal;
+    const { email } = formVal;
     try {
       const userData = await login(formVal).unwrap();
       dispatch(setCredentials({ ...userData, email }));
@@ -51,7 +50,6 @@ function Login() {
       } else {
         setErrMsg('Login Failed');
       }
-      // errRef.current.focus();
     }
   };
   return (

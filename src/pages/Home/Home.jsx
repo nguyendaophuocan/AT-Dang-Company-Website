@@ -15,6 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './home.module.scss';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import PageHelmet from '../../components/common/Helmet';
+import classNames from 'classnames';
 const ItemList = [
   {
     image: 'image-1',
@@ -49,7 +50,7 @@ const ItemList = [
 ];
 
 const Home = () => {
-  const [getNews, { isLoadingNews, refetch }] = useGetNewsMutation();
+  const [getNews] = useGetNewsMutation();
   const [getHeader, { isLoading: isLoadingHeader }] = useGetHeaderMutation();
 
   const [getHomePageContent, { isLoading: isLoadingContent }] =
@@ -80,8 +81,8 @@ const Home = () => {
     getNewsData();
     getHomepageData();
     getHeaderData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <Fragment>
       <PageHelmet pageTitle='Company website' />
@@ -228,33 +229,36 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className='row mt--60'>
-                {dataNews?.content?.map((value, i) => (
-                  <div className='col-lg-4 col-md-6 col-sm-6 col-12' key={i}>
-                    <div className='blog blog-style--1'>
-                      <div className='thumbnail'>
-                        <span>
-                          <img
-                            className='w-100'
-                            src={require(`../../assets/images/blog/blog-0${++i}.jpg`)}
-                            alt='Blog Images'
-                          />
-                        </span>
-                      </div>
-                      <div className='content'>
-                        <p className='blogtype'>{value.category}</p>
-                        <h4 className='title'>
-                          <a href='/blog-details'>{value.description}</a>
-                        </h4>
-                        <div className='blog-btn'>
-                          <Link className='rn-btn text-white' to='/news'>
-                            <FormattedMessage id='READ_MORE' />
-                          </Link>
+              <div className={classNames('row mt--60', styles.rowBlogs)}>
+                {dataNews &&
+                  dataNews?.content?.map((value, i) => (
+                    <div className='col-lg-4 col-md-6 col-sm-6 col-12' key={i}>
+                      <div className='blog blog-style--1'>
+                        <div className='thumbnail'>
+                          <span>
+                            <img
+                              className='w-100'
+                              src={require(`../../assets/images/blog/blog-0${++i}.jpg`)}
+                              alt='Blog Images'
+                            />
+                          </span>
+                        </div>
+                        <div
+                          className={classNames('content', styles.contentBlogs)}
+                        >
+                          <p className='blogtype'>{value.category}</p>
+                          <h4 className='title'>
+                            <span href='/blog-details'>{value.title}</span>
+                          </h4>
+                          <div className='blog-btn'>
+                            <Link className='rn-btn text-white' to='/news'>
+                              <FormattedMessage id='READ_MORE' />
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>

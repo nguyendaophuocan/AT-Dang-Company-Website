@@ -131,13 +131,11 @@ const Career = () => {
                                     styles.careerSection
                                   )}
                                 >
-                                  <h2 className='title font--44'>
-                                    {item.title}
-                                  </h2>
+                                  <h2 className='title'>{item.title}</h2>
                                 </div>{' '}
                                 <p className='description mb--40'>
                                   <Text
-                                    style={{ width: 800, fontSize: '18px' }}
+                                    style={{ width: 800, fontSize: '14px' }}
                                     ellipsis={{ tooltip: '' }}
                                   >
                                     {item.description}
@@ -165,8 +163,8 @@ const Career = () => {
                       <Pagination
                         pageSize={pageSize}
                         current={career.current}
-                        total={20}
                         onChange={handleChange}
+                        total={20}
                         style={{ bottom: '0px' }}
                       />
                     </div>
