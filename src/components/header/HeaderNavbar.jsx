@@ -143,17 +143,27 @@ function HeaderNavbar() {
               currentClassName='is-current'
               offset={-200}
             >
-              <li>{isUserLoggedIn && <Link to='/admin'>Admin</Link>}</li>
-              <hr style={{ background: '#cdaa73' }} />
+              <li>
+                {isUserLoggedIn && (
+                  <>
+                    <Link to='/admin'>Admin</Link>
+                    <hr style={{ background: '#cdaa73' }} />{' '}
+                  </>
+                )}
+              </li>
 
               <li>
                 {isUserLoggedIn && (
-                  <Link to='/document'>
-                    <FormattedMessage id='DOCUMENT' />
-                  </Link>
+                  <>
+                    <Link to='/document'>
+                      <FormattedMessage id='DOCUMENT' />
+                    </Link>
+
+                    <hr style={{ background: '#cdaa73' }} />
+                  </>
                 )}
               </li>
-              <hr style={{ background: '#cdaa73' }} />
+
               <li>
                 <Link to='/'>
                   <FormattedMessage id='HOME' />
