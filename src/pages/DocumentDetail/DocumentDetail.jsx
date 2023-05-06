@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import FooterHome from '../../components/footer/FooterHome';
-import { useGetDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
+import { useGetDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
 import styles from './documentdetail.module.scss';
 import { Col, Divider, Row } from 'antd';

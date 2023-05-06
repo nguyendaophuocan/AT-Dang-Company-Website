@@ -27,7 +27,7 @@ import {
   useGetAllDocumentsMutation,
   useGetDocumentDetailMutation,
   useUpdateDocumentDetailMutation,
-} from '../../features/document-detail/documentDetailApiSlice';
+} from '../../features/document-detail/DocumentDetailApiSlice';
 import TextArea from 'antd/es/input/TextArea';
 import { FormattedMessage } from 'react-intl';
 import {

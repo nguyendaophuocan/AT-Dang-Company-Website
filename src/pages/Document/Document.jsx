@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-import { useCreateDocumentDetailMutation } from '../../features/document-detail/documentDetailApiSlice';
+import { useCreateDocumentDetailMutation } from '../../features/document-detail/DocumentDetailApiSlice';
 import { Button, Divider, Select, Spin } from 'antd';
 import { notification } from 'antd';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
