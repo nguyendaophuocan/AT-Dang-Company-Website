@@ -18,7 +18,7 @@ import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Subscribe from './pages/Subscribe/Subscribe';
 import Admin from './pages/Admin/Admin';
-// import Error404 from './elements/Error404';
+import Error404 from './elements/Error404';
 import { PrivateRoute } from './components/PrivateRoute';
 import Document from './pages/Document/Document';
 import DocumentDetail from './pages/DocumentDetail/DocumentDetail';
@@ -102,10 +102,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: '/*',
-      //   element: <Error404 />,
-      // },
+      {
+        path: '/*',
+        element: <Error404 />,
+      },
       {
         path: '/document/:id',
         element: <DocumentDetail />,
