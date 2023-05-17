@@ -131,7 +131,7 @@ const Career = () => {
                                     styles.careerSection
                                   )}
                                 >
-                                  <h2 className='title'>{item.title}</h2>
+                                  <h3 className='title'>{item.title}</h3>
                                 </div>{' '}
                                 <p className='description mb--40'>
                                   <Text

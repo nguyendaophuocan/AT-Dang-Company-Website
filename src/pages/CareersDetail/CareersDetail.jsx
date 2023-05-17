@@ -75,7 +75,7 @@ const CareersDetail = () => {
               <div className='inner-wrapper'>
                 <div className='inner'>
                   {' '}
-                  <h2 className='mb--70'> {careersDetailData?.title}</h2>
+                  <h3 className='mb--70'> {careersDetailData?.title}</h3>
                   <p>{careersDetailData?.description}</p>
                   {careersDetailData?.createBy && (
                     <div className='font--14' style={{ textAlign: 'right' }}>
