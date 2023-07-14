@@ -222,6 +222,14 @@ const About = () => {
                 <div className='content'>
                   <h4 className='title'>Khanh Linh Dang</h4>
                   <p className='designation'>Partner</p>
+                  <p className='designation'>
+                    Anh Tu Dang is a graduate from University College London
+                    (UCL), majoring in Economics. He founded the business in
+                    2021 when realizing various business opportunities between
+                    the two countries, Vietnam and United Kingdom. Talking about
+                    Dang & Associates, Ltd., he said: “...” (input company
+                    vision)
+                  </p>
                 </div>
                 <ul className='social-icon'>
                   <li>
