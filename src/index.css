@@ -4,6 +4,18 @@
     url(../src/assets/fonts/Futura-PT-Book.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: local('Cormorant Garamond'),
+    url(../src/assets/fonts/CormorantGaramond-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: local('Cormorant SC'),
+    url(../src/assets/fonts/CormorantSC-Regular.ttf) format('truetype');
+}
+
 body {
   margin: 0;
   font-family: 'Futura';

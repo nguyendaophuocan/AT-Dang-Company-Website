@@ -18,6 +18,19 @@ html {
     src: local('Futura'), url(../../fonts/Futura-PT-Book.ttf) format('truetype');
 }
 
+@font-face {
+	font-family: 'Cormorant Garamond';
+	src: local('Cormorant Garamond'),
+	  url(../../fonts/CormorantGaramond-Regular.ttf) format('truetype');
+}
+  
+  @font-face {
+	font-family: 'Cormorant SC';
+	src: local('Cormorant SC'),
+	  url(../../fonts/CormorantSC-Regular.ttf) format('truetype');
+}
+
+
 body {
 	overflow: hidden;
 	font-size: $body-font-size;

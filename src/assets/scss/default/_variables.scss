@@ -15,6 +15,18 @@ $white: #fff;
   src: local('Futura'), url(../../fonts/Futura-PT-Book.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: local('Cormorant Garamond'),
+    url(../../fonts/CormorantGaramond-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: local('Cormorant SC'),
+    url(../../fonts/CormorantSC-Regular.ttf) format('truetype');
+}
+
 $body-font: 'Futura';
 $heading-font: 'Cormorant Garamond', serif;
 
