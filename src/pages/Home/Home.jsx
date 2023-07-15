@@ -85,7 +85,7 @@ const Home = () => {
   }, []);
   return (
     <Fragment>
-      <PageHelmet pageTitle='Company website' />
+      <PageHelmet pageTitle='Dang and Associates Limited' />
       {/* Start Slider Area   */}
       <>
         <div className='slider-activation slider-creative-agency'>
