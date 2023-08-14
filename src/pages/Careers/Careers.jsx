@@ -29,7 +29,7 @@ const Career = () => {
     current: 1,
   });
 
-  const pageSize = 10;
+  const pageSize = 5;
   const queryParams = {
     off_set: (career.current - 1) * pageSize,
     page_size: pageSize,
@@ -60,6 +60,7 @@ const Career = () => {
     getHeaderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <React.Fragment>
       <PageHelmet pageTitle='Careers' />
@@ -158,19 +159,15 @@ const Career = () => {
                       )}
                     </div>
                   </div>
-                  {data?.content.length >= 1 ? (
-                    <div className={styles.pagination}>
-                      <Pagination
-                        pageSize={pageSize}
-                        current={career.current}
-                        onChange={handleChange}
-                        total={20}
-                        style={{ bottom: '0px' }}
-                      />
-                    </div>
-                  ) : (
-                    <EmptyContent content='careers' />
-                  )}
+                  <div className={styles.pagination}>
+                    <Pagination
+                      pageSize={pageSize}
+                      current={career.current}
+                      onChange={handleChange}
+                      total={career?.data?.totalElements}
+                      style={{ bottom: '0px' }}
+                    />
+                  </div>
                 </>
               )}
             </div>

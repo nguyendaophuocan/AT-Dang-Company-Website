@@ -14,6 +14,7 @@ import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { updateSearchValue } from '../../features/search/searchSlice';
 import { FormattedMessage } from 'react-intl';
 import { updateLanguageValue } from '../../features/language/languageSlice';
+import featureFlag from '../../feature-flag.json';
 
 function HeaderNavbar() {
   const dispatch = useDispatch();
@@ -170,29 +171,37 @@ function HeaderNavbar() {
                 </Link>
               </li>
               <hr className={styles.hrBackground} />
+              {!featureFlag.showAboutUs && (
+                <li>
+                  <Link to='/about'>
+                    {' '}
+                    <FormattedMessage id='ABOUT_US' />
+                  </Link>
+                </li>
+              )}
 
-              <li>
-                <Link to='/about'>
-                  {' '}
-                  <FormattedMessage id='ABOUT_US' />
-                </Link>
-              </li>
               <hr className={styles.hrBackground} />
+              {featureFlag.showNews && (
+                <>
+                  <li>
+                    <Link to='/news'>
+                      {' '}
+                      <FormattedMessage id='NEWS' />
+                    </Link>
+                  </li>
+                  <hr className={styles.hrBackground} />
+                </>
+              )}
 
-              <li>
-                <Link to='/news'>
-                  {' '}
-                  <FormattedMessage id='NEWS' />
-                </Link>
-              </li>
-              <hr className={styles.hrBackground} />
+              {featureFlag.showCareers && (
+                <li>
+                  <Link to='/careers'>
+                    {' '}
+                    <FormattedMessage id='CAREERS' />
+                  </Link>
+                </li>
+              )}
 
-              <li>
-                <Link to='/careers'>
-                  {' '}
-                  <FormattedMessage id='CAREERS' />
-                </Link>
-              </li>
               <hr className={styles.hrBackground} />
 
               <li>

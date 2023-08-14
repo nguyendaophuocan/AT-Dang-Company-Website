@@ -2,6 +2,7 @@ import { LOCALES } from './locales';
 
 export const messages = {
   [LOCALES.ENGLISH]: {
+    CONTENT_NOT_FOUND: 'Content not found',
     SHOP_NOW: 'SHOP NOW',
     HOME: 'Home',
     ABOUT_US: 'About us',
@@ -57,6 +58,7 @@ export const messages = {
     DANG_BESPOKE_MARKET_RESEARCH: "Dang's Bespoke Market Research",
   },
   [LOCALES.VIETNAMESE]: {
+    CONTENT_NOT_FOUND: 'Không tìm thấy',
     SHOP_NOW: 'Xem ngay',
     HOME: 'Trang chủ',
     ABOUT_US: 'Về chúng tôi',
