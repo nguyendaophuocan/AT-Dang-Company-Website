@@ -153,13 +153,15 @@ const Search = () => {
                     {searchData?.data?.length ? (
                       <Pagination
                         pageSize={pageSize}
-                        current={news.current}
-                        total={10}
+                        current={news?.current}
+                        total={news?.data?.totalElements}
                         onChange={handleChange}
                         style={{ bottom: '0px' }}
                       />
                     ) : (
-                      <h3>Empty</h3>
+                      <h3>
+                        <FormattedMessage id='CONTENT_NOT_FOUND' />
+                      </h3>
                     )}{' '}
                   </div>
                 </>

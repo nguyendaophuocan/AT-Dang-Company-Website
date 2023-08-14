@@ -7,6 +7,8 @@ import Slider from 'react-slick';
 import { portfolioSlick2 } from '../../page-demo/script';
 import featureImage from '../../assets/images/featured/featured-01.jpg';
 import { Link } from 'react-router-dom';
+import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { forwardRef } from 'react';
 
 import { useGetNewsMutation } from '../../features/news/newsApiSlice';
 import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlice';
@@ -62,6 +64,7 @@ const Home = () => {
   const [dataNews, setDatanews] = useState([]);
   const [dataHome, setDataHome] = useState([]);
   const [dataHeader, setDataHeader] = useState([]);
+  const [dataAbout, setDataAbout] = useState([]);
 
   const getNewsData = async () => {
     const queryParams = { off_set: 1, page_size: 3 };
@@ -76,11 +79,17 @@ const Home = () => {
     const result = await getHeader('home').unwrap();
     setDataHeader(result);
   };
+  const getAboutData = async () => {
+    const result = await getHomePageContent().unwrap();
+    setDataAbout(result);
+  };
 
   useEffect(() => {
     getNewsData();
     getHomepageData();
     getHeaderData();
+    getAboutData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -132,6 +141,7 @@ const Home = () => {
             style={{ textAlign: 'center', height: '150px' }}
             className='mt--100'
           >
+            {' '}
             <Spin size='large' />
           </div>
         ) : (
@@ -219,7 +229,7 @@ const Home = () => {
 
         {/* Start Blog Area */}
         {dataHome[3]?.enable && (
-          <div className='rn-blog-area pt--120 pb--120 bg_color--1'>
+          <div className='rn-blog-area pt--120 pb--40 bg_color--1'>
             <div className='container'>
               <div className='row align-items-end'>
                 <div className='col-lg-12'>
@@ -295,6 +305,230 @@ const Home = () => {
             </div>
           </div>
         )}
+
+        <div className='rn-about-area pb--120 bg_color--1'>
+          <div className='rn-about-wrapper'>
+            <div className='container'>
+              <div className='row row--35 align-items-center'>
+                <div className='inner-wrapper'>
+                  <div className='inner mb--90'>
+                    {/* {isLoadingContent ? (
+                    <div style={{ textAlign: 'center' }} className='mt--100'>
+                      <Spin size='large' />
+                    </div>
+                  ) : (
+                    <>
+                      {' '}
+                      {dataAbout[5]?.enable && (
+                        <div className='section-title'>
+                          <h2 className='title'>{dataAbout[5]?.title}</h2>
+                          <p className='description'>
+                            {dataAbout[5]?.description}
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  )} */}
+                  </div>
+                </div>
+                <div className='col-lg-5'>
+                  <div className='thumbnail'>
+                    <img
+                      className='w-100'
+                      src={require('../../assets/images/about/about-3.jpg')}
+                      alt='About Images'
+                    />
+                  </div>
+                </div>
+
+                <div className='col-lg-7'>
+                  <div className='about-inner inner'>
+                    {dataAbout[6]?.enable && (
+                      <div className='section-title'>
+                        <h2 className='title'>{dataAbout[6]?.title}</h2>
+                        <p className='description'>
+                          {dataAbout[6]?.description}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {dataAbout[6]?.enable && dataAbout[5]?.enable && (
+                    <div className='row mt--30'>
+                      <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
+                        <div className='about-us-list'>
+                          <br />
+                          <button
+                            className='rn-button-style--2 btn-primary-color'
+                            onClick={handleShopNow}
+                          >
+                            <FormattedMessage id='FIND_OUT_MORE' />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='rn-finding-us-area rn-finding-us bg_color--1 mb--10'>
+          {dataAbout[7]?.enable && (
+            <div className='inner'>
+              <div className='content-wrapper'>
+                <div className='content'>
+                  <h4 className='theme-gradient'>{dataAbout[7]?.title}</h4>
+                  <p>{dataAbout[7]?.description}</p>
+                  <Link to='/contact' className='rn-btn btn-white'>
+                    <FormattedMessage id='FIND_OUT_MORE' />
+                  </Link>
+                </div>
+              </div>
+              <div className='thumbnail'>
+                <div className='image'>
+                  <img
+                    src={require('../../assets/images/about/finding-us-01.png')}
+                    alt='Finding Images'
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className='rn-team-area bg_color--1 ptb--120'>
+          <div className='container'>
+            {dataAbout[8]?.enable && (
+              <div className='row'>
+                <div className='col-lg-12'>
+                  <div className='section-title service-style--3 text-center mb--25'>
+                    <h2 className='title'>{dataAbout[8]?.title}</h2>
+                    <p>{dataAbout[8]?.description}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className='row'>
+              <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
+                <div className='team'>
+                  <div className='thumbnail'>
+                    <img
+                      className='w-100'
+                      src={require('../../assets/images/team/team-01.jpg')}
+                      alt='Blog Images'
+                    />
+                  </div>
+                  <div className='content'>
+                    <h4 className='title'>Anh Tu Dang</h4>
+                    <p className='designation'> Managing Partner</p>
+                    <p className='designation'>
+                      Anh Tu Dang is a graduate from University College London
+                      (UCL), majoring in Economics. He founded the business in
+                      2021 when realizing various business opportunities between
+                      the two countries, Vietnam and United Kingdom. Talking
+                      about Dang & Associates, Ltd., he said: “...” (input
+                      company vision)
+                    </p>
+                  </div>
+                  <ul className='social-icon'>
+                    <li>
+                      <a href='https://www.facebook.com/'>
+                        <FaFacebookF />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='http://linkedin.com/'>
+                        <FaLinkedinIn />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='https://twitter.com/'>
+                        <FaTwitter />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
+                <div className='team'>
+                  <div className='thumbnail'>
+                    <img
+                      className='w-100'
+                      src={require('../../assets/images/team/team-02.jpg')}
+                      alt='Blog Images'
+                    />
+                  </div>
+                  <div className='content'>
+                    <h4 className='title'>Khanh Linh Dang</h4>
+                    <p className='designation'>Partner</p>
+                    <p className='designation'>
+                      Anh Tu Dang is a graduate from University College London
+                      (UCL), majoring in Economics. He founded the business in
+                      2021 when realizing various business opportunities between
+                      the two countries, Vietnam and United Kingdom. Talking
+                      about Dang & Associates, Ltd., he said: “...” (input
+                      company vision)
+                    </p>
+                  </div>
+                  <ul className='social-icon'>
+                    <li>
+                      <a href='https://www.facebook.com/'>
+                        <FaFacebookF />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='http://linkedin.com/'>
+                        <FaLinkedinIn />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='https://twitter.com/'>
+                        <FaTwitter />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
+                <div className='team'>
+                  <div className='thumbnail'>
+                    <img
+                      className='w-100'
+                      src={require('../../assets/images/team/team-03.jpg')}
+                      alt='Blog Images'
+                    />
+                  </div>
+                  <div className='content'>
+                    <h4 className='title'>Ngoc Vinh Quang Hoang</h4>
+                    <p className='designation'>Partner</p>
+                  </div>
+                  <ul className='social-icon'>
+                    <li>
+                      <a href='https://www.facebook.com/'>
+                        <FaFacebookF />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='http://linkedin.com/'>
+                        <FaLinkedinIn />
+                      </a>
+                    </li>
+                    <li>
+                      <a href='https://twitter.com/'>
+                        <FaTwitter />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
       <FooterHome />
     </Fragment>
