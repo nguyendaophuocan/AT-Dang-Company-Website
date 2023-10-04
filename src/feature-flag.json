@@ -1,5 +1,5 @@
 {
-  "showAboutUs": false,
-  "showNews": false,
-  "showCareers": false
+  "showAboutUs": true,
+  "showNews": true,
+  "showCareers": true
 }
