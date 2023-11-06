@@ -102,6 +102,10 @@
     padding-top: 300px;
 }
 
+.pd--50 {
+    padding: 50px
+}
+
 @for $i from 1 through 40 {
     .ptb--#{5 * $i} { padding: 5px *$i 0; }
     .plr--#{5 * $i} { padding: 0 5px *$i; }

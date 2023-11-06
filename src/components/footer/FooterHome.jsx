@@ -77,7 +77,7 @@ const FooterHome = () => {
             <div className='inner text-lg-right text-center mt_md--20 mt_sm--20'>
               <div className='text'>
                 <p
-                  style={{ color: '#c6c9d8' }}
+                  style={{ color: '#f2f2f8' }}
                   className={styles.footerCopyright}
                 >
                   Copyright © 2022 Dang & Associates, Ltd. All Rights Reserved.

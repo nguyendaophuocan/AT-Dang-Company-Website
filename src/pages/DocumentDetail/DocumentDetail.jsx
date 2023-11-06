@@ -48,20 +48,16 @@ const DocumentDetail = () => {
     if (columNumber === 1) {
       return (
         <>
-          <>
             {items.map((item) => (
               <Col span={24}>{item}</Col>
             ))}
           </>
-        </>
       );
     } else if (columNumber === 2) {
       return (
         <>
           {items.map((item) => (
-            <>
               <Col span={12}>{item}</Col>
-            </>
           ))}
         </>
       );
@@ -69,9 +65,7 @@ const DocumentDetail = () => {
       return (
         <>
           {items.map((item) => (
-            <>
               <Col span={8}>{item}</Col>
-            </>
           ))}
         </>
       );
@@ -79,9 +73,7 @@ const DocumentDetail = () => {
       return (
         <>
           {items.map((item) => (
-            <>
               <Col span={6}>{item}</Col>
-            </>
           ))}
         </>
       );
@@ -89,9 +81,7 @@ const DocumentDetail = () => {
       return (
         <>
           {items.map((item) => (
-            <>
               <Col span={4}>{item}</Col>
-            </>
           ))}
         </>
       );

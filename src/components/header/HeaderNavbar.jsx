@@ -170,14 +170,16 @@ function HeaderNavbar() {
                   <FormattedMessage id='HOME' />
                 </Link>
               </li>
-              <hr className={styles.hrBackground} />
-              {!featureFlag.showAboutUs && (
+            
+              {featureFlag.showAboutUs && (
+                <>  <hr className={styles.hrBackground} />
                 <li>
                   <Link to='/about'>
                     {' '}
                     <FormattedMessage id='ABOUT_US' />
                   </Link>
                 </li>
+                </>
               )}
 
               <hr className={styles.hrBackground} />
@@ -231,7 +233,6 @@ function HeaderNavbar() {
               </li>
             </Scrollspy>
           </nav>{' '}
-          <></>
           <div className={styles.projectSelection}>
             <Dropdown
               menu={{
@@ -253,7 +254,7 @@ function HeaderNavbar() {
           <div className={styles.searchIcon}>
             <SearchOutlined
               style={{
-                color: '#c6c9d8',
+                color: '#f2f2f8',
                 fontSize: '24px',
                 marginBottom: '5px',
                 cursor: 'pointer',

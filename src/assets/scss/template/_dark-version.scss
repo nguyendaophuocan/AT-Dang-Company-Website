@@ -35,6 +35,9 @@
     .footer-right {
         background: #101010;
     }
+    .bg_color--8 {
+        background: #fbfbfb;
+    }
     ul.brand-style-2 img {
         filter: invert(1);
     }
@@ -129,16 +132,16 @@
 
     @media #{$md-layout} {
         .header-style-two .humberger-menu span.text-white {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .header-area .header-wrapper .mainmenunav ul.mainmenu {
             background: #101010;
         }
         .header-area .header-wrapper.menu-open .close-menu span {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .header-area.header--fixed.sticky .humberger-menu span.text-white {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .header-area .header-wrapper .mainmenunav ul.mainmenu li a  {
             color: #ffffff;
@@ -152,16 +155,16 @@
     }
     @media #{$sm-layout} {
         .header-style-two .humberger-menu span.text-white {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .header-area .header-wrapper .mainmenunav ul.mainmenu {
             background: #101010;
         }
         .header-area .header-wrapper.menu-open .close-menu span {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .header-area.header--fixed.sticky .humberger-menu span.text-white {
-            color: #c6c9d8 !important;
+            color: #f2f2f8 !important;
         }
         .service.service__style--2 .content p {
             color: #ffffff;

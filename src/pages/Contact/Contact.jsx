@@ -102,8 +102,8 @@ const Contact = () => {
                     <FormattedMessage id='CONTACT_US' />
                   </h2>
                   <p className='description'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Architecto cupiditate aperiam neque.
+                    {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Architecto cupiditate aperiam neque. */}
                   </p>
                 </div>
                 <div className='form-wrapper'>

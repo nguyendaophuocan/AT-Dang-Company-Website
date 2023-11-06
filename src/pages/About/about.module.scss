@@ -1,0 +1,46 @@
+@import '../../assets/scss/default/variables';
+
+@mixin timelineMediaScreen {
+  margin-top: 40px;
+}
+
+.timeline,
+.projects {
+  text-align: center;
+}
+
+.timelineTitle {
+  @media #{$sm-layout} {
+    @include timelineMediaScreen();
+  }
+  @media #{$lg-layout} {
+    @include timelineMediaScreen();
+  }
+}
+
+.valuesTitle, .timelineTitle {
+  margin-top: 40px;
+  font-size: 32px;
+}
+
+.projectsLink {
+  @media #{$sm-layout} {
+    color: white !important;
+    border: 1px solid white !important;
+  }
+}
+
+.visionSection {
+  margin-bottom: 35px;
+}
+
+.visionHeader {
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  margin-bottom: -30px;
+}
+
+.timelineItem {
+  font-size: 18px;
+  margin: 10px;
+}

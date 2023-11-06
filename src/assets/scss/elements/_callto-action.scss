@@ -25,16 +25,18 @@ Call To Action Wrapper
             display: block;
             margin-bottom: 9px;
         }
-        h2 {
+        h2, h3 {
             color: #ffffff;
-            font-size: 75px;
-            font-weight: 900;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 90px;
+            font-size: 45px;
+            font-weight: 700;
+            line-height: 50px;
             @media #{$sm-layout} {
-                font-size: 47px;
-                line-height: 70px;
+                font-size: 25px;
+                line-height: 60px;
             }
+        }
+        h4 {
+            color: #ffffff;
         }
         a {
             &.rn-button-style--2 {

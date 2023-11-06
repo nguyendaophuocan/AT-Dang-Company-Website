@@ -196,11 +196,11 @@
   .section-title {
     &.text-white {
       h2 {
-        color: #c6c9d8;
+        color: #f2f2f8;
         margin-bottom: 9px;
       }
       p {
-        color: #c6c9d8;
+        color: #f2f2f8;
         opacity: 0.75;
         font-weight: 300;
       }
@@ -480,7 +480,7 @@ a {
   .content {
     h3 {
       &.title {
-        color: #c6c9d8;
+        color: #f2f2f8;
         @media #{$md-layout} {
           margin-bottom: 13px;
           font-size: 20px;
@@ -493,7 +493,7 @@ a {
     }
     p {
       &.subtitle {
-        color: #c6c9d8;
+        color: #f2f2f8;
         @media #{$md-layout} {
           font-size: 16px;
           line-height: 28px;

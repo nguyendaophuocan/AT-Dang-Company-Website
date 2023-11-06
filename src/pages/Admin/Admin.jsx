@@ -10,7 +10,6 @@ import {
   Space,
   Switch,
   Table,
-  Tag,
 } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import {
@@ -40,408 +39,24 @@ import {
 } from '../../features/contact-us/contactUsApiSlice';
 import { useGetCareerMutation } from '../../features/careers/careersApiSlice';
 import PageHelmet from '../../components/common/Helmet';
+import {
+  columnsCareer,
+  columnsContactUs,
+  columnsDocumentDetails,
+  columnsHeader,
+  columnsHomepage,
+  columnsNews,
+} from './columns/index';
 
 const Admin = () => {
-  const columnsHomepage = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Enable',
-      dataIndex: 'enable',
-      key: 'enable',
-      render: (text) =>
-        text === true ? (
-          <Tag color='green'>{String(text)}</Tag>
-        ) : (
-          <Tag color='red'>{String(text)}</Tag>
-        ),
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'homepage', 'title', record?.title)
-            }
-          >
-            Update TITLE section {record.id}
-          </Button>
-          <Button
-            primary
-            onClick={() =>
-              showModal(
-                record?.id,
-                'homepage',
-                'description',
-                record?.description
-              )
-            }
-          >
-            Update DESCRIPTION section {record.id}
-          </Button>
-          <Button
-            danger
-            onClick={() =>
-              handleEnalbeDisable('homepage', 'disable', record.id)
-            }
-          >
-            Disable
-          </Button>
-          <Button
-            onClick={() => handleEnalbeDisable('homepage', 'enable', record.id)}
-            type='primary'
-          >
-            Enable
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-  const columnsNews = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Enable',
-      dataIndex: 'enable',
-      key: 'enable',
-      render: (text) =>
-        text === true ? (
-          <Tag color='green'>{String(text)}</Tag>
-        ) : (
-          <Tag color='red'>{String(text)}</Tag>
-        ),
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Updated by',
-      dataIndex: 'updatedBy',
-      key: 'updatedBy',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'news', 'title', record?.title)
-            }
-          >
-            Update TITLE section {record.id}
-          </Button>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'news', 'description', record?.description)
-            }
-          >
-            Update DESCRIPTION section {record.id}
-          </Button>
-          <Button
-            danger
-            onClick={() => handleEnalbeDisable('news', 'disable', record.id)}
-          >
-            Disable
-          </Button>
-          <Button
-            type='primary'
-            onClick={() => handleEnalbeDisable('news', 'disable', record.id)}
-          >
-            Enable
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-
-  const columnsCareer = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Enable',
-      dataIndex: 'enable',
-      key: 'enable',
-      render: (text) =>
-        text === true ? (
-          <Tag color='green'>{String(text)}</Tag>
-        ) : (
-          <Tag color='red'>{String(text)}</Tag>
-        ),
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Updated by',
-      dataIndex: 'updatedBy',
-      key: 'updatedBy',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'career', 'title', record?.title)
-            }
-          >
-            Update TITLE section {record.id}
-          </Button>
-          <Button
-            primary
-            onClick={() =>
-              showModal(
-                record?.id,
-                'career',
-                'description',
-                record?.description
-              )
-            }
-          >
-            Update DESCRIPTION section {record.id}
-          </Button>
-          <Button
-            danger
-            onClick={() => handleEnalbeDisable('career', 'disable', record.id)}
-          >
-            Disable
-          </Button>
-          <Button
-            type='primary'
-            onClick={() => handleEnalbeDisable('career', 'disable', record.id)}
-          >
-            Enable
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-
-  const columnsContactUs = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <span>{text}</span>,
-    },
-    {
-      title: 'Enable',
-      dataIndex: 'enable',
-      key: 'enable',
-      render: (text) =>
-        text === true ? (
-          <Tag color='green'>{String(text)}</Tag>
-        ) : (
-          <Tag color='red'>{String(text)}</Tag>
-        ),
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'contactus', 'title', record?.title)
-            }
-          >
-            Update TITLE section {record.id}
-          </Button>
-          <Button
-            primary
-            onClick={() =>
-              showModal(
-                record?.id,
-                'contactus',
-                'description',
-                record?.description
-              )
-            }
-          >
-            Update DESCRIPTION section {record.id}
-          </Button>
-          <Button
-            danger
-            onClick={() =>
-              handleEnalbeDisable('contactus', 'disable', record.id)
-            }
-          >
-            Disable
-          </Button>
-          <Button
-            type='primary'
-            onClick={() =>
-              handleEnalbeDisable('contactus', 'disable', record.id)
-            }
-          >
-            Enable
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-
-  const columnsDocumentDetail = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (id, record, index) => {
-        ++index;
-        return index;
-      },
-    },
-
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            primary
-            onClick={() =>
-              showModal(record?.id, 'documentdetail', 'title', record?.title)
-            }
-          >
-            Update TITLE section {record.id}
-          </Button>
-          <Button
-            primary
-            onClick={() =>
-              showModal(
-                record?.id,
-                'documentdetail',
-                'description',
-                record?.description
-              )
-            }
-          >
-            Update DESCRIPTION section {record.id}
-          </Button>
-          {/* <Button
-            danger
-            onClick={() =>
-              handleEnalbeDisable('documentdetail', 'disable', record?.id)
-            }
-          >
-            Delete
-          </Button> */}
-        </Space>
-      ),
-    },
-  ];
-
-  const columnslHeader = (page) => [
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Description',
-      key: 'description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) =>
-        record && (
-          <Space size='middle'>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(record?.id, page, 'title', record?.title)
-              }
-            >
-              Update TITLE
-            </Button>
-            <Button
-              primary
-              onClick={() =>
-                handleModalHeader(
-                  record?.id,
-                  page,
-                  'description',
-                  record?.description
-                )
-              }
-            >
-              Update DESCRIPTION
-            </Button>
-          </Space>
-        ),
-    },
-  ];
   //update homepage, news
   const [open, setOpen] = useState({
-    homepage: { id: '', title: false, description: false },
+    homepage: {
+      id: '',
+      title: false,
+      descriptionVn: false,
+      descriptionEng: false,
+    },
     news: { id: '', title: false, description: false },
     contactUs: { id: '', title: false, description: false },
     documentDetail: { id: '', title: false, description: false },
@@ -484,8 +99,8 @@ const Admin = () => {
   const [headerNewsDetail, setHeaderNewsDetail] = useState([]);
 
   const [isOpenModalHeader, setIsOpenModalHeader] = useState({
-    home: { title: false, description: false },
-    aboutUs: { title: false, description: false },
+    home: { title: false, descriptionEng: false, descriptionVn: false },
+    aboutUs: { title: false, descriptionEng: false, descriptionVn: false },
     news: { title: false, description: false },
     career: { title: false, description: false },
     contactUs: { title: false, description: false },
@@ -510,7 +125,8 @@ const Admin = () => {
   const [getHomePageContent, { isLoading: isLoadingHomepage }] =
     useGetHomePageContentMutation();
 
-  const [updateHomePageContent] = useUpdateHomePageContentMutation();
+  const [updateHomePageContent, { isLoading: isLoadingUpdateHomepage }] =
+    useUpdateHomePageContentMutation();
 
   const [updateNewsContent] = useUpdateNewsContentMutation();
 
@@ -520,7 +136,8 @@ const Admin = () => {
 
   const [updateDocumentDetail] = useUpdateDocumentDetailMutation();
 
-  const [updateHeader] = useUpdateHeaderMutation();
+  const [updateHeader, { isLoading: isLoadingUpdateHeader }] =
+    useUpdateHeaderMutation();
 
   const [createNews] = useCreateNewsMutation();
 
@@ -538,10 +155,24 @@ const Admin = () => {
         setOpen({ ...open, homepage: { ...open.homepage, title: true } });
         setEditingValue({ id, value, page: 'homepage', type: 'title' });
       }
-
-      if (type === 'description') {
-        setOpen({ ...open, homepage: { ...open.homepage, description: true } });
-        setEditingValue({ id, value, page: 'homepage', type: 'description' });
+      if (type === 'descriptionEng') {
+        setOpen({
+          ...open,
+          homepage: { ...open.homepage, descriptionEng: true },
+        });
+        setEditingValue({
+          id,
+          value,
+          page: 'homepage',
+          type: 'descriptionEng',
+        });
+      }
+      if (type === 'descriptionVn') {
+        setOpen({
+          ...open,
+          homepage: { ...open.homepage, descriptionVn: true },
+        });
+        setEditingValue({ id, value, page: 'homepage', type: 'descriptionVn' });
       }
     } else if (page === 'news') {
       if (type === 'title') {
@@ -601,7 +232,12 @@ const Admin = () => {
   const hideModal = (cancel) => {
     setOpen({
       ...open,
-      homepage: { id: '', title: false, description: false },
+      homepage: {
+        id: '',
+        title: false,
+        descriptionEng: false,
+        descriptionVn: false,
+      },
       news: { id: '', title: false, description: false },
       contactUs: { id: '', title: false, description: false },
       documentDetail: { id: '', title: false, description: false },
@@ -672,9 +308,15 @@ const Admin = () => {
         };
         result = await updateHomePageContent({ id, payload }).unwrap();
       }
-      if (type === 'description') {
+      if (type === 'descriptionEng') {
         payload = {
-          description: value,
+          descriptionEng: value,
+        };
+        result = await updateHomePageContent({ id, payload }).unwrap();
+      }
+      if (type === 'descriptionVn') {
+        payload = {
+          descriptionVn: value,
         };
         result = await updateHomePageContent({ id, payload }).unwrap();
       }
@@ -836,18 +478,33 @@ const Admin = () => {
     setHeaderNewsDetail([result?.data]);
   };
 
-  const getHeaderData = () => {
-    getHeaderNews('news');
-    getHeaderContactUs('contactus');
-    getHeaderCareer('career');
-    getHeaderHome('home');
-    getHeaderAboutUs('aboutus');
-    getHeaderDocumentDetail('documentdetail');
-    getHeaderDocument('document');
-    getHeaderNewsLetter('newsletter');
-    getHeaderSearch('search');
-    getHeaderNewsDetail('newsdetail');
+  const getHeaderData = (position = '') => {
+    if (position) {
+      if (position.includes('news')) getHeaderNews('news');
+      if (position.includes('contactus')) getHeaderContactUs('contactus');
+      if (position.includes('career')) getHeaderCareer('career');
+      if (position.includes('home')) getHeaderHome('home');
+      if (position.includes('aboutus')) getHeaderAboutUs('aboutus');
+      if (position.includes('documentdetail'))
+        getHeaderDocumentDetail('documentdetail');
+      if (position.includes('document')) getHeaderDocument('document');
+      if (position.includes('newsletter')) getHeaderNewsLetter('newsletter');
+      if (position.includes('search')) getHeaderSearch('search');
+      if (position.includes('newsdetail')) getHeaderNewsDetail('newsdetail');
+    } else {
+      getHeaderNews('news');
+      getHeaderContactUs('contactus');
+      getHeaderCareer('career');
+      getHeaderHome('home');
+      getHeaderAboutUs('aboutus');
+      getHeaderDocumentDetail('documentdetail');
+      getHeaderDocument('document');
+      getHeaderNewsLetter('newsletter');
+      getHeaderSearch('search');
+      getHeaderNewsDetail('newsdetail');
+    }
   };
+
   useEffect(() => {
     getHomepageData();
     getNewsData();
@@ -860,121 +517,211 @@ const Admin = () => {
   }, []);
 
   const handleModalHeader = (id, position, type, payload) => {
-    if (position === 'news' && type === 'title') {
-      setIsOpenModalHeader({ ...isOpenModalHeader, news: { title: true } });
-    } else if (position === 'news' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        news: { description: true },
-      });
+    if (position === 'news') {
+      if (type === 'title') {
+        setIsOpenModalHeader({ ...isOpenModalHeader, news: { title: true } });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          news: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          news: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'contactus' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        contactUs: { title: true },
-      });
-    } else if (position === 'contactus' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        contactUs: { description: true },
-      });
+    if (position === 'contactus') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          contactUs: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          contactUs: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          contactUs: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'career' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        career: { title: true },
-      });
-    } else if (position === 'career' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        career: { description: true },
-      });
+    if (position === 'career') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          career: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          career: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          career: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'home' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        home: { title: true },
-      });
-    } else if (position === 'home' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        home: { description: true },
-      });
+    if (position === 'home') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          home: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          home: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          home: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'aboutus' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        aboutUs: { title: true },
-      });
-    } else if (position === 'aboutus' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        aboutUs: { description: true },
-      });
+    if (position === 'aboutus') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          aboutUs: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          aboutUs: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          aboutUs: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'document' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        document: { title: true },
-      });
-    } else if (position === 'document' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        document: { description: true },
-      });
+    if (position === 'document') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          document: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          document: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          document: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'documentdetail' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        documentDetail: { title: true },
-      });
-    } else if (position === 'documentdetail' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        documentDetail: { description: true },
-      });
+    if (position === 'documentdetail') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          documentDetail: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          documentDetail: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          documentDetail: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'newsletter' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        newsLetter: { title: true },
-      });
-    } else if (position === 'newsletter' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        newsLetter: { description: true },
-      });
+    if (position === 'newsletter') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsLetter: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsLetter: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsLetter: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'search' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        search: { title: true },
-      });
-    } else if (position === 'search' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        search: { description: true },
-      });
+    if (position === 'search') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          search: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          search: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          search: { descriptionVn: true },
+        });
+      }
     }
 
-    if (position === 'newsdetail' && type === 'title') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        newsDetail: { title: true },
-      });
-    } else if (position === 'newsdetail' && type === 'description') {
-      setIsOpenModalHeader({
-        ...isOpenModalHeader,
-        newsDetail: { description: true },
-      });
+    if (position === 'newsdetail') {
+      if (type === 'title') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsDetail: { title: true },
+        });
+      }
+      if (type === 'descriptionEng') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsDetail: { descriptionEng: true },
+        });
+      }
+      if (type === 'descriptionVn') {
+        setIsOpenModalHeader({
+          ...isOpenModalHeader,
+          newsDetail: { descriptionVn: true },
+        });
+      }
     }
 
     setEditingHeaderValue({
@@ -998,32 +745,42 @@ const Admin = () => {
       payload = { title: value };
       result = await updateHeader({ id, position, type, payload });
       if (result?.data) {
-        hideModalHeader();
+        hideModalHeader(false, position);
       }
-    } else if (type === 'description') {
-      payload = { description: value };
+    } else if (type === 'descriptionVn') {
+      payload = { descriptionVn: value };
       result = await updateHeader({ id, position, type, payload });
       if (result?.data) {
-        hideModalHeader();
+        hideModalHeader(false, position);
+      }
+    } else if (type === 'descriptionEng') {
+      payload = { descriptionEng: value };
+      result = await updateHeader({ id, position, type, payload });
+      if (result?.data) {
+        hideModalHeader(false, position);
       }
     }
   };
 
-  const hideModalHeader = (postion) => {
+  const hideModalHeader = (isCancel, position) => {
     setIsOpenModalHeader({
       ...isOpenModalHeader,
-      news: { title: false, description: false },
-      contactUs: { title: false, description: false },
-      career: { title: false, description: false },
-      home: { title: false, description: false },
-      aboutUs: { title: false, description: false },
-      document: { title: false, description: false },
-      documentDetail: { title: false, description: false },
-      newsLetter: { title: false, description: false },
-      search: { title: false, description: false },
-      newsDetail: { title: false, description: false },
+      news: { title: false, descriptionEng: false, descriptionVn: false },
+      contactUs: { title: false, descriptionEng: false, descriptionVn: false },
+      career: { title: false, descriptionEng: false, descriptionVn: false },
+      home: { title: false, descriptionEng: false, descriptionVn: false },
+      aboutUs: { title: false, descriptionEng: false, descriptionVn: false },
+      document: { title: false, descriptionEng: false, descriptionVn: false },
+      documentDetail: {
+        title: false,
+        descriptionEng: false,
+        descriptionVn: false,
+      },
+      newsLetter: { title: false, descriptionEng: false, descriptionVn: false },
+      search: { title: false, descriptionEng: false, descriptionVn: false },
+      newsDetail: { title: false, descriptionEng: false, descriptionVn: false },
     });
-    getHeaderData();
+    if (!isCancel) getHeaderData(position);
   };
   return (
     <Fragment>
@@ -1052,7 +809,7 @@ const Admin = () => {
 
           <Table
             loading={isLoadingHomepage}
-            columns={columnsHomepage}
+            columns={columnsHomepage(showModal, handleEnalbeDisable)}
             dataSource={homePageData}
           />
         </Content>
@@ -1066,7 +823,7 @@ const Admin = () => {
 
           <Table
             loading={isLoadingHomepage}
-            columns={columnsHomepage}
+            columns={columnsHomepage(showModal, handleEnalbeDisable)}
             dataSource={aboutData}
           />
         </Content>
@@ -1083,7 +840,7 @@ const Admin = () => {
             </Button>
           </Space>
           <Table
-            columns={columnsNews}
+            columns={columnsNews(showModal, handleEnalbeDisable)}
             loading={isLoadingNews}
             dataSource={newsData}
           />
@@ -1109,7 +866,7 @@ const Admin = () => {
             />
           </Space>
           <Table
-            columns={columnsCareer}
+            columns={columnsCareer(showModal, handleEnalbeDisable)}
             loading={isLoadingCareer}
             dataSource={careerData}
           />
@@ -1123,7 +880,7 @@ const Admin = () => {
             <FormattedMessage id='CONTACT_US' />
           </h2>
           <Table
-            columns={columnsContactUs}
+            columns={columnsContactUs(showModal, handleEnalbeDisable)}
             loading={isLoadingContactUs}
             dataSource={contactUsData}
           />
@@ -1154,7 +911,7 @@ const Admin = () => {
           </span>
           <Table
             className='pt--20'
-            columns={columnsDocumentDetail}
+            columns={columnsDocumentDetails(showModal, handleEnalbeDisable)}
             dataSource={documentDetailData}
             loading={isLoadingDocument}
           />
@@ -1168,7 +925,7 @@ const Admin = () => {
             <FormattedMessage id='HOME_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('home')}
+            columns={columnsHeader('home', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerHome}
             pagination={false}
@@ -1178,7 +935,7 @@ const Admin = () => {
             <FormattedMessage id='ABOUT_US_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('aboutus')}
+            columns={columnsHeader('aboutus', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerAboutUs}
             pagination={false}
@@ -1188,7 +945,7 @@ const Admin = () => {
             <FormattedMessage id='NEWS_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('news')}
+            columns={columnsHeader('news', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerNews}
             pagination={false}
@@ -1198,7 +955,7 @@ const Admin = () => {
             <FormattedMessage id='CAREER_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('career')}
+            columns={columnsHeader('career', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerCareer}
             pagination={false}
@@ -1208,7 +965,7 @@ const Admin = () => {
             <FormattedMessage id='CONTACT_US_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('contactus')}
+            columns={columnsHeader('contactus', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerContactUs}
             pagination={false}
@@ -1218,7 +975,7 @@ const Admin = () => {
             <FormattedMessage id='DOCUMENT_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('document')}
+            columns={columnsHeader('document', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerDocument}
             pagination={false}
@@ -1228,7 +985,7 @@ const Admin = () => {
             <FormattedMessage id='DOCUMENT_DETAIL_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('documentdetail')}
+            columns={columnsHeader('documentdetail', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerDocumentDetail}
             pagination={false}
@@ -1238,7 +995,7 @@ const Admin = () => {
             <FormattedMessage id='NEWSLETTER_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('newsletter')}
+            columns={columnsHeader('newsletter', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerNewsLetter}
             pagination={false}
@@ -1248,7 +1005,7 @@ const Admin = () => {
             <FormattedMessage id='SEARCH_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('search')}
+            columns={columnsHeader('search', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerSearch}
             pagination={false}
@@ -1258,7 +1015,7 @@ const Admin = () => {
             <FormattedMessage id='NEWS_DETAIL_HEADING' />
           </h2>
           <Table
-            columns={columnslHeader('newsdetail')}
+            columns={columnsHeader('newsdetail', handleModalHeader)}
             loading={isLoadingHeader}
             dataSource={headerNewsDetail}
             pagination={false}
@@ -1287,7 +1044,8 @@ const Admin = () => {
         centered
         title='Update description'
         open={
-          open.homepage.description ||
+          open.homepage.descriptionVn ||
+          open.homepage.descriptionEng ||
           open.news.description ||
           open.contactUs.description ||
           open.documentDetail.description ||
@@ -1295,6 +1053,7 @@ const Admin = () => {
         }
         onOk={() => handleUpdate(editingValue)}
         onCancel={() => hideModal('cancel')}
+        okButtonProps={{ disabled: isLoadingUpdateHomepage }}
       >
         <TextArea
           style={{ height: '200px' }}
@@ -1367,7 +1126,8 @@ const Admin = () => {
           isOpenModalHeader.newsDetail.title
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
-        onCancel={() => hideModalHeader()}
+        onCancel={() => hideModalHeader(true)}
+        okButtonProps={{ disabled: isLoadingUpdateHeader }}
       >
         <Input
           value={editingHeaderValue.value}
@@ -1378,19 +1138,30 @@ const Admin = () => {
         centered
         title='Update description'
         open={
-          isOpenModalHeader.news.description ||
-          isOpenModalHeader.contactUs.description ||
-          isOpenModalHeader.career.description ||
-          isOpenModalHeader.home.description ||
-          isOpenModalHeader.aboutUs.description ||
-          isOpenModalHeader.document.description ||
-          isOpenModalHeader.documentDetail.description ||
-          isOpenModalHeader.newsLetter.description ||
-          isOpenModalHeader.search.description ||
-          isOpenModalHeader.newsDetail.description
+          isOpenModalHeader.home.descriptionEng ||
+          isOpenModalHeader.home.descriptionVn ||
+          isOpenModalHeader.news.descriptionEng ||
+          isOpenModalHeader.news.descriptionVn ||
+          isOpenModalHeader.contactUs.descriptionEng ||
+          isOpenModalHeader.contactUs.descriptionVn ||
+          isOpenModalHeader.career.descriptionEng ||
+          isOpenModalHeader.career.descriptionVn ||
+          isOpenModalHeader.aboutUs.descriptionEng ||
+          isOpenModalHeader.aboutUs.descriptionVn ||
+          isOpenModalHeader.document.descriptionEng ||
+          isOpenModalHeader.document.descriptionVn ||
+          isOpenModalHeader.documentDetail.descriptionEng ||
+          isOpenModalHeader.documentDetail.descriptionVn ||
+          isOpenModalHeader.newsLetter.descriptionEng ||
+          isOpenModalHeader.newsLetter.descriptionVn ||
+          isOpenModalHeader.search.descriptionEng ||
+          isOpenModalHeader.search.descriptionVn ||
+          isOpenModalHeader.newsDetail.descriptionEng ||
+          isOpenModalHeader.newsDetail.descriptionVn
         }
         onOk={() => handleUpdateHeader(editingHeaderValue)}
-        onCancel={() => hideModalHeader()}
+        onCancel={() => hideModalHeader(true)}
+        okButtonProps={{ disabled: isLoadingUpdateHeader }}
       >
         <TextArea
           value={editingHeaderValue.value}
