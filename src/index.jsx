@@ -24,7 +24,7 @@ import Document from './pages/Document/Document';
 import DocumentDetail from './pages/DocumentDetail/DocumentDetail';
 import NewsDetail from './pages/NewsDetail/NewsDetail';
 import Search from './pages/Search/Search';
-import { messages } from './i18n/message';
+import { messages } from './i18n/messages';
 import { LOCALES } from './i18n/locales';
 import { selectLanguageValue } from './features/language/languageSlice';
 import CareersDetail from './pages/CareersDetail/CareersDetail';

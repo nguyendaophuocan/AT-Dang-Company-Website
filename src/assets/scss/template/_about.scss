@@ -7,7 +7,7 @@
         position: relative;
         padding-left: 240px;
         padding-top: 110px;
-        padding-bottom: 110px;
+        padding-bottom: 90px;
 
         @media #{$lg-layout} {
             padding-left: 0;
@@ -73,7 +73,7 @@
                     font-size: 18px;
                     color: #ffffff;
                     font-weight: 300;
-                    margin-bottom: 41px;
+                    margin-bottom: 15px;
                     padding-right: 10%;
                     @media #{$sm-layout} {
                         margin-bottom: 24px;

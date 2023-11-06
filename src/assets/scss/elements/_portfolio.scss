@@ -63,19 +63,19 @@
     transition: transform 0.28s ease;
     z-index: 4;
     &.image-1 {
-      background-image: url(../../../assets/images/portfolio/portfolio-1.jpg);
+      background-image: url(../../../assets/images/featured/corporate-01.jpg);
     }
 
     &.image-2 {
-      background-image: url(../../../assets/images/portfolio/portfolio-2.jpg);
+      background-image: url(../../../assets/images/featured/corporate-02.jpg);
     }
 
     &.image-3 {
-      background-image: url(../../../assets/images/portfolio/portfolio-3.jpg);
+      background-image: url(../../../assets/images/featured/corporate-03.jpg);
     }
 
     &.image-4 {
-      background-image: url(../../../assets/images/portfolio/portfolio-4.jpg);
+      background-image: url(../../../assets/images/featured/corporate-04.jpg);
     }
 
     &::after {
@@ -123,6 +123,29 @@
     }
   }
 
+  .bg-blr-image-about {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color: #0a0a0a;
+    background-image: url(../../../assets/images/featured/corporate-01.jpg);
+    @extend %transition;
+    transform: translateY(38px);
+    opacity: 0;
+    z-index: 1;
+
+    &.image-1 {
+      background-image: url(../../../assets/images/featured/corporate-04.jpg);
+    }
+    &.image-2 {
+      background-image: url(../../../assets/images/featured/corporate-05.jpg);
+    }
+  }
+
   .content {
     position: absolute;
     bottom: 40px;
@@ -145,14 +168,19 @@
     }
     .inner {
       p {
-        color: #c6c9d8;
+        color: #f2f2f8;
         font-size: 14px;
       }
       h4 {
         font-size: 24px;
         line-height: 36px;
-        a {
-          color: #ffffff;
+        color: #ffffff;
+      }
+      h5 {
+        color: #ffffff;
+        font-size: 20px;
+        @media #{$sm-layout} {
+          font-size: 16px;
         }
       }
       .title {
@@ -848,7 +876,7 @@ Portfolio Style Three
       &.portfoliotype {
         font-size: 14px;
         margin-bottom: 5px;
-        color: #c6c9d8;
+        color: #f2f2f8;
       }
     }
     h4 {

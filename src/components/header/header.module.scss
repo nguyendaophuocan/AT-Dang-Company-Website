@@ -30,15 +30,15 @@
   margin-left: 15px;
   :global {
     .ant-select-selection-item {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
-      color: #c6c9d8 !important;
+      color: #f2f2f8 !important;
     }
     .ant-select-selector {
       padding: 0 !important;
     }
     .ant-select-arrow {
-      color: #c6c9d8 !important;
+      color: #f2f2f8 !important;
       height: 50%;
     }
   }
@@ -81,14 +81,14 @@
 
 // :global {
 //   .ant-select-single .ant-select-selector {
-//     color: #c6c9d8 !important;
+//     color: #f2f2f8 !important;
 //   }
 //   .ant-select .ant-select-arrow {
-//     color: #c6c9d8 !important;
+//     color: #f2f2f8 !important;
 //   }
 
 //   .ant-select-open {
-//     color: #c6c9d8 !important;
+//     color: #f2f2f8 !important;
 //   }
 // }
 
@@ -100,13 +100,13 @@
   //   .ant-select-selection-item {
   //     font-size: 16px;
   //     font-weight: 400;
-  //     color: #c6c9d8 !important;
+  //     color: #f2f2f8 !important;
   //   }
   //   .ant-select-selector {
   //     padding: 0 !important;
   //   }
   //   .ant-select-arrow {
-  //     color: #c6c9d8 !important;
+  //     color: #f2f2f8 !important;
   //     height: 50%;
   //   }
   // }
@@ -114,17 +114,17 @@
 
 :global {
   .ant-space:hover {
-    color: #c6c9d8 !important;
+    color: #f2f2f8 !important;
   }
   .ant-dropdown-trigger {
-    color: #c6c9d8 !important;
+    color: #f2f2f8 !important;
     .ant-space-item:nth-child(1) {
-      font-size: 15px !important;
+      font-size: 17px !important;
       font-weight: 400 !important;
     }
     .ant-space-item:nth-child(2) {
       margin-top: -4px;
-      font-size: 13px !important;
+      font-size: 15px !important;
     }
   }
 }
@@ -137,6 +137,9 @@
 
 .hrBackground {
   background: #cdaa73;
+  @media only screen and (min-width: 767px) {
+    display: none;
+  }
 }
 
 .adminNav {

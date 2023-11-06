@@ -14,8 +14,8 @@ Mainmenu Area
         position: relative;
         > a {
           @extend %transition;
-          color: #c6c9d8;
-          font-size: 18px;
+          color: #f2f2f8;
+          font-size: 20px;
           font-weight: 500;
           padding: 20px 0;
           display: inline-block;
@@ -112,7 +112,7 @@ Mainmenu Area
 .humberger-menu {
   span {
     &.text-white {
-      color: #c6c9d8 !important;
+      color: #f2f2f8 !important;
     }
   }
 }

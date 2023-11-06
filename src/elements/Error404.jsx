@@ -3,7 +3,7 @@ import FooterTwo from '../components/footer/FooterHome';
 
 const Error404 = () => {
   return (
-    <>
+    <div>
       {/* Start Page Error  */}
       <div className='error-page-inner bg_color--4'>
         <div className='container'>
@@ -24,7 +24,7 @@ const Error404 = () => {
         </div>
       </div>
       <FooterTwo style={{ marginTop: 0 }} />
-    </>
+    </div>
   );
 };
 export default Error404;
