@@ -44,3 +44,15 @@
   font-size: 18px;
   margin: 10px;
 }
+
+.projectDesc {
+  height: 220px;
+  @media #{$sm-layout} {
+    height: auto;
+    line-height: 22px !important;
+  }
+  @media #{$md-layout} {
+    height: auto;
+    line-height: 23px !important;
+  }
+}

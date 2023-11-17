@@ -28,9 +28,9 @@ function HeaderNavbar() {
   window.addEventListener('scroll', function () {
     var value = window.scrollY;
     if (value > 100) {
-      document.querySelector('.header--fixed').classList.add('sticky');
+      document.querySelector('.header--fixed')?.classList.add('sticky');
     } else {
-      document.querySelector('.header--fixed').classList.remove('sticky');
+      document.querySelector('.header--fixed')?.classList.remove('sticky');
     }
   });
 
@@ -72,16 +72,16 @@ function HeaderNavbar() {
     onChange={handleChangeSelectLanguage}
   />;
 
-  const items = [
+  const itemsProjects = [
     {
       key: '1',
       label: (
         <a
           target='_blank'
           rel='noopener noreferrer'
-          href='https://collectibles.atdang.com'
+          href=' https://choice.atdang.com'
         >
-          <FormattedMessage id='DANG_COLLECTIBLES' />
+          <FormattedMessage id='DANG_CHOICE' />
         </a>
       ),
     },
@@ -93,8 +93,30 @@ function HeaderNavbar() {
           rel='noopener noreferrer'
           href='https://collectibles.atdang.com'
         >
-          <FormattedMessage id='DANG_BESPOKE_MARKET_RESEARCH' />
+          <FormattedMessage id='DANG_COLLECTIBLES' />
         </a>
+      ),
+    },
+  ];
+  // options={[
+  //   { value: 'en-US', label: 'Eng' },
+  //   { value: 'vi-VN', label: 'Vie' },
+  // ]}
+  const itemsLanguages = [
+    {
+      key: '1',
+      label: (
+        <span onClick={() => handleChangeSelectLanguage('en-US')}>
+          <FormattedMessage id='ENG' />
+        </span>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <span onClick={() => handleChangeSelectLanguage('vi-VN')}>
+          <FormattedMessage id='VIET' />
+        </span>
       ),
     },
   ];
@@ -170,15 +192,17 @@ function HeaderNavbar() {
                   <FormattedMessage id='HOME' />
                 </Link>
               </li>
-            
+
               {featureFlag.showAboutUs && (
-                <>  <hr className={styles.hrBackground} />
-                <li>
-                  <Link to='/about'>
-                    {' '}
-                    <FormattedMessage id='ABOUT_US' />
-                  </Link>
-                </li>
+                <>
+                  {' '}
+                  <hr className={styles.hrBackground} />
+                  <li>
+                    <Link to='/about'>
+                      {' '}
+                      <FormattedMessage id='ABOUT_US' />
+                    </Link>
+                  </li>
                 </>
               )}
 
@@ -213,44 +237,52 @@ function HeaderNavbar() {
                 </Link>
               </li>
               <li>
-                {/* <a
-                // href='https://collectibles.atdang.com'
-                // target='_blank'
-                // rel='noopener noreferrer'
-                // onclick='window.open(https://collectibles.atdang.com)'
-                >
-                  <Select
-                    defaultValue='Projects'
-                    style={{ width: 100, padding: '0' }}
-                    bordered={false}
-                    options={[
-                      { value: 'collectibles', label: 'Collectibles' },
-                      { value: 'vi-VN', label: 'Vie' },
-                    ]}
-                    onChange={handleChangeSelectLanguage}
-                  />
-                </a> */}
+              <hr className={styles.hrBackground} />
+
+                <div className={styles.projectSelection}>
+                  <Dropdown
+                    menu={{
+                      items: itemsProjects,
+                      onClick: handleMenuClick,
+                    }}
+                    onOpenChange={handleOpenChange}
+                    open={open}
+                    className={styles.headerDropdown}
+                    arrow={{ pointAtCenter: true }}>
+                    <Link onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <FormattedMessage id='PROJECTS' />
+                        <DownOutlined />
+                      </Space>
+                    </Link>
+                  </Dropdown>
+                </div>
+              
+              </li>
+              <li>
+              <hr className={styles.hrBackground} />
+
+              <div className={classNames(styles.countrySelection)}>
+                  <Dropdown
+                    menu={{
+                      items: itemsLanguages,
+                      onClick: handleMenuClick,
+                    }}
+                    // onOpenChange={handleOpenChange}
+                    // open={open}
+                    className={styles.headerDropdown}
+                  >
+                    <Link onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <FormattedMessage id='LANGUAGES' />
+                        <DownOutlined />
+                      </Space>
+                    </Link>
+                  </Dropdown>
+                </div>
               </li>
             </Scrollspy>
           </nav>{' '}
-          <div className={styles.projectSelection}>
-            <Dropdown
-              menu={{
-                items,
-                onClick: handleMenuClick,
-              }}
-              onOpenChange={handleOpenChange}
-              open={open}
-              className={styles.headerDropdown}
-            >
-              <Link onClick={(e) => e.preventDefault()}>
-                <Space>
-                  <FormattedMessage id='PROJECTS' />
-                  <DownOutlined />
-                </Space>
-              </Link>
-            </Dropdown>
-          </div>
           <div className={styles.searchIcon}>
             <SearchOutlined
               style={{
@@ -260,19 +292,6 @@ function HeaderNavbar() {
                 cursor: 'pointer',
               }}
               onClick={() => handleModalSearch(true, searchRef)}
-            />
-          </div>
-          <div className={classNames(styles.countrySelection)}>
-            <Select
-              className={styles.headerDropdown}
-              defaultValue='Eng'
-              style={{ width: 57, padding: '0' }}
-              bordered={false}
-              options={[
-                { value: 'en-US', label: 'Eng' },
-                { value: 'vi-VN', label: 'Vie' },
-              ]}
-              onChange={handleChangeSelectLanguage}
             />
           </div>
           {isUserLoggedIn && (
@@ -295,7 +314,7 @@ function HeaderNavbar() {
         </div>
       </div>
       <Modal
-        title='Dang & Associates, LTD.'
+        // title='Dang & Associates, LTD.'
         centered
         open={visible}
         onOk={() => setVisible(false)}
@@ -320,13 +339,13 @@ function HeaderNavbar() {
                   height: '50px',
                   width: '50%',
                   fontSize: '20px',
+                  color: 'white'
                 }}
               />
             )}
           </FormattedMessage>
         </form>
       </Modal>
-      ;
     </header>
   );
 }

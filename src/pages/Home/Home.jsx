@@ -131,7 +131,8 @@ const Home = () => {
         navigate('/about');
         return;
       case 'shop':
-        window.location.href = 'https://collectibles.atdang.com';
+        // window.location.href = 'https://collectibles.atdang.com';
+        navigate('/about');
         return;
       default:
         break;
@@ -171,7 +172,7 @@ const Home = () => {
   }, []);
   return (
     <Fragment>
-      <PageHelmet pageTitle='Company website' />
+      <PageHelmet pageTitle='Dang & Associates, Ltd.' />
       {/* Start Slider Area   */}
       <div className='slider-activation slider-creative-agency'>
         <div
@@ -182,14 +183,14 @@ const Home = () => {
             <div className='container'>
               <div className='row'>
                 <div className='col-lg-12'>
-                  {isLoadingHeader ? (
+                  {/* {isLoadingHeader ? (
                     <div style={{ textAlign: 'center' }}>
                       {' '}
                       <Spin size='large' />
                     </div>
-                  ) : (
+                  ) : ( */}
                     <div className={`inner text-center`}>
-                      <h2 className='title theme-gradient'>
+                      <h2 className={classNames('title theme-gradient',styles.homeHeader)}>
                         <span
                           onClick={() => handleClickHero('hero')}
                           className={styles.hero}
@@ -208,17 +209,18 @@ const Home = () => {
                       )}
 
                       {
+                        !isLoadingHeader &&
                         <div className='slide-btn'>
                           <button
                             className='rn-button-style--2 btn-primary-color'
                             onClick={() => handleClickHero('shop')}
                           >
-                            <FormattedMessage id='SHOP_NOW' />
+                           <FormattedMessage id='DISCOVER' />
                           </button>
                         </div>
                       }
                     </div>
-                  )}
+                  {/* )} */}
                 </div>
               </div>
             </div>
@@ -226,7 +228,7 @@ const Home = () => {
         </div>
       </div>
 
-      {isLoadingContent ? (
+      {/* {isLoadingContent ? (
         <div
           style={{ textAlign: 'center', height: '150px' }}
           className='mt--100'
@@ -234,7 +236,7 @@ const Home = () => {
           {' '}
           <Spin size='large' />
         </div>
-      ) : (
+      ) : ( */}
         <>
           {dataHome[0]?.enable && (
             <div className='rn-counterup-area pt--80 pb--110 bg_color--1'>
@@ -242,7 +244,11 @@ const Home = () => {
                 <div className='row'>
                   <div className='col-lg-12'>
                     <div className='section-title text-center'>
-                      <h2 className='title'>{dataHome[0]?.title}</h2>
+                      <h2 className='title'>
+                        {/* {dataHome[0]?.title} */}
+                      {/* Hardcode for current approach  */}
+                      <FormattedMessage id='DANG_AND_ASSOCIATES' />
+                      </h2>
                       {language.includes('en-US') ? (
                         <p className='title'>{dataHome[0]?.descriptionEng}</p>
                       ) : (
@@ -258,7 +264,7 @@ const Home = () => {
             </div>
           )}
         </>
-      )}
+      {/* )} */}
 
       {/* Visions */}
       {dataHome[1]?.enable && (
@@ -268,7 +274,11 @@ const Home = () => {
               <div className='row'>
                 <div className='col-lg-6'>
                   <div className='section-title service-style--3 text-left mb--15 mb_sm--0'>
-                    <h2 className='title'>{dataHome[1]?.title}</h2>
+                    <h2 className='title'>
+                      {/* Temporary */}
+                      {/* {dataHome[1]?.title} */}
+                      <FormattedMessage id='VISIONS' />
+                      </h2>
                     <p>
                       {language.includes('en-US') ? (
                         <p>{dataHome[1]?.descriptionEng}</p>
@@ -324,13 +334,15 @@ const Home = () => {
                   ) : (
                     <p>{dataHome[2]?.descriptionVn}</p>
                   )}
-                  <button
+                  <a
+                  href='https://choice.atdang.com'
+                  target='_blank'
                     className={classNames(
                       'rn-button-style--2 btn-primary-color'
-                    )}
+                    )} rel="noreferrer"
                   >
                     View All Collection
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -376,17 +388,15 @@ const Home = () => {
         >
           <div className='container'>
             <div className='row'>
-              <div className='col-lg-12'>
-                <div className='inner text-left'>
-                  <h2><FormattedMessage id='TEAM_TITLE_1'/></h2>
-                  <h4><FormattedMessage id='TEAM_DESC_1'/></h4>
+              <div className='col-lg-12' style={{color: 'white'}}>
+                  <h2 style={{color: 'white'}}><FormattedMessage id='TEAM_TITLE_1'/></h2>
+                 <span className='section-title'><p style={{color: 'white'}}><FormattedMessage id='TEAM_DESC_1'/></p></span> 
                   <Link
                     className='rn-button-style--2 mt--70 mt_sm--30 mt_md--30'
-                    href='/about'
+                    to='/about'
                   >
-                    <span><FormattedMessage id='DISCOVER'/></span>
+                  <FormattedMessage id='DISCOVER'/>
                   </Link>
-                </div>
               </div>
             </div>
           </div>

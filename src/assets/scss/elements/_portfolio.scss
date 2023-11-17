@@ -179,6 +179,8 @@
       h5 {
         color: #ffffff;
         font-size: 20px;
+        line-height: 30px;
+        font-weight: 500;
         @media #{$sm-layout} {
           font-size: 16px;
         }

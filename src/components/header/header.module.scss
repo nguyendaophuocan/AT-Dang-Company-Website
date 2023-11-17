@@ -1,3 +1,5 @@
+@import '../../assets/scss/default/variables';
+
 .headerLogo {
   position: absolute;
   top: -60px;
@@ -5,13 +7,29 @@
   // background-color: rgba(205, 170, 115);
 }
 .logo1 {
-  width: 390px;
+  width: 320px;
+  margin-top: 90px;
+  @media #{$lg-layout} {
+    width: 320px !important;
+  }
+  @media #{$md-layout} {
+    width: 300px !important;
+  }
+  @media #{$sm-layout} {
+    width: 180px !important;
+  }
 }
 .logo2 {
-  width: 58%;
-  margin-top: 72px;
-  @media only screen and (max-width: 767px) {
-    display: none;
+  width: 18%;
+  margin-top: 70px;
+  // @media only screen and (max-width: 767px) {
+  //   display: none;
+  // }
+  @media #{$md-layout} {
+    width: 28% !important;
+  }
+  @media #{$sm-layout} {
+    width: 60% !important;
   }
 }
 .logOutBtn {
@@ -27,7 +45,8 @@
   }
 }
 .countrySelection {
-  margin-left: 15px;
+  margin-left: -6px;
+  margin-top: 22px;
   :global {
     .ant-select-selection-item {
       font-size: 18px;
@@ -40,6 +59,12 @@
     .ant-select-arrow {
       color: #f2f2f8 !important;
       height: 50%;
+    }
+  }
+  @media only screen and (max-width: 990px) {
+    > a {
+      color: #1f1f25 !important;
+      margin-left: 8px;
     }
   }
 }
@@ -69,11 +94,11 @@
     .ant-modal-content {
       border-radius: 0 !important;
       // background: linear-gradient(to right, #e1bc7c 50%, #e2b266 50%);
-      background-color: #f8ecd9;
+      background-color: rgb(18, 20, 60);
+      color: rgb(18, 20, 60);
     }
 
     .ant-modal-header {
-      background-color: #f8ecd9;
       // background: linear-gradient(to right, #e1bc7c 50%, #e2b266 50%);
     }
   }
@@ -93,8 +118,11 @@
 // }
 
 .projectSelection {
-  @media only screen and (max-width: 767px) {
-    // display: none;
+  margin-top: 22px;
+  @media only screen and (max-width: 990px) {
+    > a {
+      color: #1f1f25 !important;
+    }
   }
   // :global {
   //   .ant-select-selection-item {
@@ -123,8 +151,7 @@
       font-weight: 400 !important;
     }
     .ant-space-item:nth-child(2) {
-      margin-top: -4px;
-      font-size: 15px !important;
+      display: none;
     }
   }
 }
@@ -146,4 +173,8 @@
   @media only screen and (max-width: 767px) {
     display: none;
   }
+}
+
+.searchPlaceholder {
+  color: rgb(18, 20, 60);
 }

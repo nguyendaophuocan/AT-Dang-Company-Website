@@ -12,7 +12,6 @@ import Card from 'antd/es/card/Card';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import ScrollToTop from '../../components/hoc/withScrollToTop';
 import { FiChevronUp } from 'react-icons/fi';
 import EmptyContent from '../../components/common/EmptyContent';
 
@@ -74,19 +73,20 @@ const News = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                {isLoadingHeader ? (
+                {/* {isLoadingHeader ? (
                   <div style={{ textAlign: 'center' }}>
                     {' '}
                     <Spin size='large' />
                   </div>
-                ) : (
+                ) : ( */}
                   <>
                     <h2 className='title theme-gradient'>
-                      {dataHeader?.title}
+                      {/* {dataHeader?.title} */}
+                      <FormattedMessage id='NEWS_HEADER' />
                     </h2>
                     <p>{dataHeader?.description}</p>
                   </>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>
@@ -106,11 +106,11 @@ const News = () => {
                   /> */}
                 </div>
               </div>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <div>
                   <Spin style={{ width: '100%' }} />
                 </div>
-              ) : (
+              ) : ( */}
                 <>
                   <div className='col-lg-12'>
                     <div className='News-inner inner'>
@@ -163,8 +163,8 @@ const News = () => {
                       )}
                     </div>
                   </div>
-                  {data?.content.length >= 1 ? (
-                    <div className={styles.pagination}>
+                  {!isLoading && (
+                      <div className={styles.pagination}>
                       <Pagination
                         pageSize={pageSize}
                         current={news.current}
@@ -173,22 +173,14 @@ const News = () => {
                         style={{ bottom: '0px' }}
                       />
                     </div>
-                  ) : (
-                    <EmptyContent content='news' />
                   )}
+               
                 </>
-              )}
+              {/* )} */}
             </div>
           </div>
         </div>
       </div>
-      {/* End News Area  */}
-      <div className='backto-top'>
-        <ScrollToTop showUnder={160}>
-          <FiChevronUp />
-        </ScrollToTop>
-      </div>
-
       <Footer />
     </React.Fragment>
   );

@@ -7,20 +7,15 @@ import { useGetHomePageContentMutation } from '../../features/admin/adminApiSlic
 import { Spin, Timeline } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { useGetHeaderMutation } from '../../features/header/headerApiSlice';
-import ScrollToTop from '../../components/hoc/withScrollToTop';
 import {
   FiCast,
-  FiChevronUp,
-  FiHeadphones,
   FiLayers,
-  FiUsers,
+  FiGlobe,
+  FiCheck,
+  FiArrowUp
 } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { selectLanguageValue } from '../../features/language/languageSlice';
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import classNames from 'classnames';
 import styles from './about.module.scss';
@@ -29,17 +24,17 @@ import Slider from 'react-slick';
 import { slickDot, slickDot2Items } from '../../utils/helpers';
 const ValuesList = [
   {
-    icon: <FiCast />,
+    icon: <FiGlobe />,
     title: <FormattedMessage id='VALUES_TITLE_1' />,
     description: <FormattedMessage id='VALUES_DESC_1' />,
   },
   {
-    icon: <FiLayers />,
+    icon: <FiCheck />,
     title: <FormattedMessage id='VALUES_TITLE_2' />,
     description: <FormattedMessage id='VALUES_DESC_2' />,
   },
   {
-    icon: <FiUsers />,
+    icon: <FiArrowUp />,
     title: <FormattedMessage id='VALUES_TITLE_3' />,
     description: <FormattedMessage id='VALUES_DESC_3' />,
   },
@@ -52,6 +47,7 @@ const ProjectList = [
     description: <FormattedMessage id='PROJECTS_DESC_1' />,
     link: <FormattedMessage id='PROJECTS_LINK_1' />,
     image: 'image-1',
+    href: "https://choice.atdang.com",
   },
   {
     icon: <FiLayers />,
@@ -59,6 +55,7 @@ const ProjectList = [
     description: <FormattedMessage id='PROJECTS_DESC_2' />,
     link: <FormattedMessage id='PROJECTS_LINK_2' />,
     image: 'image-2',
+    href: "https://collectibles.atdang.com",
   },
 ];
 
@@ -98,29 +95,33 @@ const About = () => {
         className='rn-page-title-area pt--120 pb--190 bg_image bg_image--7 '
         data-black-overlay='3'
       >
-        {isLoadingHeader ? (
+        {/* {isLoadingHeader ? (
           <div
             style={{ textAlign: 'center', height: '150px' }}
             className='mt--100'
           >
             <Spin size='large' />
           </div>
-        ) : (
-          <div className='container'>
-            <div className='row'>
-              <div className='col-lg-12'>
-                <div className='rn-page-title text-center pt--100'>
-                  <h2 className='title theme-gradient'>{dataHeader?.title}</h2>
-                  {language.includes('en-US') ? (
-                    <p>{dataHeader?.descriptionEng}</p>
-                  ) : (
-                    <p>{dataHeader?.descriptionVn}</p>
-                  )}
-                </div>
+        ) : ( */}
+        <div className='container'>
+          <div className='row'>
+            <div className='col-lg-12'>
+              <div className='rn-page-title text-center pt--100'>
+                <h2 className='title theme-gradient'>
+                  {/* Temporary */}
+                  {/* {dataHeader?.title} */}
+                  <FormattedMessage id='CONVERGENCE_OF_MULTINATIONAL' />
+                </h2>
+                {language.includes('en-US') ? (
+                  <p>{dataHeader?.descriptionEng}</p>
+                ) : (
+                  <p>{dataHeader?.descriptionVn}</p>
+                )}
               </div>
             </div>
           </div>
-        )}
+        </div>
+        {/* )} */}
       </div>
       <div className='rn-about-area ptb--120 bg_color--1'>
         <div className='rn-about-wrapper'>
@@ -141,7 +142,10 @@ const About = () => {
                 <div className='about-inner inner'>
                   {dataAbout[6]?.enable && (
                     <div className='section-title'>
-                      <h2 className='title'>{dataAbout[5]?.title}</h2>
+                      <h2 className='title'>
+                        {/* {dataAbout[5]?.title} */}
+                        <FormattedMessage id='OUR_STORY' />
+                      </h2>
                       {language.includes('en-US') ? (
                         <p className='description'>
                           {dataAbout[5]?.descriptionEng}
@@ -155,7 +159,7 @@ const About = () => {
                   )}
                 </div>
 
-                {dataAbout[6]?.enable && dataAbout[5]?.enable && (
+                {/* {dataAbout[6]?.enable && dataAbout[5]?.enable && (
                   <div className='row mt--30'>
                     <div className='col-lg-12 col-md-12 col-sm-12 col-12'>
                       <div className='about-us-list'>
@@ -169,7 +173,7 @@ const About = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -181,7 +185,10 @@ const About = () => {
           <div className='inner'>
             <div className='content-wrapper'>
               <div className='content'>
-                <h4 className='theme-gradient'>{dataAbout[6]?.title}</h4>
+                <h4 className='theme-gradient'>
+                  {/* {dataAbout[6]?.title} */}
+                  <FormattedMessage id='VISIONS' />
+                </h4>
                 <div className={styles.visionSection}>
                   <p className={styles.visionHeader}>
                     {' '}
@@ -212,9 +219,9 @@ const About = () => {
                     <FormattedMessage id='VISIONS_DESC_ABOUT_3' />{' '}
                   </p>
                 </div>
-                <Link to='/contact' className='rn-btn btn-white'>
+                {/* <Link to='/contact' className='rn-btn btn-white'>
                   <FormattedMessage id='FIND_OUT_MORE' />
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className='thumbnail'>
@@ -287,11 +294,14 @@ const About = () => {
           ]}
         />
       </div>
+
       {/* Values */}
       <div className='rn-contact-top-area mt--20 mb--40 pt--20 pb--40 bg_color--8 row service-one-wrapper'>
         <div className={classNames('container', styles.values)}>
           <h3 className={classNames('title  mb--30 ', styles.valuesTitle)}>
-            {dataAbout[8]?.title}
+            {/* {dataAbout[8]?.title} */}
+            <FormattedMessage id='VALUES' />
+
           </h3>
           {/* <div className='row'>
             <div className='col-lg-4 col-md-6 col-sm-6 col-12'>
@@ -375,7 +385,10 @@ const About = () => {
             <div className='row'>
               <div className='col-lg-6'>
                 <div className='section-title service-style--3 text-left mb--15 mb_sm--0'>
-                  <h3 className='title'> {dataAbout[9]?.title}</h3>
+                  <h3 className='title'> 
+                  {/* {dataAbout[9]?.title} */}
+                  <FormattedMessage id='PROJECTS_ABOUT' />
+                  </h3>
                 </div>
               </div>
             </div>
@@ -391,22 +404,20 @@ const About = () => {
                         </div>
                         <div className='content'>
                           <div className='inner'>
-                            <h4>
-                             {value.title}
-                            </h4>
-                            <h5>{value.description}</h5>
+                            <h4>{value.title}</h4>
+                            <h5 className={styles.projectDesc}>{value.description}</h5>
                           </div>
-                          <button
-                          className={classNames(
-                            'rn-button-style--2 btn-white-color',
-                            styles.projectsLink
-                          )}
-                          onClick={()=>{}}
-                        >
-                          {value.link}
-                        </button>
+                          <a
+                            className={classNames(
+                              'rn-button-style--2 btn-white-color',
+                              styles.projectsLink
+                            )}
+                            href={value.href}
+                             target='_blank' rel="noreferrer"
+                          >
+                            {value.link}
+                          </a>
                         </div>
-                     
                       </div>
                     ))}
                   </Slider>
@@ -553,11 +564,6 @@ const About = () => {
         </div>
       </div>
 
-      <div className='backto-top'>
-        <ScrollToTop showUnder={160}>
-          <FiChevronUp />
-        </ScrollToTop>
-      </div>
       <Footer />
     </React.Fragment>
   );

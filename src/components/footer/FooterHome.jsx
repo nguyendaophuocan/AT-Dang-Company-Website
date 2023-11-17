@@ -80,7 +80,7 @@ const FooterHome = () => {
                   style={{ color: '#f2f2f8' }}
                   className={styles.footerCopyright}
                 >
-                  Copyright © 2022 Dang & Associates, Ltd. All Rights Reserved.
+                  Copyright © 2023 Dang & Associates, Ltd. All Rights Reserved.
                 </p>{' '}
               </div>
             </div>
