@@ -264,7 +264,7 @@
             }
             &.logo-2 {
               @media #{$sm-layout} {
-                display: none;
+                // display: none;
               }
               @media #{$lg-layout} {
                 display: block;

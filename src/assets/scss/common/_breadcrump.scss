@@ -58,16 +58,16 @@
 .rn-page-title {
     h2 { 
         &.title {
-            font-size: 72px;
+            font-size: 54px;
             @media #{$lg-layout} {
-                font-size: 56px;
-            }
-            @media #{$md-layout} {
                 font-size: 50px;
             }
+            @media #{$md-layout} {
+                font-size: 45px;
+            }
             @media #{$sm-layout} {
-                font-size: 40px;
-                line-height: 59px;
+                font-size: 35px;
+                line-height: 50px;
             }
         }
     }

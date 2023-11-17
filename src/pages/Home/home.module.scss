@@ -24,3 +24,10 @@
     cursor: pointer;
   }
 }
+
+.homeHeader{
+  @media only screen and (max-width: 767px) {
+    display: block;
+    font-size: 40px;
+  }
+}

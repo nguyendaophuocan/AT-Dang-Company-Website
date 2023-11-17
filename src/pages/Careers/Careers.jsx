@@ -74,20 +74,21 @@ const Career = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                {isLoadingHeader ? (
+                {/* {isLoadingHeader ? (
                   <div style={{ textAlign: 'center' }}>
                     {' '}
                     <Spin size='large' />
                   </div>
-                ) : (
+                ) : ( */}
                   <>
                     <h2 className='title theme-gradient'>
                       {' '}
-                      {dataHeader?.title}
+                      {/* {dataHeader?.title} */}
+                      <FormattedMessage id='CAREERS_HEADER' />
                     </h2>
                     <p>{dataHeader?.description}</p>
                   </>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>
@@ -109,11 +110,11 @@ const Career = () => {
                   /> */}
                 </div>
               </div>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <div>
                   <Spin style={{ width: '100%' }} />
                 </div>
-              ) : (
+              ) : ( */}
                 <>
                   <div className='col-lg-12'>
                     <div className='News-inner inner'>
@@ -159,7 +160,9 @@ const Career = () => {
                       )}
                     </div>
                   </div>
-                  <div className={styles.pagination}>
+                {
+                  !isLoading && (
+                    <div className={styles.pagination}>
                     <Pagination
                       pageSize={pageSize}
                       current={career.current}
@@ -168,8 +171,10 @@ const Career = () => {
                       style={{ bottom: '0px' }}
                     />
                   </div>
+                  )
+                }
                 </>
-              )}
+              {/* )} */}
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PageHelmet from '../../components/common/Helmet';
 import { FiHeadphones, FiMail, FiMapPin } from 'react-icons/fi';
-import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from 'react-icons/fi';
 import Footer from '../../components/footer/FooterHome';
 import styles from './contact.module.scss';
@@ -70,20 +69,21 @@ const Contact = () => {
           <div className='row'>
             <div className='col-lg-12'>
               <div className='rn-page-title text-center pt--100'>
-                {isLoadingHeader ? (
+                {/* {isLoadingHeader ? (
                   <div style={{ textAlign: 'center' }}>
                     {' '}
                     <Spin size='large' />
                   </div>
-                ) : (
+                ) : ( */}
                   <>
                     <h2 className='title theme-gradient'>
                       {' '}
-                      {dataHeader?.title}
+                      {/* {dataHeader?.title} */}
+                      <FormattedMessage id='CONTACT_HEADER' />
                     </h2>
                     <p>{dataHeader?.description}</p>
                   </>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>
@@ -346,14 +346,6 @@ const Contact = () => {
       {/* End Contact Top Area  */}
 
       {/* Start Contact Map  */}
-
-      {/* Start Back To Top */}
-      <div className='backto-top'>
-        <ScrollToTop showUnder={160}>
-          <FiChevronUp />
-        </ScrollToTop>
-      </div>
-      {/* End Back To Top */}
 
       <Footer />
     </React.Fragment>
